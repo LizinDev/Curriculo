@@ -5,7 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pedro Henrique Braz Moreira — Controller Jurídico</title>
 <meta name="description" content="Pedro Henrique Braz Moreira — Bacharel em Direito e Controller Jurídico. Controle processual, gestão de prazos e fluxos jurídicos cíveis, com domínio de sistemas de tribunais e noções de programação.">
+<meta name="theme-color" content="#14161A">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
 <!-- Open Graph / social preview -->
 <meta property="og:type" content="profile">
 <meta property="og:title" content="Pedro Henrique Braz Moreira — Controller Jurídico">
@@ -20,270 +22,21 @@
 <meta name="twitter:title" content="Pedro Henrique Braz Moreira — Controller Jurídico">
 <meta name="twitter:description" content="Bacharel em Direito e Controller Jurídico. Controle de prazos, fluxo processual e automações — onde o Direito encontra o código.">
 <meta name="twitter:image" content="https://lizindev.github.io/Curriculo/og-image.png">
+
+<!-- Fontes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#14161A; --panel:#1B1E24; --panel-2:#202329; --line:#2A2F37;
-    --text:#E9E6DD; --muted:#9DA3AD; --faint:#6B7280;
-    --accent:#2FB4A8; --accent-deep:#1C6F69; --accent-ghost:rgba(47,180,168,.12);
-    --serif:'Fraunces',Georgia,serif;
-    --sans:'Hanken Grotesk',system-ui,sans-serif;
-    --mono:'IBM Plex Mono',ui-monospace,monospace;
-    --rail:248px; --maxw:720px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
-  body{
-    margin:0; background:var(--bg); color:var(--text);
-    font-family:var(--sans); font-size:16px; line-height:1.6;
-    -webkit-font-smoothing:antialiased; letter-spacing:.005em;
-  }
-  a{color:inherit;}
-  ::selection{background:var(--accent-ghost); color:var(--text);}
 
-  /* faint vertical ruler texture down the page */
-  .shell{
-    display:grid; grid-template-columns:var(--rail) minmax(0,1fr);
-    max-width:1180px; margin:0 auto; min-height:100vh;
-  }
-
-  /* ===== CONTROL RAIL (signature) ===== */
-  .rail{
-    position:sticky; top:0; align-self:start; height:100vh;
-    padding:42px 26px 30px; border-right:1px solid var(--line);
-    display:flex; flex-direction:column;
-  }
-  .mono{font-family:var(--mono); font-weight:400;}
-  .monogram{
-    font-family:var(--serif); font-weight:600; font-size:26px; line-height:1;
-    letter-spacing:.02em;
-  }
-  .monogram .dot{color:var(--accent);}
-  .rail-tag{
-    font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
-    text-transform:uppercase; color:var(--faint); margin-top:10px;
-  }
-  nav.index{margin-top:46px; display:flex; flex-direction:column; gap:2px;}
-  .idx{
-    display:flex; align-items:baseline; gap:12px; text-decoration:none;
-    padding:9px 10px; border-radius:7px; color:var(--muted);
-    transition:color .25s ease, background .25s ease;
-  }
-  .idx .n{font-family:var(--mono); font-size:11px; color:var(--faint); transition:color .25s ease;}
-  .idx .t{font-size:14px; letter-spacing:.01em;}
-  .idx:hover{color:var(--text); background:rgba(255,255,255,.03);}
-  .idx.is-active{color:var(--text); background:var(--accent-ghost);}
-  .idx.is-active .n{color:var(--accent);}
-  .idx.is-active .t{font-weight:500;}
-  .rail-foot{margin-top:auto; display:flex; flex-direction:column; gap:12px; padding-top:24px;}
-  .langtoggle{display:inline-flex; align-self:flex-start; border:1px solid var(--line); border-radius:7px; overflow:hidden;}
-  .langtoggle button{font-family:var(--mono); font-size:11px; letter-spacing:.12em; padding:7px 13px;
-    background:transparent; border:none; color:var(--muted); cursor:pointer; transition:background .2s ease, color .2s ease;}
-  .langtoggle button + button{border-left:1px solid var(--line);}
-  .langtoggle button.active{background:var(--accent-ghost); color:var(--accent);}
-  .langtoggle button:hover{color:var(--text);}
-  .printbtn{
-    font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-    color:var(--muted); background:transparent; border:1px solid var(--line);
-    padding:9px 12px; border-radius:7px; cursor:pointer; text-align:left;
-    transition:border-color .25s ease, color .25s ease;
-  }
-  .printbtn:hover{border-color:var(--accent-deep); color:var(--text);}
-
-  /* ===== MAIN ===== */
-  main{padding:0 64px;}
-  .wrap{max-width:var(--maxw); margin:0 auto;}
-  section{padding:62px 0; border-bottom:1px solid var(--line);}
-  section:last-of-type{border-bottom:none;}
-  .eyebrow{
-    font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
-    color:var(--accent); margin:0 0 22px; display:flex; align-items:center; gap:10px;
-  }
-  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line);}
-  h2{
-    font-family:var(--serif); font-weight:500; font-size:clamp(1.5rem,3.2vw,2.05rem);
-    line-height:1.12; margin:0 0 8px; letter-spacing:-.01em;
-  }
-
-  /* ===== HERO ===== */
-  .hero{padding:96px 0 70px; border-bottom:1px solid var(--line);}
-  .hero .eyebrow{margin-bottom:26px;}
-  .hero h1{
-    font-family:var(--serif); font-weight:600; font-size:clamp(2.6rem,6.5vw,4.4rem);
-    line-height:.98; letter-spacing:-.02em; margin:0;
-  }
-  .hero .role{
-    font-family:var(--mono); font-size:14px; letter-spacing:.05em; color:var(--accent);
-    margin:20px 0 0;
-  }
-  .thesis{
-    font-family:var(--serif); font-weight:400; font-size:clamp(1.15rem,2.4vw,1.5rem);
-    line-height:1.5; color:var(--text); max-width:30ch; margin:30px 0 0;
-  }
-  .thesis em{font-style:italic; color:var(--accent); font-weight:500;}
-  .ficha{
-    margin-top:42px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
-  }
-  .ficha .cell{background:var(--bg); padding:16px 18px;}
-  .ficha .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);}
-  .ficha .v{font-size:14.5px; margin-top:6px; color:var(--text);}
-
-  /* ===== PROFILE ===== */
-  .lede{font-size:1.08rem; line-height:1.72; color:var(--text); margin:0;}
-  .lede strong{font-weight:600;}
-  .ilink{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-deep); transition:border-color .25s ease;}
-  .ilink:hover{border-bottom-color:var(--accent);}
-
-  /* ===== EXPERIENCE (process cards) ===== */
-  .case{
-    border:1px solid var(--line); border-radius:12px; padding:24px 26px; margin-bottom:18px;
-    background:linear-gradient(180deg, rgba(255,255,255,.015), transparent);
-    transition:border-color .3s ease, transform .3s ease;
-  }
-  .case:hover{border-color:var(--accent-deep); transform:translateY(-2px);}
-  .case-meta{
-    font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--muted);
-    display:flex; flex-wrap:wrap; gap:8px 14px; margin-bottom:12px;
-  }
-  .case-meta .tag{color:var(--accent);}
-  .case h3{font-family:var(--serif); font-weight:500; font-size:1.25rem; margin:0 0 2px; letter-spacing:-.01em;}
-  .case .org{font-size:14px; color:var(--muted); margin:0 0 14px;}
-  .case ul{margin:0; padding:0; list-style:none;}
-  .case li{position:relative; padding-left:22px; margin:8px 0; font-size:15px; line-height:1.6; color:var(--text);}
-  .case li::before{
-    content:"§"; position:absolute; left:0; top:0; font-family:var(--mono);
-    color:var(--accent-deep); font-size:14px;
-  }
-
-  /* ===== FORMACAO ===== */
-  .edu h3{font-family:var(--serif); font-weight:500; font-size:1.2rem; margin:0 0 4px;}
-  .edu .org{font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--muted);}
-
-  /* ===== COMPETENCIAS / SISTEMAS ===== */
-  .blocks{display:grid; gap:26px;}
-  .block .k{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 12px;}
-  .chips{display:flex; flex-wrap:wrap; gap:8px;}
-  .chip{
-    font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--text);
-    border:1px solid var(--line); padding:7px 12px; border-radius:999px;
-    transition:border-color .25s ease, color .25s ease;
-  }
-  .chip:hover{border-color:var(--accent-deep);}
-  a.chip{color:var(--accent); text-decoration:none;}
-  a.chip:hover{border-color:var(--accent); color:var(--accent);}
-  .prose-list{margin:0; padding:0; list-style:none; display:grid; gap:8px;}
-  .prose-list li{padding-left:20px; position:relative; font-size:15px; color:var(--text);}
-  .prose-list li::before{content:"~"; position:absolute; left:0; color:var(--accent); font-family:var(--mono);}
-
-  /* ===== PROJETOS ===== */
-  .projects{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;}
-  .proj{
-    display:flex; flex-direction:column; border:1px solid var(--line); border-radius:12px;
-    padding:22px 22px 20px; text-decoration:none; color:inherit;
-    background:linear-gradient(180deg, rgba(255,255,255,.015), transparent);
-    transition:border-color .3s ease, transform .3s ease;
-  }
-  .proj:hover{border-color:var(--accent-deep); transform:translateY(-2px);}
-  .proj-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
-  .proj-id{font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--accent);}
-  .proj-arrow{font-family:var(--mono); font-size:14px; color:var(--muted); transition:color .3s ease, transform .3s ease;}
-  .proj:hover .proj-arrow{color:var(--accent); transform:translate(2px,-2px);}
-  .proj h3{font-family:var(--serif); font-weight:500; font-size:1.18rem; margin:0 0 8px; letter-spacing:-.01em;}
-  .proj p{font-size:14.5px; line-height:1.55; color:var(--muted); margin:0 0 16px;}
-  .proj .stack{margin-top:auto; display:flex; flex-wrap:wrap; gap:7px;}
-  .proj .t{
-    font-family:var(--mono); font-size:10.5px; letter-spacing:.02em; color:var(--text);
-    border:1px solid var(--line); padding:4px 9px; border-radius:6px;
-  }
-  @media (max-width:680px){ .projects{grid-template-columns:1fr;} }
-
-  /* ===== CONTACT ===== */
-  .contact-grid{display:grid; gap:10px;}
-  .crow{
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    border:1px solid var(--line); border-radius:10px; padding:14px 18px;
-    transition:border-color .25s ease;
-  }
-  .crow:hover{border-color:var(--accent-deep);}
-  .crow .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);}
-  .crow .v{font-size:15px; margin-top:3px; word-break:break-word;}
-  .crow a.v{text-decoration:none; border-bottom:1px solid transparent; transition:border-color .25s ease;}
-  .crow a.v:hover{border-color:var(--accent);}
-  .copy{
-    flex:none; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--muted); background:transparent; border:1px solid var(--line);
-    padding:8px 12px; border-radius:7px; cursor:pointer;
-    transition:border-color .25s ease, color .25s ease, background .25s ease;
-  }
-  .copy:hover{border-color:var(--accent-deep); color:var(--text);}
-  .copy.done{color:var(--accent); border-color:var(--accent-deep); background:var(--accent-ghost);}
-  .ref{margin-top:24px; font-size:14px; color:var(--muted);}
-  .ref .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); display:block; margin-bottom:6px;}
-  footer{padding:40px 0 64px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--faint);}
-
-  /* toast */
-  .toast{
-    position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(20px);
-    background:var(--panel); border:1px solid var(--accent-deep); color:var(--text);
-    font-family:var(--mono); font-size:12px; letter-spacing:.05em;
-    padding:11px 18px; border-radius:8px; opacity:0; pointer-events:none;
-    transition:opacity .3s ease, transform .3s ease; z-index:50;
-  }
-  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
-
-  /* reveal */
-  .reveal{opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease;}
-  .reveal.in-view{opacity:1; transform:none;}
-  @media (prefers-reduced-motion: reduce){
-    .reveal{opacity:1; transform:none; transition:none;}
-    .case:hover{transform:none;}
-  }
-
-  /* ===== RESPONSIVE ===== */
-  @media (max-width:980px){
-    .shell{grid-template-columns:1fr;}
-    .rail{
-      position:static; height:auto; flex-direction:row; align-items:center;
-      justify-content:space-between; border-right:none; border-bottom:1px solid var(--line);
-      padding:18px 22px;
-    }
-    nav.index{display:none;}
-    .rail-foot{margin:0; flex-direction:row; align-items:center; gap:14px; padding:0;}
-    .rail-tag{display:none;}
-    main{padding:0 28px;}
-    .hero{padding:60px 0 48px;}
-    .ficha{grid-template-columns:1fr 1fr;}
-  }
-  @media (max-width:560px){
-    .ficha{grid-template-columns:1fr;}
-    .crow{flex-direction:column; align-items:flex-start;}
-    .langs{display:none;}
-  }
-
-  /* ===== PRINT: page becomes clean paper ===== */
-  @media print{
-    :root{--bg:#fff; --text:#1a1a1a; --muted:#555; --faint:#777; --line:#ccc;
-           --accent:#7a1e2b; --accent-deep:#7a1e2b; --accent-ghost:transparent;}
-    body{font-size:11pt; background:#fff;}
-    .shell{display:block; max-width:none;}
-    .rail, .printbtn, .copy, .toast{display:none !important;}
-    main{padding:0;}
-    section,.hero{padding:14pt 0; border-bottom:1px solid #ddd;}
-    .hero{padding-top:0;}
-    .reveal{opacity:1; transform:none;}
-    .case{break-inside:avoid; border-color:#ddd;}
-    a{text-decoration:none;}
-  }
-</style>
+<!-- Estilo e scripts -->
+<link rel="stylesheet" href="styles.css">
+<script defer src="i18n.js"></script>
+<script defer src="script.js"></script>
 </head>
 <body>
 <div class="shell">
 
-  <!-- ===== CONTROL RAIL ===== -->
+  <!-- ===== Trilha de controle ===== -->
   <aside class="rail">
     <div>
       <div class="monogram">PB<span class="dot">.</span></div>
@@ -306,11 +59,11 @@
     </div>
   </aside>
 
-  <!-- ===== MAIN ===== -->
+  <!-- ===== Conteúdo principal ===== -->
   <main>
     <div class="wrap">
 
-      <!-- HERO -->
+      <!-- Hero -->
       <header class="hero">
         <p class="eyebrow" data-i18n="hero-eyebrow">Bacharel em Direito · Controller Jurídico</p>
         <h1>Pedro&nbsp;Henrique<br>Braz&nbsp;Moreira</h1>
@@ -325,14 +78,14 @@
         </div>
       </header>
 
-      <!-- §01 PERFIL -->
+      <!-- §01 Perfil -->
       <section id="perfil" class="reveal">
         <p class="eyebrow" data-i18n="s1-eyebrow">§ 01 · Perfil</p>
         <h2 data-i18n="s1-h2">Direito e automação integrados</h2>
         <p class="lede" data-i18n="s1-lede">Bacharel em Direito pela PUC-PR, com atuação consolidada em rotinas jurídicas cíveis, controle processual e gestão de prazos para grandes contas corporativas. Atualmente <strong>Controller Jurídico na <a class="ilink" href="https://hassonadvogados.com.br/sobre/" target="_blank" rel="noopener">Hasson Advogados</a></strong>, atendendo clientes como O Boticário e BRF. Une base técnica em Direito Civil, do Trabalho e Médico a um diferencial pouco comum na área: domínio de múltiplos sistemas de tribunais e softwares jurídicos, somado a noções de programação que favorecem a automação e a organização de fluxos de trabalho.</p>
       </section>
 
-      <!-- §02 EXPERIENCIA -->
+      <!-- §02 Experiência -->
       <section id="experiencia" class="reveal">
         <p class="eyebrow" data-i18n="s2-eyebrow">§ 02 · Experiência</p>
         <h2 data-i18n="s2-h2">Trajetória</h2>
@@ -374,11 +127,11 @@
         </article>
       </section>
 
-      <!-- §03 FORMACAO -->
+      <!-- §03 Formação -->
       <section id="formacao" class="reveal">
         <p class="eyebrow" data-i18n="s3-eyebrow">§ 03 · Formação</p>
         <h2 data-i18n="s3-h2">Formação & Idiomas</h2>
-        <div class="edu" style="margin-bottom:26px;">
+        <div class="edu">
           <h3 data-i18n="edu-h3">Bacharelado em Direito</h3>
           <p class="org" data-i18n="edu-org">PUC-PR · Curitiba/PR · 2020 — 2024 · Turma de 2025</p>
         </div>
@@ -394,7 +147,7 @@
         </div>
       </section>
 
-      <!-- §04 COMPETENCIAS -->
+      <!-- §04 Competências -->
       <section id="competencias" class="reveal">
         <p class="eyebrow" data-i18n="s4-eyebrow">§ 04 · Competências</p>
         <h2 data-i18n="s4-h2">Ferramentas & Domínios</h2>
@@ -437,11 +190,11 @@
         </div>
       </section>
 
-      <!-- §05 PROJETOS -->
+      <!-- §05 Projetos -->
       <section id="projetos" class="reveal">
         <p class="eyebrow" data-i18n="s5-eyebrow">§ 05 · Projetos</p>
         <h2 data-i18n="s5-h2">Direito que vira código</h2>
-        <p class="lede" style="margin-bottom:26px;" data-i18n="s5-lede">Ferramentas que construí para automatizar a própria rotina jurídica — controle de prazos, comunicações do CNJ e migração entre sistemas. Código aberto no GitHub.</p>
+        <p class="lede section-intro" data-i18n="s5-lede">Ferramentas que construí para automatizar a própria rotina jurídica — controle de prazos, comunicações do CNJ e migração entre sistemas. Código aberto no GitHub.</p>
         <div class="projects">
 
           <a class="proj" href="https://github.com/LizinDev/AutomacaoJuridica" target="_blank" rel="noopener">
@@ -475,7 +228,7 @@
         </div>
       </section>
 
-      <!-- §06 CONTATO -->
+      <!-- §06 Contato -->
       <section id="contato" class="reveal">
         <p class="eyebrow" data-i18n="s6-eyebrow">§ 06 · Contato</p>
         <h2 data-i18n="s6-h2">Vamos conversar</h2>
@@ -504,143 +257,6 @@
   </main>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite">Copiado</div>
-
-<script>
-  document.getElementById('yr').textContent = new Date().getFullYear();
-
-  /* ===== i18n: PT é o padrão no HTML; EN vem do dicionário ===== */
-  const I18N = { en: {
-    __title:"Pedro Henrique Braz Moreira — Legal Operations Controller",
-    railtag:"Control sheet",
-    "nav-perfil":"Profile","nav-exp":"Experience","nav-form":"Education","nav-comp":"Skills","nav-proj":"Projects","nav-cont":"Contact",
-    print:"Print / PDF", download:"Download CV (PDF)",
-    "hero-eyebrow":"Law Graduate · Legal Operations Controller",
-    "hero-role":"// deadline control · case workflow · automations",
-    "hero-thesis":"Deadline control, case workflow and <em>automations</em> — the legal routine of major accounts, organized and under control.",
-    "ficha-funcao":"Role","ficha-funcao-v":"Legal Controller — Hasson Advogados",
-    "ficha-local":"Location","ficha-local-v":"Curitiba, Paraná · Brazil",
-    "ficha-foco":"Focus","ficha-foco-v":"Civil law · Case control & management",
-    "ficha-idiomas":"Languages","ficha-idiomas-v":"Portuguese · English · German",
-    "s1-eyebrow":"§ 01 · Profile","s1-h2":"Law and automation, integrated",
-    "s1-lede":"Law graduate from PUC-PR, with solid experience in civil legal routines, case control and deadline management for large corporate accounts. Currently <strong>Legal Controller at <a class=\"ilink\" href=\"https://hassonadvogados.com.br/sobre/\" target=\"_blank\" rel=\"noopener\">Hasson Advogados</a></strong>, serving clients such as O Boticário and BRF. Combines a technical foundation in Civil, Labor and Medical Law with an uncommon edge in the field: command of multiple court systems and legal software, plus programming skills that drive automation and the organization of workflows.",
-    "s2-eyebrow":"§ 02 · Experience","s2-h2":"Career",
-    "c1-now":"● current","c1-date":"Sep 2025 — Present","c1-area":"Civil law","c1-role":"Legal Controller",
-    "c1-b1":"Control and management of procedural deadlines for a high-volume corporate portfolio, with clients such as O Boticário and BRF.",
-    "c1-b2":"Filing of petitions and case tracking across the main court systems (PJe, EPROC, Projudi and Esaj).",
-    "c1-b3":"Preparation of periodic managerial and procedural reports for clients.",
-    "c1-b4":"Management of information and workflows in legal platforms such as LegalOne and CPJ.",
-    "c2-date":"May 2023 — Sep 2024","intern":"Law Internship",
-    "c2-b1":"Support in drafting defenses and other legal documents in Medical Law cases.",
-    "c2-b2":"Drafting of initial petitions, filings and other documents in Labor claims.",
-    "c2-b3":"Direct client assistance and guidance on procedural questions.",
-    "c2-b4":"Deadline tracking and document filing in the CPJ, Projudi, Esaj and PJe systems.",
-    "c3-date":"Mar 2020 — Mar 2021","intern2":"Law Internship",
-    "c3-b1":"Legal research in Civil, Real Estate and Banking Law.",
-    "c3-b2":"Drafting of petitions and other legal documents.",
-    "c3-b3":"Document filing and case tracking in courts and tribunals.",
-    "c3-b4":"Preparation of monthly reports for clients.",
-    "s3-eyebrow":"§ 03 · Education","s3-h2":"Education & Languages",
-    "edu-h3":"Bachelor of Laws (LL.B.)","edu-org":"PUC-PR · Curitiba/PR · 2020 — 2024 · Class of 2025",
-    "lang-label":"Languages",
-    "lang-en":"<strong>English</strong> — Advanced · full course at Phil Young's",
-    "lang-de":"<strong>German</strong> — Advanced · Centro Europeu (Curitiba)",
-    "lang-pt":"<strong>Portuguese</strong> — Native",
-    "s4-eyebrow":"§ 04 · Skills","s4-h2":"Tools & Domains",
-    "k-sistemas":"Systems & courts","chip-office":"Microsoft Office",
-    "k-tecnicas":"Technical",
-    "tec-1":"Control and management of procedural deadlines",
-    "tec-2":"Petition filing and case tracking",
-    "tec-3":"Legal drafting and research",
-    "tec-4":"Managerial and procedural reporting",
-    "k-dif":"Edge","dif-1":"Programming skills applied to automating and organizing legal routines",
-    "k-comp":"Soft skills",
-    "soft-1":"Organization","soft-2":"Communication","soft-3":"Negotiation","soft-4":"Teamwork","soft-5":"Attention to detail",
-    "s5-eyebrow":"§ 05 · Projects","s5-h2":"Law turned into code",
-    "s5-lede":"Tools I built to automate my own legal routine — deadline control, CNJ communications and migration between systems. Open source on GitHub.",
-    "p1-h3":"Legal Automation","p1-p":"Automates the creation of appointments, hearings and tasks in NovaJus (LegalOne) via Selenium, with a graphical interface and three operation modes — full hearing, defense and registration.",
-    "p2-h3":"CNJ Communications","p2-p":"Dashboard that queries the public PJe/CNJ API (DJEN) in real time: subpoenas, notices and trial dockets. Filters, auto-refresh, handled-status marking and Excel export.",
-    "p3-h3":"ELAW → LegalOne Migration","p3-p":"Command-line tool that migrates cases from the ELAW Gerencial system to the LegalOne template, with automatic field mapping (court, area, dates, values) and a reconciliation report.",
-    "p4-h3":"More on GitHub","p4-p":"Other experiments and tools — from legal tech to the Linux desktop. See the full profile with repositories and recent activity.",
-    "s6-eyebrow":"§ 06 · Contact","s6-h2":"Let's talk",
-    "c-email":"Email","copy":"Copy","ref-label":"Reference"
-  }};
-  const COPY = {
-    pt:{copy:"Copiar", done:"Copiado", toast:"Copiado para a área de transferência"},
-    en:{copy:"Copy",   done:"Copied",  toast:"Copied to clipboard"}
-  };
-
-  const i18nEls = [...document.querySelectorAll('[data-i18n]')];
-  i18nEls.forEach(el => { el.__pt = el.innerHTML; });
-  const ptTitle = document.title;
-  let lang = (localStorage.getItem('cv-lang') === 'en') ? 'en' : 'pt';
-
-  function applyLang(l){
-    lang = l;
-    i18nEls.forEach(el => {
-      const k = el.getAttribute('data-i18n');
-      el.innerHTML = (l === 'en' && I18N.en[k] != null) ? I18N.en[k] : el.__pt;
-    });
-    document.documentElement.lang = (l === 'en') ? 'en' : 'pt-BR';
-    document.title = (l === 'en') ? I18N.en.__title : ptTitle;
-    document.querySelectorAll('.langtoggle button').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
-    localStorage.setItem('cv-lang', l);
-  }
-  document.querySelectorAll('.langtoggle button').forEach(b => {
-    b.addEventListener('click', () => applyLang(b.dataset.lang));
-  });
-  if(lang === 'en') applyLang('en');
-
-  /* ===== copy-to-clipboard + toast (localizado) ===== */
-  const toast = document.getElementById('toast');
-  let toastTimer;
-  function showToast(msg){
-    toast.textContent = msg;
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
-  }
-  document.querySelectorAll('.copy').forEach(btn => {
-    btn.addEventListener('click', async () => {
-      const val = btn.getAttribute('data-copy');
-      try{
-        await navigator.clipboard.writeText(val);
-      }catch(e){
-        const ta = document.createElement('textarea');
-        ta.value = val; document.body.appendChild(ta); ta.select();
-        document.execCommand('copy'); ta.remove();
-      }
-      btn.textContent = COPY[lang].done; btn.classList.add('done');
-      showToast(COPY[lang].toast);
-      setTimeout(() => { btn.textContent = COPY[lang].copy; btn.classList.remove('done'); }, 1600);
-    });
-  });
-
-  // scroll-spy
-  const links = [...document.querySelectorAll('.idx')];
-  const map = new Map(links.map(l => [l.getAttribute('href').slice(1), l]));
-  const sections = [...document.querySelectorAll('main section[id]')];
-  const spy = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if(e.isIntersecting){
-        links.forEach(l => l.classList.remove('is-active'));
-        const active = map.get(e.target.id);
-        if(active) active.classList.add('is-active');
-      }
-    });
-  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
-  sections.forEach(s => spy.observe(s));
-
-  // reveal on scroll
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(!prefersReduced){
-    const rev = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in-view'); rev.unobserve(e.target); } });
-    }, { threshold: .12 });
-    document.querySelectorAll('.reveal').forEach(el => rev.observe(el));
-  } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
-  }
-</script>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
