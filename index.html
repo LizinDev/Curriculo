@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pedro Henrique Braz Moreira — Controller Jurídico</title>
+<meta name="description" content="Pedro Henrique Braz Moreira — Bacharel em Direito e Controller Jurídico. Controle processual, gestão de prazos e fluxos jurídicos cíveis, com domínio de sistemas de tribunais e noções de programação.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#14161A; --panel:#1B1E24; --panel-2:#202329; --line:#2A2F37;
+    --text:#E9E6DD; --muted:#9DA3AD; --faint:#6B7280;
+    --accent:#2FB4A8; --accent-deep:#1C6F69; --accent-ghost:rgba(47,180,168,.12);
+    --serif:'Fraunces',Georgia,serif;
+    --sans:'Hanken Grotesk',system-ui,sans-serif;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --rail:248px; --maxw:720px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:var(--sans); font-size:16px; line-height:1.6;
+    -webkit-font-smoothing:antialiased; letter-spacing:.005em;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--accent-ghost); color:var(--text);}
+
+  /* faint vertical ruler texture down the page */
+  .shell{
+    display:grid; grid-template-columns:var(--rail) minmax(0,1fr);
+    max-width:1180px; margin:0 auto; min-height:100vh;
+  }
+
+  /* ===== CONTROL RAIL (signature) ===== */
+  .rail{
+    position:sticky; top:0; align-self:start; height:100vh;
+    padding:42px 26px 30px; border-right:1px solid var(--line);
+    display:flex; flex-direction:column;
+  }
+  .mono{font-family:var(--mono); font-weight:400;}
+  .monogram{
+    font-family:var(--serif); font-weight:600; font-size:26px; line-height:1;
+    letter-spacing:.02em;
+  }
+  .monogram .dot{color:var(--accent);}
+  .rail-tag{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--faint); margin-top:10px;
+  }
+  nav.index{margin-top:46px; display:flex; flex-direction:column; gap:2px;}
+  .idx{
+    display:flex; align-items:baseline; gap:12px; text-decoration:none;
+    padding:9px 10px; border-radius:7px; color:var(--muted);
+    transition:color .25s ease, background .25s ease;
+  }
+  .idx .n{font-family:var(--mono); font-size:11px; color:var(--faint); transition:color .25s ease;}
+  .idx .t{font-size:14px; letter-spacing:.01em;}
+  .idx:hover{color:var(--text); background:rgba(255,255,255,.03);}
+  .idx.is-active{color:var(--text); background:var(--accent-ghost);}
+  .idx.is-active .n{color:var(--accent);}
+  .idx.is-active .t{font-weight:500;}
+  .rail-foot{margin-top:auto; display:flex; flex-direction:column; gap:14px; padding-top:24px;}
+  .langs{font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--muted);}
+  .langs b{color:var(--accent); font-weight:500;}
+  .printbtn{
+    font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--muted); background:transparent; border:1px solid var(--line);
+    padding:9px 12px; border-radius:7px; cursor:pointer; text-align:left;
+    transition:border-color .25s ease, color .25s ease;
+  }
+  .printbtn:hover{border-color:var(--accent-deep); color:var(--text);}
+
+  /* ===== MAIN ===== */
+  main{padding:0 64px;}
+  .wrap{max-width:var(--maxw); margin:0 auto;}
+  section{padding:62px 0; border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .eyebrow{
+    font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--accent); margin:0 0 22px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::after{content:""; flex:1; height:1px; background:var(--line);}
+  h2{
+    font-family:var(--serif); font-weight:500; font-size:clamp(1.5rem,3.2vw,2.05rem);
+    line-height:1.12; margin:0 0 8px; letter-spacing:-.01em;
+  }
+
+  /* ===== HERO ===== */
+  .hero{padding:96px 0 70px; border-bottom:1px solid var(--line);}
+  .hero .eyebrow{margin-bottom:26px;}
+  .hero h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(2.6rem,6.5vw,4.4rem);
+    line-height:.98; letter-spacing:-.02em; margin:0;
+  }
+  .hero .role{
+    font-family:var(--mono); font-size:14px; letter-spacing:.05em; color:var(--accent);
+    margin:20px 0 0;
+  }
+  .thesis{
+    font-family:var(--serif); font-weight:400; font-size:clamp(1.15rem,2.4vw,1.5rem);
+    line-height:1.5; color:var(--text); max-width:30ch; margin:30px 0 0;
+  }
+  .thesis em{font-style:italic; color:var(--accent); font-weight:500;}
+  .ficha{
+    margin-top:42px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  }
+  .ficha .cell{background:var(--bg); padding:16px 18px;}
+  .ficha .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);}
+  .ficha .v{font-size:14.5px; margin-top:6px; color:var(--text);}
+
+  /* ===== PROFILE ===== */
+  .lede{font-size:1.08rem; line-height:1.72; color:var(--text); margin:0;}
+  .lede strong{font-weight:600;}
+
+  /* ===== EXPERIENCE (process cards) ===== */
+  .case{
+    border:1px solid var(--line); border-radius:12px; padding:24px 26px; margin-bottom:18px;
+    background:linear-gradient(180deg, rgba(255,255,255,.015), transparent);
+    transition:border-color .3s ease, transform .3s ease;
+  }
+  .case:hover{border-color:var(--accent-deep); transform:translateY(-2px);}
+  .case-meta{
+    font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--muted);
+    display:flex; flex-wrap:wrap; gap:8px 14px; margin-bottom:12px;
+  }
+  .case-meta .tag{color:var(--accent);}
+  .case h3{font-family:var(--serif); font-weight:500; font-size:1.25rem; margin:0 0 2px; letter-spacing:-.01em;}
+  .case .org{font-size:14px; color:var(--muted); margin:0 0 14px;}
+  .case ul{margin:0; padding:0; list-style:none;}
+  .case li{position:relative; padding-left:22px; margin:8px 0; font-size:15px; line-height:1.6; color:var(--text);}
+  .case li::before{
+    content:"§"; position:absolute; left:0; top:0; font-family:var(--mono);
+    color:var(--accent-deep); font-size:14px;
+  }
+
+  /* ===== FORMACAO ===== */
+  .edu h3{font-family:var(--serif); font-weight:500; font-size:1.2rem; margin:0 0 4px;}
+  .edu .org{font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--muted);}
+
+  /* ===== COMPETENCIAS / SISTEMAS ===== */
+  .blocks{display:grid; gap:26px;}
+  .block .k{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 12px;}
+  .chips{display:flex; flex-wrap:wrap; gap:8px;}
+  .chip{
+    font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--text);
+    border:1px solid var(--line); padding:7px 12px; border-radius:999px;
+    transition:border-color .25s ease, color .25s ease;
+  }
+  .chip:hover{border-color:var(--accent-deep);}
+  .prose-list{margin:0; padding:0; list-style:none; display:grid; gap:8px;}
+  .prose-list li{padding-left:20px; position:relative; font-size:15px; color:var(--text);}
+  .prose-list li::before{content:"—"; position:absolute; left:0; color:var(--accent-deep);}
+
+  /* ===== PROJETOS ===== */
+  .projects{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;}
+  .proj{
+    display:flex; flex-direction:column; border:1px solid var(--line); border-radius:12px;
+    padding:22px 22px 20px; text-decoration:none; color:inherit;
+    background:linear-gradient(180deg, rgba(255,255,255,.015), transparent);
+    transition:border-color .3s ease, transform .3s ease;
+  }
+  .proj:hover{border-color:var(--accent-deep); transform:translateY(-2px);}
+  .proj-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
+  .proj-id{font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--accent);}
+  .proj-arrow{font-family:var(--mono); font-size:14px; color:var(--muted); transition:color .3s ease, transform .3s ease;}
+  .proj:hover .proj-arrow{color:var(--accent); transform:translate(2px,-2px);}
+  .proj h3{font-family:var(--serif); font-weight:500; font-size:1.18rem; margin:0 0 8px; letter-spacing:-.01em;}
+  .proj p{font-size:14.5px; line-height:1.55; color:var(--muted); margin:0 0 16px;}
+  .proj .stack{margin-top:auto; display:flex; flex-wrap:wrap; gap:7px;}
+  .proj .t{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.02em; color:var(--text);
+    border:1px solid var(--line); padding:4px 9px; border-radius:6px;
+  }
+  @media (max-width:680px){ .projects{grid-template-columns:1fr;} }
+
+  /* ===== CONTACT ===== */
+  .contact-grid{display:grid; gap:10px;}
+  .crow{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    border:1px solid var(--line); border-radius:10px; padding:14px 18px;
+    transition:border-color .25s ease;
+  }
+  .crow:hover{border-color:var(--accent-deep);}
+  .crow .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);}
+  .crow .v{font-size:15px; margin-top:3px; word-break:break-word;}
+  .crow a.v{text-decoration:none; border-bottom:1px solid transparent; transition:border-color .25s ease;}
+  .crow a.v:hover{border-color:var(--accent);}
+  .copy{
+    flex:none; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--muted); background:transparent; border:1px solid var(--line);
+    padding:8px 12px; border-radius:7px; cursor:pointer;
+    transition:border-color .25s ease, color .25s ease, background .25s ease;
+  }
+  .copy:hover{border-color:var(--accent-deep); color:var(--text);}
+  .copy.done{color:var(--accent); border-color:var(--accent-deep); background:var(--accent-ghost);}
+  .ref{margin-top:24px; font-size:14px; color:var(--muted);}
+  .ref .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); display:block; margin-bottom:6px;}
+  footer{padding:40px 0 64px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--faint);}
+
+  /* toast */
+  .toast{
+    position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(20px);
+    background:var(--panel); border:1px solid var(--accent-deep); color:var(--text);
+    font-family:var(--mono); font-size:12px; letter-spacing:.05em;
+    padding:11px 18px; border-radius:8px; opacity:0; pointer-events:none;
+    transition:opacity .3s ease, transform .3s ease; z-index:50;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+
+  /* reveal */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in-view{opacity:1; transform:none;}
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1; transform:none; transition:none;}
+    .case:hover{transform:none;}
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width:980px){
+    .shell{grid-template-columns:1fr;}
+    .rail{
+      position:static; height:auto; flex-direction:row; align-items:center;
+      justify-content:space-between; border-right:none; border-bottom:1px solid var(--line);
+      padding:18px 22px;
+    }
+    nav.index{display:none;}
+    .rail-foot{margin:0; flex-direction:row; align-items:center; gap:14px; padding:0;}
+    .rail-tag{display:none;}
+    main{padding:0 28px;}
+    .hero{padding:60px 0 48px;}
+    .ficha{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .ficha{grid-template-columns:1fr;}
+    .crow{flex-direction:column; align-items:flex-start;}
+    .langs{display:none;}
+  }
+
+  /* ===== PRINT: page becomes clean paper ===== */
+  @media print{
+    :root{--bg:#fff; --text:#1a1a1a; --muted:#555; --faint:#777; --line:#ccc;
+           --accent:#7a1e2b; --accent-deep:#7a1e2b; --accent-ghost:transparent;}
+    body{font-size:11pt; background:#fff;}
+    .shell{display:block; max-width:none;}
+    .rail, .printbtn, .copy, .toast{display:none !important;}
+    main{padding:0;}
+    section,.hero{padding:14pt 0; border-bottom:1px solid #ddd;}
+    .hero{padding-top:0;}
+    .reveal{opacity:1; transform:none;}
+    .case{break-inside:avoid; border-color:#ddd;}
+    a{text-decoration:none;}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ===== CONTROL RAIL ===== -->
+  <aside class="rail">
+    <div>
+      <div class="monogram">PB<span class="dot">.</span></div>
+      <div class="rail-tag">Ficha de controle</div>
+    </div>
+    <nav class="index" aria-label="Índice">
+      <a class="idx" href="#perfil"><span class="n">§01</span><span class="t">Perfil</span></a>
+      <a class="idx" href="#experiencia"><span class="n">§02</span><span class="t">Experiência</span></a>
+      <a class="idx" href="#formacao"><span class="n">§03</span><span class="t">Formação</span></a>
+      <a class="idx" href="#competencias"><span class="n">§04</span><span class="t">Competências</span></a>
+      <a class="idx" href="#projetos"><span class="n">§05</span><span class="t">Projetos</span></a>
+      <a class="idx" href="#contato"><span class="n">§06</span><span class="t">Contato</span></a>
+    </nav>
+    <div class="rail-foot">
+      <div class="langs"><b>PT</b> · <b>EN</b> · <b>DE</b></div>
+      <button class="printbtn" id="printBtn" type="button">Imprimir / PDF</button>
+    </div>
+  </aside>
+
+  <!-- ===== MAIN ===== -->
+  <main>
+    <div class="wrap">
+
+      <!-- HERO -->
+      <header class="hero">
+        <p class="eyebrow">Bacharel em Direito · Controller Jurídico</p>
+        <h1>Pedro&nbsp;Henrique<br>Braz&nbsp;Moreira</h1>
+        <p class="role">// controle processual · gestão de prazos · área cível</p>
+        <p class="thesis">Mantenho sob controle os prazos, protocolos e o fluxo de processos de grandes contas — com a precisão de quem também <em>escreve código</em>.</p>
+
+        <div class="ficha" role="group" aria-label="Resumo">
+          <div class="cell"><div class="k">Função</div><div class="v">Controller Jurídico — Hasson Advogados</div></div>
+          <div class="cell"><div class="k">Local</div><div class="v">Curitiba, Paraná · Brasil</div></div>
+          <div class="cell"><div class="k">Foco</div><div class="v">Cível · Controle e gestão processual</div></div>
+          <div class="cell"><div class="k">Idiomas</div><div class="v">Português · Inglês · Alemão</div></div>
+        </div>
+      </header>
+
+      <!-- §01 PERFIL -->
+      <section id="perfil" class="reveal">
+        <p class="eyebrow">§ 01 · Perfil</p>
+        <h2>Direito com precisão de sistema</h2>
+        <p class="lede">Bacharel em Direito pela PUC-PR, com atuação consolidada em rotinas jurídicas cíveis, controle processual e gestão de prazos para grandes contas corporativas. Atualmente <strong>Controller Jurídico na Hasson Advogados</strong>, atendendo clientes como O Boticário e BRF. Une base técnica em Direito Civil, do Trabalho e Médico a um diferencial pouco comum na área: domínio de múltiplos sistemas de tribunais e softwares jurídicos, somado a noções de programação que favorecem a automação e a organização de fluxos de trabalho.</p>
+      </section>
+
+      <!-- §02 EXPERIENCIA -->
+      <section id="experiencia" class="reveal">
+        <p class="eyebrow">§ 02 · Experiência</p>
+        <h2>Trajetória</h2>
+
+        <article class="case">
+          <div class="case-meta"><span class="tag">● em curso</span><span>Set 2025 — Atual</span><span>Curitiba/PR</span><span>Área Cível</span></div>
+          <h3>Controller Jurídico</h3>
+          <p class="org">Hasson Advogados</p>
+          <ul>
+            <li>Controle e gestão de prazos processuais de carteira corporativa de alto volume, com clientes como O Boticário e BRF.</li>
+            <li>Protocolo de petições e acompanhamento processual nos principais sistemas de tribunais (PJe, EPROC, Projudi e Esaj).</li>
+            <li>Elaboração de relatórios gerenciais e processuais periódicos para os clientes.</li>
+            <li>Gestão de informações e fluxos em plataformas jurídicas como LegalOne e CPJ.</li>
+          </ul>
+        </article>
+
+        <article class="case">
+          <div class="case-meta"><span>Mai 2023 — Set 2024</span><span>Curitiba/PR</span></div>
+          <h3>Estágio em Direito</h3>
+          <p class="org">Sociedade de Advogados Pacheco</p>
+          <ul>
+            <li>Auxílio na elaboração de contestações e demais peças jurídicas em processos de Direito Médico.</li>
+            <li>Redação de petições iniciais, de juntada e demais peças em Reclamações Trabalhistas.</li>
+            <li>Atendimento e orientação direta a clientes quanto a dúvidas processuais.</li>
+            <li>Acompanhamento de prazos e protocolo de peças nos sistemas CPJ, Projudi, Esaj e PJe.</li>
+          </ul>
+        </article>
+
+        <article class="case">
+          <div class="case-meta"><span>Mar 2020 — Mar 2021</span><span>Curitiba/PR</span></div>
+          <h3>Estágio em Direito</h3>
+          <p class="org">Sociedade de Advogados Peregrino Neto</p>
+          <ul>
+            <li>Pesquisas jurídicas em Direito Civil, Imobiliário e Bancário.</li>
+            <li>Formulação de petições e demais peças jurídicas.</li>
+            <li>Protocolo de arquivos e acompanhamento de processos em fóruns e tribunais.</li>
+            <li>Elaboração de relatórios mensais para clientes.</li>
+          </ul>
+        </article>
+      </section>
+
+      <!-- §03 FORMACAO -->
+      <section id="formacao" class="reveal">
+        <p class="eyebrow">§ 03 · Formação</p>
+        <h2>Formação & idiomas</h2>
+        <div class="edu" style="margin-bottom:26px;">
+          <h3>Bacharelado em Direito</h3>
+          <p class="org">PUC-PR · Curitiba/PR · 2020 — 2024 · Turma de 2025</p>
+        </div>
+        <div class="blocks">
+          <div class="block">
+            <p class="k">Idiomas</p>
+            <ul class="prose-list">
+              <li><strong>Inglês</strong> — Avançado · curso completo na Phil Young's</li>
+              <li><strong>Alemão</strong> — Avançado · Centro Europeu (Curitiba)</li>
+              <li><strong>Português</strong> — Nativo</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- §04 COMPETENCIAS -->
+      <section id="competencias" class="reveal">
+        <p class="eyebrow">§ 04 · Competências</p>
+        <h2>Ferramentas & domínios</h2>
+        <div class="blocks">
+          <div class="block">
+            <p class="k">Sistemas & tribunais</p>
+            <div class="chips">
+              <span class="chip">PJe</span><span class="chip">EPROC</span><span class="chip">Projudi</span>
+              <span class="chip">Esaj</span><span class="chip">LegalOne</span><span class="chip">CPJ</span>
+              <span class="chip">Pacote Office</span>
+            </div>
+          </div>
+          <div class="block">
+            <p class="k">Técnicas</p>
+            <ul class="prose-list">
+              <li>Controle e gestão de prazos processuais</li>
+              <li>Protocolo de petições e acompanhamento processual</li>
+              <li>Elaboração de peças e pesquisa jurídica</li>
+              <li>Relatórios gerenciais e processuais</li>
+            </ul>
+          </div>
+          <div class="block">
+            <p class="k">Diferencial</p>
+            <ul class="prose-list">
+              <li>Noções de programação aplicadas à automação e à organização de rotinas jurídicas</li>
+            </ul>
+          </div>
+          <div class="block">
+            <p class="k">Comportamentais</p>
+            <div class="chips">
+              <span class="chip">Organização</span><span class="chip">Comunicação</span>
+              <span class="chip">Negociação</span><span class="chip">Trabalho em equipe</span>
+              <span class="chip">Atenção a detalhes</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- §05 PROJETOS -->
+      <section id="projetos" class="reveal">
+        <p class="eyebrow">§ 05 · Projetos</p>
+        <h2>Direito que vira código</h2>
+        <p class="lede" style="margin-bottom:26px;">Ferramentas que construí para automatizar a própria rotina jurídica — controle de prazos, comunicações do CNJ e migração entre sistemas. Código aberto no GitHub.</p>
+        <div class="projects">
+
+          <a class="proj" href="https://github.com/LizinDev/AutomacaoJuridica" target="_blank" rel="noopener">
+            <div class="proj-top"><span class="proj-id">/AutomacaoJuridica</span><span class="proj-arrow">↗</span></div>
+            <h3>Automação Jurídica</h3>
+            <p>Automatiza o cadastro de compromissos, audiências e tarefas no NovaJus (LegalOne) via Selenium, com interface gráfica e três modos de operação — audiência completa, contestação e cadastro.</p>
+            <div class="stack"><span class="t">Python</span><span class="t">Selenium</span><span class="t">CustomTkinter</span></div>
+          </a>
+
+          <a class="proj" href="https://github.com/LizinDev/AppCNJ" target="_blank" rel="noopener">
+            <div class="proj-top"><span class="proj-id">/AppCNJ</span><span class="proj-arrow">↗</span></div>
+            <h3>Comunicações CNJ</h3>
+            <p>Dashboard que consulta em tempo real a API pública do PJe/CNJ (DJEN): intimações, editais e pautas. Filtros, auto-atualização, marcação de tratados e exportação para Excel.</p>
+            <div class="stack"><span class="t">React 19</span><span class="t">Vite</span><span class="t">API PJe/CNJ</span><span class="t">SheetJS</span></div>
+          </a>
+
+          <a class="proj" href="https://github.com/LizinDev/ElawLegal" target="_blank" rel="noopener">
+            <div class="proj-top"><span class="proj-id">/ElawLegal</span><span class="proj-arrow">↗</span></div>
+            <h3>Migração ELAW → LegalOne</h3>
+            <p>Ferramenta de linha de comando que migra processos do Gerencial ELAW para o template LegalOne, com mapeamento automático de campos (foro, área, datas, valores) e relatório de conferência.</p>
+            <div class="stack"><span class="t">Python</span><span class="t">Excel/openpyxl</span><span class="t">CLI</span></div>
+          </a>
+
+          <a class="proj" href="https://github.com/LizinDev" target="_blank" rel="noopener">
+            <div class="proj-top"><span class="proj-id">/LizinDev</span><span class="proj-arrow">↗</span></div>
+            <h3>Mais no GitHub</h3>
+            <p>Outros experimentos e ferramentas — do jurídico ao desktop Linux. Veja o perfil completo com os repositórios e atividade recente.</p>
+            <div class="stack"><span class="t">github.com/LizinDev</span></div>
+          </a>
+
+        </div>
+      </section>
+
+      <!-- §06 CONTATO -->
+      <section id="contato" class="reveal">
+        <p class="eyebrow">§ 06 · Contato</p>
+        <h2>Vamos conversar</h2>
+        <div class="contact-grid">
+          <div class="crow">
+            <div><div class="k">E-mail</div><a class="v" href="mailto:pedro.braz@pucpr.edu.br">pedro.braz@pucpr.edu.br</a></div>
+            <button class="copy" type="button" data-copy="pedro.braz@pucpr.edu.br">Copiar</button>
+          </div>
+          <div class="crow">
+            <div><div class="k">Telefone</div><a class="v" href="tel:+5541987655995">(41) 98765-5995</a></div>
+            <button class="copy" type="button" data-copy="(41) 98765-5995">Copiar</button>
+          </div>
+          <div class="crow">
+            <div><div class="k">LinkedIn</div><a class="v" href="https://www.linkedin.com/in/pedro-henrique-braz-moreira-b25516231/" target="_blank" rel="noopener">linkedin.com/in/pedro-henrique-braz-moreira</a></div>
+            <button class="copy" type="button" data-copy="https://www.linkedin.com/in/pedro-henrique-braz-moreira-b25516231/">Copiar</button>
+          </div>
+          <div class="crow">
+            <div><div class="k">GitHub</div><a class="v" href="https://github.com/LizinDev" target="_blank" rel="noopener">github.com/LizinDev</a></div>
+            <button class="copy" type="button" data-copy="https://github.com/LizinDev">Copiar</button>
+          </div>
+        </div>
+        <div class="ref">
+          <span class="k">Referência</span>
+          Alexandre Pacheco — Pacheco Sociedade de Advocacia · contato@pachecoadvocacia.adv.br · (41) 99620-1718
+        </div>
+      </section>
+
+      <footer>© <span id="yr"></span> Pedro Henrique Braz Moreira · Curitiba, PR</footer>
+    </div>
+  </main>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite">Copiado</div>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // print
+  document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+  // copy-to-clipboard + toast
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+  }
+  document.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const val = btn.getAttribute('data-copy');
+      try{
+        await navigator.clipboard.writeText(val);
+      }catch(e){
+        const ta = document.createElement('textarea');
+        ta.value = val; document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); ta.remove();
+      }
+      const label = btn.textContent;
+      btn.textContent = 'Copiado'; btn.classList.add('done');
+      showToast('Copiado para a área de transferência');
+      setTimeout(() => { btn.textContent = label; btn.classList.remove('done'); }, 1600);
+    });
+  });
+
+  // scroll-spy
+  const links = [...document.querySelectorAll('.idx')];
+  const map = new Map(links.map(l => [l.getAttribute('href').slice(1), l]));
+  const sections = [...document.querySelectorAll('main section[id]')];
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        links.forEach(l => l.classList.remove('is-active'));
+        const active = map.get(e.target.id);
+        if(active) active.classList.add('is-active');
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+  sections.forEach(s => spy.observe(s));
+
+  // reveal on scroll
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!prefersReduced){
+    const rev = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in-view'); rev.unobserve(e.target); } });
+    }, { threshold: .12 });
+    document.querySelectorAll('.reveal').forEach(el => rev.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in-view'));
+  }
+</script>
+</body>
+</html>
