@@ -116,6 +116,8 @@
   /* ===== PROFILE ===== */
   .lede{font-size:1.08rem; line-height:1.72; color:var(--text); margin:0;}
   .lede strong{font-weight:600;}
+  .ilink{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-deep); transition:border-color .25s ease;}
+  .ilink:hover{border-bottom-color:var(--accent);}
 
   /* ===== EXPERIENCE (process cards) ===== */
   .case{
@@ -152,9 +154,11 @@
     transition:border-color .25s ease, color .25s ease;
   }
   .chip:hover{border-color:var(--accent-deep);}
+  a.chip{color:var(--accent); text-decoration:none;}
+  a.chip:hover{border-color:var(--accent); color:var(--accent);}
   .prose-list{margin:0; padding:0; list-style:none; display:grid; gap:8px;}
   .prose-list li{padding-left:20px; position:relative; font-size:15px; color:var(--text);}
-  .prose-list li::before{content:"—"; position:absolute; left:0; color:var(--accent-deep);}
+  .prose-list li::before{content:"~"; position:absolute; left:0; color:var(--accent); font-family:var(--mono);}
 
   /* ===== PROJETOS ===== */
   .projects{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;}
@@ -288,8 +292,8 @@
       <header class="hero">
         <p class="eyebrow">Bacharel em Direito · Controller Jurídico</p>
         <h1>Pedro&nbsp;Henrique<br>Braz&nbsp;Moreira</h1>
-        <p class="role">// controle processual · gestão de prazos · área cível</p>
-        <p class="thesis">Mantenho sob controle os prazos, protocolos e o fluxo de processos de grandes contas — com a precisão de quem também <em>escreve código</em>.</p>
+        <p class="role">// controle de prazos · fluxo processual · automações</p>
+        <p class="thesis">Controle de prazos, fluxo processual e <em>automações</em> — a rotina jurídica das grandes contas, organizada e sob controle.</p>
 
         <div class="ficha" role="group" aria-label="Resumo">
           <div class="cell"><div class="k">Função</div><div class="v">Controller Jurídico — Hasson Advogados</div></div>
@@ -302,8 +306,8 @@
       <!-- §01 PERFIL -->
       <section id="perfil" class="reveal">
         <p class="eyebrow">§ 01 · Perfil</p>
-        <h2>Direito com precisão de sistema</h2>
-        <p class="lede">Bacharel em Direito pela PUC-PR, com atuação consolidada em rotinas jurídicas cíveis, controle processual e gestão de prazos para grandes contas corporativas. Atualmente <strong>Controller Jurídico na Hasson Advogados</strong>, atendendo clientes como O Boticário e BRF. Une base técnica em Direito Civil, do Trabalho e Médico a um diferencial pouco comum na área: domínio de múltiplos sistemas de tribunais e softwares jurídicos, somado a noções de programação que favorecem a automação e a organização de fluxos de trabalho.</p>
+        <h2>Direito e automação integrados</h2>
+        <p class="lede">Bacharel em Direito pela PUC-PR, com atuação consolidada em rotinas jurídicas cíveis, controle processual e gestão de prazos para grandes contas corporativas. Atualmente <strong>Controller Jurídico na <a class="ilink" href="https://hassonadvogados.com.br/sobre/" target="_blank" rel="noopener">Hasson Advogados</a></strong>, atendendo clientes como O Boticário e BRF. Une base técnica em Direito Civil, do Trabalho e Médico a um diferencial pouco comum na área: domínio de múltiplos sistemas de tribunais e softwares jurídicos, somado a noções de programação que favorecem a automação e a organização de fluxos de trabalho.</p>
       </section>
 
       <!-- §02 EXPERIENCIA -->
@@ -351,7 +355,7 @@
       <!-- §03 FORMACAO -->
       <section id="formacao" class="reveal">
         <p class="eyebrow">§ 03 · Formação</p>
-        <h2>Formação & idiomas</h2>
+        <h2>Formação & Idiomas</h2>
         <div class="edu" style="margin-bottom:26px;">
           <h3>Bacharelado em Direito</h3>
           <p class="org">PUC-PR · Curitiba/PR · 2020 — 2024 · Turma de 2025</p>
@@ -371,13 +375,17 @@
       <!-- §04 COMPETENCIAS -->
       <section id="competencias" class="reveal">
         <p class="eyebrow">§ 04 · Competências</p>
-        <h2>Ferramentas & domínios</h2>
+        <h2>Ferramentas & Domínios</h2>
         <div class="blocks">
           <div class="block">
             <p class="k">Sistemas & tribunais</p>
             <div class="chips">
-              <span class="chip">PJe</span><span class="chip">EPROC</span><span class="chip">Projudi</span>
-              <span class="chip">Esaj</span><span class="chip">LegalOne</span><span class="chip">CPJ</span>
+              <a class="chip" href="https://www.pje.jus.br/navegador/" target="_blank" rel="noopener">PJe</a>
+              <a class="chip" href="https://portal-eproc.trf4.jus.br/" target="_blank" rel="noopener">EPROC</a>
+              <a class="chip" href="https://projudi.tjpr.jus.br/projudi/" target="_blank" rel="noopener">Projudi</a>
+              <a class="chip" href="https://esaj.tjsp.jus.br/esaj" target="_blank" rel="noopener">Esaj</a>
+              <a class="chip" href="https://www.thomsonreuters.com.br/pt/juridico/legal-one-software-juridico.html" target="_blank" rel="noopener">LegalOne</a>
+              <a class="chip" href="https://preambulo.com.br/cpj-3c/" target="_blank" rel="noopener">CPJ</a>
               <span class="chip">Pacote Office</span>
             </div>
           </div>
