@@ -303,7 +303,6 @@
         <button type="button" data-lang="en">EN</button>
       </div>
       <a class="printbtn" href="Pedro-Henrique-Braz-Moreira-CV.pdf" download data-i18n="download">Baixar CV (PDF)</a>
-      <button class="printbtn" id="printBtn" type="button" data-i18n="print">Imprimir / PDF</button>
     </div>
   </aside>
 
@@ -509,7 +508,6 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
-  document.getElementById('printBtn').addEventListener('click', () => window.print());
 
   /* ===== i18n: PT é o padrão no HTML; EN vem do dicionário ===== */
   const I18N = { en: {
