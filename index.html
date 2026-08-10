@@ -225,44 +225,50 @@
     </dl>
   </section>
 
-  <!-- ===== Projetos · os únicos cartões da página ===== -->
+  <!-- ===== Projetos =====
+       O cartão é reservado ao que é público e clicável. As ferramentas
+       internas viram registros com fio: descritas, sem link morto. ===== -->
   <section id="projetos" class="sec">
     <h2 data-i18n="s5-h2">Direito que vira código</h2>
-    <p class="lede lede--tight" data-i18n="s5-lede">Ferramentas que construí para automatizar a própria rotina jurídica — controle de prazos, comunicações do CNJ e migração entre sistemas. Código aberto no GitHub.</p>
+    <p class="lede lede--tight" data-i18n="s5-lede">Ferramentas que construí para automatizar a própria rotina jurídica — dividir documentos, cadastrar compromissos, acompanhar processos e migrar dados entre sistemas.</p>
 
-    <div class="projects">
-      <a class="proj" href="https://github.com/LizinDev/AutomacaoJuridica" target="_blank" rel="noopener">
-        <p class="proj__id">/AutomacaoJuridica</p>
-        <h3 data-i18n="p1-h3">Automação Jurídica</h3>
-        <p class="proj__body" data-i18n="p1-p">Automatiza o cadastro de compromissos, audiências e tarefas no NovaJus (LegalOne) via Selenium, com interface gráfica e três modos de operação — audiência completa, contestação e cadastro.</p>
-        <p class="proj__stack">Python · Selenium · CustomTkinter</p>
-        <span class="proj__go" aria-hidden="true">↗</span>
-      </a>
+    <article class="feature">
+      <p class="feature__id">/pdf-splitter <span class="feature__badge">MIT</span></p>
+      <h3 data-i18n="pdf-h3">PDF Splitter</h3>
+      <p class="feature__body" data-i18n="pdf-p">Divide um PDF em vários por intervalo de páginas. Cada intervalo pode ter seu próprio nome, os intervalos podem se sobrepor e o arquivo original nunca é alterado. Vem pronto para macOS e Windows, em português e inglês — quem for usar não precisa instalar nada além do app.</p>
+      <p class="feature__stack" data-i18n="pdf-stack">Python · pypdf · interface gráfica + linha de comando</p>
+      <p class="feature__actions">
+        <a class="cta" href="https://github.com/LizinDev/pdf-splitter/releases/latest" target="_blank" rel="noopener">
+          <span data-i18n="pdf-dl">Baixar o app</span><span class="cta__glyph" aria-hidden="true">↓</span>
+        </a>
+        <a class="xlink" href="https://github.com/LizinDev/pdf-splitter" target="_blank" rel="noopener" data-i18n="pdf-code">Ver o código</a>
+      </p>
+    </article>
 
-      <a class="proj" href="https://github.com/LizinDev/AppCNJ" target="_blank" rel="noopener">
-        <p class="proj__id">/AppCNJ</p>
-        <h3 data-i18n="p2-h3">Comunicações CNJ</h3>
-        <p class="proj__body" data-i18n="p2-p">Dashboard que consulta em tempo real a API pública do PJe/CNJ (DJEN): intimações, editais e pautas. Filtros, auto-atualização, marcação de tratados e exportação para Excel.</p>
-        <p class="proj__stack">React 19 · Vite · API PJe/CNJ · SheetJS</p>
-        <span class="proj__go" aria-hidden="true">↗</span>
-      </a>
-
-      <a class="proj" href="https://github.com/LizinDev/ElawLegal" target="_blank" rel="noopener">
-        <p class="proj__id">/ElawLegal</p>
-        <h3 data-i18n="p3-h3">Migração ELAW → LegalOne</h3>
-        <p class="proj__body" data-i18n="p3-p">Ferramenta de linha de comando que migra processos do Gerencial ELAW para o template LegalOne, com mapeamento automático de campos (foro, área, datas, valores) e relatório de conferência.</p>
-        <p class="proj__stack">Python · Excel/openpyxl · CLI</p>
-        <span class="proj__go" aria-hidden="true">↗</span>
-      </a>
-
-      <a class="proj" href="https://github.com/LizinDev" target="_blank" rel="noopener">
-        <p class="proj__id">/LizinDev</p>
-        <h3 data-i18n="p4-h3">Mais no GitHub</h3>
-        <p class="proj__body" data-i18n="p4-p">Outros experimentos e ferramentas — do jurídico ao desktop Linux. Veja o perfil completo com os repositórios e atividade recente.</p>
-        <p class="proj__stack">github.com/LizinDev</p>
-        <span class="proj__go" aria-hidden="true">↗</span>
-      </a>
-    </div>
+    <p class="tools__head" data-i18n="tools-head">Construídas para uso interno · código não público</p>
+    <ul class="tools">
+      <li class="tool">
+        <div class="tool__top">
+          <h3>Hasson Portal</h3>
+          <span class="tool__stack">TypeScript</span>
+        </div>
+        <p data-i18n="tool1-p">Portal de acompanhamento processual do Hasson Advogados: traduz os dados do DataJud e do DJEN para linguagem simples, de modo que o cliente entenda o andamento sem depender de jargão.</p>
+      </li>
+      <li class="tool">
+        <div class="tool__top">
+          <h3 data-i18n="tool2-h3">Automação Jurídica</h3>
+          <span class="tool__stack">Python · Selenium</span>
+        </div>
+        <p data-i18n="tool2-p">Automatiza o cadastro de compromissos, audiências e tarefas no NovaJus (LegalOne), com interface gráfica e três modos de operação — audiência completa, contestação e cadastro.</p>
+      </li>
+      <li class="tool">
+        <div class="tool__top">
+          <h3 data-i18n="tool3-h3">Migração ELAW → LegalOne</h3>
+          <span class="tool__stack">Python · openpyxl</span>
+        </div>
+        <p data-i18n="tool3-p">Migra processos do Gerencial ELAW para o template do LegalOne, com mapeamento automático de campos (foro, área, datas, valores) e relatório de conferência ao final.</p>
+      </li>
+    </ul>
   </section>
 
   <!-- ===== Contato · linhas com fio, sem caixa ===== -->

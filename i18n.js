@@ -91,15 +91,22 @@ window.CV_I18N = {
 
     /* ---------- projetos ---------- */
     "s5-h2": "Law turned into code",
-    "s5-lede": "Tools I built to automate my own legal routine — deadline control, CNJ communications and migration between systems. Open source on GitHub.",
-    "p1-h3": "Legal Automation",
-    "p1-p": "Automates the creation of appointments, hearings and tasks in NovaJus (LegalOne) via Selenium, with a graphical interface and three operation modes — full hearing, defence and registration.",
-    "p2-h3": "CNJ Communications",
-    "p2-p": "Dashboard that queries the public PJe/CNJ API (DJEN) in real time: subpoenas, notices and trial dockets. Filters, auto-refresh, handled-status marking and Excel export.",
-    "p3-h3": "ELAW → LegalOne Migration",
-    "p3-p": "Command-line tool that migrates cases from the ELAW Gerencial system to the LegalOne template, with automatic field mapping (court, area, dates, values) and a reconciliation report.",
-    "p4-h3": "More on GitHub",
-    "p4-p": "Other experiments and tools — from legal tech to the Linux desktop. See the full profile with repositories and recent activity.",
+    "s5-lede": "Tools I built to automate my own legal routine — splitting documents, scheduling tasks, tracking cases and migrating data between systems.",
+
+    /* destaque público */
+    "pdf-h3": "PDF Splitter",
+    "pdf-p": "Splits one PDF into several by page range. Each range can carry its own file name, ranges may overlap, and the original file is never modified. It ships ready to run on macOS and Windows, in Portuguese and English — whoever uses it installs nothing but the app.",
+    "pdf-stack": "Python · pypdf · graphical app + command line",
+    "pdf-dl": "Download the app",
+    "pdf-code": "See the code",
+
+    /* ferramentas internas */
+    "tools-head": "Built for internal use · source not public",
+    "tool1-p": "Case-tracking portal for Hasson Advogados: it turns DataJud and DJEN records into plain language, so the client can follow a case without depending on jargon.",
+    "tool2-h3": "Legal Automation",
+    "tool2-p": "Automates the creation of appointments, hearings and tasks in NovaJus (LegalOne), with a graphical interface and three operation modes — full hearing, defence and registration.",
+    "tool3-h3": "ELAW → LegalOne Migration",
+    "tool3-p": "Migrates cases from the ELAW Gerencial system into the LegalOne template, with automatic field mapping (court, area, dates, values) and a reconciliation report at the end.",
 
     /* ---------- contato ---------- */
     "s6-h2": "Let's talk",
