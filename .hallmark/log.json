@@ -1,0 +1,21 @@
+[
+  {
+    "date": "2026-08-10",
+    "verb": "redesign",
+    "scope": "single-page",
+    "macrostructure": "Marquee Hero",
+    "nav": "N6 Newspaper masthead",
+    "footer": "Ft4 Dense colophon",
+    "archetypes": ["H1 Marquee", "F4 Step sequence", "F3 Tabular spec sheet", "F6 Product card grid", "C3 Typographic link"],
+    "theme": "custom",
+    "theme_axes": "dark / roman-serif / chromatic-teal ~186",
+    "vibe": "ficha de controle, arquivo noturno, precisão",
+    "enrichment": "none",
+    "brief": "Currículo de Pedro Henrique Braz Moreira — Controller Jurídico (PT/EN, GitHub Pages)",
+    "replaced": {
+      "macrostructure": "Long Document",
+      "nav": "N3 Side-rail",
+      "footer": "one-line copyright"
+    }
+  }
+]

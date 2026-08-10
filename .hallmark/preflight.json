@@ -1,0 +1,22 @@
+{
+  "scannedAt": "2026-08-10",
+  "framework": "vanilla HTML/CSS/JS (sem build) — GitHub Pages, .nojekyll",
+  "fonts": {
+    "before": ["Fraunces", "Hanken Grotesk", "IBM Plex Mono"],
+    "after": ["Fraunces", "IBM Plex Sans", "IBM Plex Mono"],
+    "note": "Hanken Grotesk aposentada; Plex Sans + Plex Mono são a mesma superfamília, então a página tem 2 vozes + 1 serifa"
+  },
+  "palette": {
+    "before": "hex em :root (charcoal #14161A, pergaminho #E9E6DD, teal #2FB4A8)",
+    "after": "OKLCH em tokens.css, ancorado no mesmo teal",
+    "note": "--faint #6B7280 reprovava em AA (3.75:1) sobre o fundo antigo; corrigido"
+  },
+  "spacing": {
+    "before": "sem escala — px ad hoc (26/42/62/96)",
+    "after": "escala 4pt nomeada em tokens.css"
+  },
+  "motion": "nenhuma biblioteca; IntersectionObserver para reveal + scroll-spy",
+  "i18n": "PT escrito no HTML, dicionário EN em i18n.js, chaveado por data-i18n",
+  "preserved": ["conteúdo e fatos", "arquitetura de informação", "contrato de chaves i18n", "download do PDF", "folha de impressão", "identidade teal + glifo §"],
+  "untouched": ["Curriculo Atualizado.html", "Curriculo Pedro Henrique Braz Moreira.pdf", "Pedro-Henrique-Braz-Moreira-CV.pdf", "favicon.svg", ".nojekyll"]
+}

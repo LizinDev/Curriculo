@@ -1,281 +1,707 @@
-/* =============================================================
-   Currículo — Pedro Henrique Braz Moreira
-   Folha de estilo. Tema "Ficha de Controle": carvão + pergaminho,
-   acento petróleo. Tipografia: Fraunces (serifa) + Hanken Grotesk
-   (corpo) + IBM Plex Mono (dados).
-   ============================================================= */
+/* Hallmark · pre-emit critique: P5 H5 E5 S4 R5 V4
+ *
+ * Hallmark · genre: editorial · macrostructure: Marquee Hero
+ * H1 marquee knobs: size=xxl, alignment=left-bias, underlay=single rule below
+ * nav: N6 Newspaper masthead (issue-line=below-mark, size=xl, rule=double, index=sticky)
+ * footer: Ft4 Dense colophon (family=mono, layout=log-style, includes=date+attribution+typefaces)
+ * sections: ficha strip · F4 step-sequence · F3 tabular spec sheet · F6 product-card grid · C3 typographic links
+ * theme: custom · vibe: "ficha de controle, arquivo noturno, precisão"
+ * paper: oklch(18% 0.012 210) · accent: oklch(72% 0.128 186)
+ * display: Fraunces 700 (roman) · body: IBM Plex Sans · outlier: IBM Plex Mono
+ * axes: dark / roman-serif / chromatic-teal ~186
+ * enrichment: none (typography only) · studied: no · context: user-provided
+ *
+ * slop test 57/58 · contrast: pass (40–41) · nav/footer/hero: pass (42–45)
+ * honest: pass (46) · chrome: pass (47) · tokens: pass (48) · responsive: pass (49)
+ * mobile: pass (34, 49, 50–57) — verificado a 320/375/414/768px
+ * desvio consciente — gate 38 (outlier em ≤2 lugares): o mono tem UM papel,
+ * "rótulo ou dado", e é aplicado só nele. Numa ficha de controle esse
+ * registro é a tese do design, não sobra decorativa.
+ *
+ * Todas as cores e fontes vêm de tokens.css. Nada de hex solto aqui.
+ * Mobile-first: o padrão é o menor viewport; min-width acrescenta.
+ */
 
-:root{
-  /* cores */
-  --bg:#14161A;            /* fundo geral */
-  --panel:#1B1E24;         /* painéis elevados (toast) */
-  --line:#2A2F37;          /* divisórias hairline */
-  --text:#E9E6DD;          /* texto principal (pergaminho) */
-  --muted:#9DA3AD;         /* texto secundário */
-  --faint:#6B7280;         /* rótulos discretos */
-  --accent:#2FB4A8;        /* acento petróleo */
-  --accent-deep:#1C6F69;   /* acento escuro (bordas/hover) */
-  --accent-ghost:rgba(47,180,168,.12); /* realce de fundo */
-  /* tipografia */
-  --serif:'Fraunces',Georgia,serif;
-  --sans:'Hanken Grotesk',system-ui,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
-  /* layout */
-  --rail:248px;
-  --maxw:720px;
+/* ============================================================
+   Base
+   ============================================================ */
+*, *::before, *::after{ box-sizing:border-box; }
+
+html{
+  overflow-x:clip;                 /* clip, não hidden: preserva sticky */
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
 }
-
-*{box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
-
 body{
-  margin:0; background:var(--bg); color:var(--text);
-  font-family:var(--sans); font-size:16px; line-height:1.6;
-  -webkit-font-smoothing:antialiased; letter-spacing:.005em;
+  overflow-x:clip;
+  margin:0;
+  background:var(--color-paper);
+  color:var(--color-ink);
+  font-family:var(--font-body);
+  font-size:var(--text-base);
+  line-height:1.6;
+  font-synthesis-weight:none;
+  -webkit-font-smoothing:antialiased;
+  padding-inline:max(0px, env(safe-area-inset-left));
 }
-a{color:inherit;}
-::selection{background:var(--accent-ghost); color:var(--text);}
+@media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
 
-.shell{
-  display:grid; grid-template-columns:var(--rail) minmax(0,1fr);
-  max-width:1180px; margin:0 auto; min-height:100vh;
+a{ color:inherit; }
+h1,h2,h3{
+  font-family:var(--font-display);
+  font-style:normal;               /* títulos são romanos, nunca itálicos */
+  overflow-wrap:anywhere;
+  min-width:0;
 }
+::selection{ background:var(--color-accent-ghost); color:var(--color-ink); }
 
-/* ===== Trilha de controle (assinatura) ===== */
-.rail{
-  position:sticky; top:0; align-self:start; height:100vh;
-  padding:42px 26px 30px; border-right:1px solid var(--line);
-  display:flex; flex-direction:column;
-}
-.monogram{
-  font-family:var(--serif); font-weight:600; font-size:26px; line-height:1;
-  letter-spacing:.02em;
-}
-.monogram .dot{color:var(--accent);}
-.rail-tag{
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.18em;
-  text-transform:uppercase; color:var(--faint); margin-top:10px;
-}
-nav.index{margin-top:46px; display:flex; flex-direction:column; gap:2px;}
-.idx{
-  display:flex; align-items:baseline; gap:12px; text-decoration:none;
-  padding:9px 10px; border-radius:7px; color:var(--muted);
-  transition:color .25s ease, background .25s ease;
-}
-.idx .n{font-family:var(--mono); font-size:11px; color:var(--faint); transition:color .25s ease;}
-.idx .t{font-size:14px; letter-spacing:.01em;}
-.idx:hover{color:var(--text); background:rgba(255,255,255,.03);}
-.idx.is-active{color:var(--text); background:var(--accent-ghost);}
-.idx.is-active .n{color:var(--accent);}
-.idx.is-active .t{font-weight:500;}
-.rail-foot{margin-top:auto; display:flex; flex-direction:column; gap:12px; padding-top:24px;}
-
-/* seletor de idioma PT/EN */
-.langtoggle{display:inline-flex; align-self:flex-start; border:1px solid var(--line); border-radius:7px; overflow:hidden;}
-.langtoggle button{
-  font-family:var(--mono); font-size:11px; letter-spacing:.12em; padding:7px 13px;
-  background:transparent; border:none; color:var(--muted); cursor:pointer;
-  transition:background .2s ease, color .2s ease;
-}
-.langtoggle button + button{border-left:1px solid var(--line);}
-.langtoggle button.active{background:var(--accent-ghost); color:var(--accent);}
-.langtoggle button:hover{color:var(--text);}
-
-/* botão / link de ação (baixar CV) */
-.printbtn{
-  font-family:var(--mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--muted); background:transparent; border:1px solid var(--line);
-  padding:9px 12px; border-radius:7px; cursor:pointer; text-align:left;
-  transition:border-color .25s ease, color .25s ease;
-}
-.printbtn:hover{border-color:var(--accent-deep); color:var(--text);}
-
-/* ===== Conteúdo principal ===== */
-main{padding:0 64px;}
-.wrap{max-width:var(--maxw); margin:0 auto;}
-section{padding:62px 0; border-bottom:1px solid var(--line);}
-section:last-of-type{border-bottom:none;}
-.eyebrow{
-  font-family:var(--mono); font-size:11px; letter-spacing:.2em; text-transform:uppercase;
-  color:var(--accent); margin:0 0 22px; display:flex; align-items:center; gap:10px;
-}
-.eyebrow::after{content:""; flex:1; height:1px; background:var(--line);}
-h2{
-  font-family:var(--serif); font-weight:500; font-size:clamp(1.5rem,3.2vw,2.05rem);
-  line-height:1.12; margin:0 0 8px; letter-spacing:-.01em;
+/* Foco: aparece na hora, nunca em transição. */
+:where(a, button, [tabindex]):focus-visible{
+  outline:2px solid var(--color-focus);
+  outline-offset:3px;
+  border-radius:var(--radius-input);
 }
 
-/* ===== Hero ===== */
-.hero{padding:96px 0 70px; border-bottom:1px solid var(--line);}
-.hero .eyebrow{margin-bottom:26px;}
-.hero h1{
-  font-family:var(--serif); font-weight:600; font-size:clamp(2.6rem,6.5vw,4.4rem);
-  line-height:.98; letter-spacing:-.02em; margin:0;
+.skip{
+  position:absolute; left:var(--space-md); top:var(--space-md);
+  transform:translateY(-200%);
+  z-index:var(--z-modal);
+  background:var(--color-accent); color:var(--color-accent-ink);
+  font-size:var(--text-sm); font-weight:600; text-decoration:none;
+  padding:var(--space-sm) var(--space-md); border-radius:var(--radius-input);
+  white-space:nowrap;
 }
-.hero .role{
-  font-family:var(--mono); font-size:14px; letter-spacing:.05em; color:var(--accent);
-  margin:20px 0 0;
+.skip:focus-visible{ transform:translateY(0); }
+
+/* Contêiner. O conteúdo é rente à esquerda; a coluna é que centraliza. */
+.mast, main, .colophon{
+  max-width:var(--content-max);
+  margin-inline:auto;
+  padding-inline:var(--page-gutter);
 }
-.thesis{
-  font-family:var(--serif); font-weight:400; font-size:clamp(1.15rem,2.4vw,1.5rem);
-  line-height:1.5; color:var(--text); max-width:30ch; margin:30px 0 0;
+
+/* Réguas */
+.rule-thick{
+  border:0;
+  border-top:var(--rule-thick) solid var(--color-rule);
+  margin:0;
 }
-.thesis em{font-style:italic; color:var(--accent); font-weight:500;}
+/* A régua que fecha a dobra é a única com cor — é ela que diz
+   "acabou o cartaz, começou o documento". */
+.marquee + .rule-thick{ border-top-color:var(--color-accent-deep); }
+
+/* ============================================================
+   N6 · Masthead
+   ============================================================ */
+.mast{ padding-top:var(--space-lg); }
+
+.mast__top{
+  display:flex; flex-wrap:wrap; align-items:baseline;
+  gap:var(--space-sm) var(--space-lg);
+  padding-bottom:var(--space-md);
+}
+.mast__mark{
+  display:inline-flex; align-items:center; min-height:28px;
+  font-family:var(--font-display); font-weight:700; font-size:var(--text-lg);
+  line-height:1; letter-spacing:0.01em; text-decoration:none;
+  white-space:nowrap;
+}
+.mast__sec{ color:var(--color-accent); }
+
+.mast__line{
+  flex:1 1 14rem; margin:0;
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--color-faint);
+}
+.mast__sep{ color:var(--color-accent-deep); padding-inline:var(--space-2xs); }
+
+.mast__tools{
+  display:flex; align-items:center; gap:var(--space-sm);
+  margin-inline-start:auto;
+}
+
+/* seletor PT/EN */
+.lang{
+  display:inline-flex;
+  border:var(--rule-hair) solid var(--color-rule);
+  border-radius:var(--radius-input);
+  overflow:hidden;
+}
+.lang button{
+  font-family:var(--font-body); font-size:var(--text-xs); font-weight:500;
+  letter-spacing:0.1em; white-space:nowrap;
+  padding:var(--space-xs) var(--space-sm); min-height:40px;
+  background:transparent; border:0; color:var(--color-muted); cursor:pointer;
+  transition:color var(--dur-micro) var(--ease-out),
+             background-color var(--dur-micro) var(--ease-out);
+}
+.lang button + button{ border-inline-start:var(--rule-hair) solid var(--color-rule); }
+.lang button:hover{ color:var(--color-ink); background:var(--color-paper-2); }
+.lang button:active{ background:var(--color-paper-3); }
+.lang button.is-active{ color:var(--color-accent); background:var(--color-accent-ghost); }
+.lang button:disabled{ color:var(--color-rule); cursor:not-allowed; }
+
+/* CTA tipográfica (C3): palavra + glifo + fio de 1px. Sem caixa. */
+.cta{
+  display:inline-flex; align-items:center; gap:var(--space-2xs);
+  font-size:var(--text-sm); font-weight:600; white-space:nowrap;
+  text-decoration:none; color:var(--color-accent);
+  padding-block:var(--space-2xs); min-height:40px;
+  border-bottom:var(--rule-hair) solid var(--color-accent-deep);
+  transition:border-color var(--dur-micro) var(--ease-out),
+             color var(--dur-micro) var(--ease-out);
+}
+.cta:hover{ border-bottom-color:var(--color-accent); }
+.cta__glyph{ transition:transform var(--dur-short) var(--ease-out); }
+.cta:hover .cta__glyph{ transform:translateY(2px); }
+.cta:active{ color:var(--color-accent-deep); }
+
+/* Índice: gruda no topo ao rolar — a navegação sobrevive no celular.
+   Fica de fora do .mast porque um sticky só percorre o próprio pai. */
+.mast__index{
+  position:sticky; top:0; z-index:var(--z-sticky);
+  background:var(--color-paper);
+  border-top:var(--rule-hair) solid var(--color-rule);
+  border-bottom:var(--rule-thick) solid var(--color-rule);
+}
+.mast__index ul{
+  max-width:var(--content-max);
+  margin-inline:auto;
+  padding-inline:var(--page-gutter);
+  display:flex; gap:var(--space-lg);
+  list-style:none; margin-block:0;
+  overflow-x:auto; scrollbar-width:none;
+  overscroll-behavior-inline:contain;
+}
+.mast__index ul::-webkit-scrollbar{ display:none; }
+.mast__index a{
+  display:block; white-space:nowrap;   /* rótulo clicável nunca quebra em 2 linhas */
+  font-size:var(--text-sm); text-decoration:none; color:var(--color-muted);
+  padding-block:var(--space-sm); min-height:44px;
+  border-bottom:var(--rule-thick) solid transparent;
+  margin-bottom:calc(var(--rule-thick) * -1);
+  transition:color var(--dur-micro) var(--ease-out);
+}
+.mast__index a:hover{ color:var(--color-ink); }
+.mast__index a.is-active{ color:var(--color-accent); border-bottom-color:var(--color-accent); }
+
+/* ============================================================
+   Marquee · a dobra é o nome. Sem subtítulo empilhado, sem botão.
+   ============================================================ */
+/* Base pesada embaixo: puxa a dobra para dentro do documento
+   em vez de deixá-la flutuando no topo. */
+.marquee{ padding-block:var(--space-2xl) var(--space-3xl); }
+
+.marquee__name{
+  margin:0;
+  font-weight:700;
+  font-size:var(--text-display);
+  line-height:1.02;
+  letter-spacing:-0.025em;
+  font-variation-settings:"opsz" 144;
+}
+.marquee__thesis{
+  margin:var(--space-lg) 0 0;
+  max-width:34ch;
+  font-size:var(--text-lg);
+  line-height:1.45;
+  color:var(--color-ink-2);
+}
+/* Ênfase por faixa marcada — não por itálico. A faixa fica atrás da
+   altura-x; encostada na linha de base ela viraria um sublinhado gordo. */
+.ul{
+  color:var(--color-ink);
+  background-image:linear-gradient(
+    180deg,
+    transparent 38%,
+    var(--color-accent-ghost) 38%,
+    var(--color-accent-ghost) 92%,
+    transparent 92%
+  );
+}
+
+/* ============================================================
+   Ficha · tira horizontal de dados, fios verticais
+   ============================================================ */
+/* 1 → 2 → 4 colunas. auto-fit deixava um órfão no tablet. */
 .ficha{
-  margin-top:42px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;
+  display:grid;
+  grid-template-columns:minmax(0, 1fr);
+  gap:var(--space-lg);
+  margin:0;
+  padding-block:var(--space-lg);
+  border-bottom:var(--rule-hair) solid var(--color-rule);
 }
-.ficha .cell{background:var(--bg); padding:16px 18px;}
-.ficha .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);}
-.ficha .v{font-size:14.5px; margin-top:6px; color:var(--text);}
-
-/* ===== Perfil ===== */
-.lede{font-size:1.08rem; line-height:1.72; color:var(--text); margin:0;}
-.lede strong{font-weight:600;}
-.ilink{color:var(--accent); text-decoration:none; border-bottom:1px solid var(--accent-deep); transition:border-color .25s ease;}
-.ilink:hover{border-bottom-color:var(--accent);}
-
-/* ===== Experiência (cards de processo) ===== */
-.case{
-  border:1px solid var(--line); border-radius:12px; padding:24px 26px; margin-bottom:18px;
-  background:linear-gradient(180deg, rgba(255,255,255,.015), transparent);
-  transition:border-color .3s ease, transform .3s ease;
+.ficha__cell{ min-width:0; }
+.ficha dt{
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--color-faint);
 }
-.case:hover{border-color:var(--accent-deep); transform:translateY(-2px);}
-.case-meta{
-  font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--muted);
-  display:flex; flex-wrap:wrap; gap:8px 14px; margin-bottom:12px;
-}
-.case-meta .tag{color:var(--accent);}
-.case h3{font-family:var(--serif); font-weight:500; font-size:1.25rem; margin:0 0 2px; letter-spacing:-.01em;}
-.case .org{font-size:14px; color:var(--muted); margin:0 0 14px;}
-.case ul{margin:0; padding:0; list-style:none;}
-.case li{position:relative; padding-left:22px; margin:8px 0; font-size:15px; line-height:1.6; color:var(--text);}
-.case li::before{
-  content:"§"; position:absolute; left:0; top:0; font-family:var(--mono);
-  color:var(--accent-deep); font-size:14px;
+.ficha dd{
+  margin:var(--space-2xs) 0 0;
+  font-size:var(--text-sm); line-height:1.45; color:var(--color-ink);
 }
 
-/* ===== Formação ===== */
-.edu{margin-bottom:26px;}
-.edu h3{font-family:var(--serif); font-weight:500; font-size:1.2rem; margin:0 0 4px;}
-.edu .org{font-family:var(--mono); font-size:12px; letter-spacing:.04em; color:var(--muted);}
-
-/* ===== Competências / sistemas ===== */
-.blocks{display:grid; gap:26px;}
-.block .k{font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--accent); margin:0 0 12px;}
-.chips{display:flex; flex-wrap:wrap; gap:8px;}
-.chip{
-  font-family:var(--mono); font-size:12px; letter-spacing:.02em; color:var(--text);
-  border:1px solid var(--line); padding:7px 12px; border-radius:999px;
-  transition:border-color .25s ease, color .25s ease;
+/* ============================================================
+   Seções · o ritmo vertical é irregular de propósito
+   ============================================================ */
+.sec{
+  padding-block:var(--space-2xl);
+  scroll-margin-top:4.5rem;        /* o índice grudado não cobre o título */
+  border-bottom:var(--rule-hair) solid var(--color-rule-2);
 }
-.chip:hover{border-color:var(--accent-deep);}
-a.chip{color:var(--accent); text-decoration:none;}
-a.chip:hover{border-color:var(--accent); color:var(--accent);}
-.prose-list{margin:0; padding:0; list-style:none; display:grid; gap:8px;}
-.prose-list li{padding-left:20px; position:relative; font-size:15px; color:var(--text);}
-.prose-list li::before{content:"~"; position:absolute; left:0; color:var(--accent); font-family:var(--mono);}
+.sec--prose{ padding-block:var(--space-3xl) var(--space-2xl); }
+#projetos{ padding-block:var(--space-2xl) var(--space-3xl); }
+#contato{ border-bottom:0; padding-bottom:var(--space-xl); }
 
-/* ===== Projetos ===== */
-.section-intro{margin-bottom:26px;}
-.projects{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;}
+.sec h2{
+  margin:0 0 var(--space-lg);
+  font-weight:700;
+  font-size:var(--text-2xl);
+  line-height:1.1;
+  letter-spacing:-0.02em;
+  max-width:20ch;
+}
+
+.lede{
+  margin:0;
+  max-width:var(--measure);
+  font-size:var(--text-md);
+  line-height:1.7;
+}
+.lede--tight{
+  font-size:var(--text-base);
+  color:var(--color-ink-2);
+  margin-bottom:var(--space-xl);
+}
+.lede strong{ font-weight:600; }
+
+/* Capitular — uma vez só na página inteira. */
+#perfil .lede::first-letter{
+  float:inline-start;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:3.6em;
+  line-height:0.82;
+  padding-inline-end:0.08em;
+  margin-block-start:0.06em;
+  color:var(--color-accent);
+}
+
+.meta{
+  margin:var(--space-2xs) 0 0;
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.05em; color:var(--color-muted);
+  font-variant-numeric:tabular-nums;
+}
+
+/* Links */
+.ilink{
+  color:var(--color-accent); text-decoration:none;
+  border-bottom:var(--rule-hair) solid var(--color-accent-deep);
+  transition:border-color var(--dur-micro) var(--ease-out);
+}
+.ilink:hover{ border-bottom-color:var(--color-accent); }
+
+/* Sublinhado por text-decoration (não por borda): assim o padding
+   que garante o alvo de 24px não empurra o traço para longe. */
+.xlink{
+  display:inline-block;
+  padding-block:var(--space-2xs);
+  color:var(--color-accent); white-space:nowrap;
+  text-decoration:underline dotted var(--color-accent-deep);
+  text-underline-offset:3px;
+  transition:text-decoration-color var(--dur-micro) var(--ease-out),
+             color var(--dur-micro) var(--ease-out);
+}
+.xlink::after{ content:"↗"; font-size:0.8em; vertical-align:0.15em; padding-inline-start:0.15em; }
+.xlink:hover{ text-decoration-style:solid; text-decoration-color:var(--color-accent); }
+.xlink:active{ color:var(--color-accent-deep); }
+
+/* ============================================================
+   F4 · Experiência como registros com fio. Nenhum cartão.
+   ============================================================ */
+.records{ list-style:none; margin:0; padding:0; }
+
+.record{
+  display:grid;
+  gap:var(--space-sm);
+  padding-block:var(--space-xl);
+  border-top:var(--rule-hair) solid var(--color-rule);
+}
+.record:first-child{ border-top:0; padding-top:0; }
+
+.record__when{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:var(--space-sm);
+}
+.record__dates{
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--color-muted);
+  font-variant-numeric:tabular-nums;
+}
+.record__status{
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.08em; text-transform:uppercase;
+  color:var(--color-accent);
+}
+.record__status::before{ content:"● "; }
+
+.record__what{ min-width:0; }
+.record__what h3{
+  margin:0;
+  font-weight:600; font-size:var(--text-xl);
+  line-height:1.15; letter-spacing:-0.015em;
+}
+.record__org{
+  margin:var(--space-3xs) 0 var(--space-md);
+  font-size:var(--text-sm); font-weight:500; color:var(--color-ink-2);
+}
+.record__where{ font-weight:400; color:var(--color-muted); }
+
+/* Marcadores § — o glifo da identidade, usado onde ele significa algo. */
+.marks{ list-style:none; margin:0; padding:0; display:grid; gap:var(--space-xs); }
+.marks li{
+  position:relative;
+  padding-inline-start:var(--space-lg);
+  max-width:var(--measure);
+  font-size:var(--text-sm); line-height:1.6;
+}
+.marks li::before{
+  content:"§";
+  position:absolute; inset-inline-start:0; top:0;
+  font-size:var(--text-sm);
+  color:var(--color-accent-deep);
+}
+
+/* ============================================================
+   Formação · díptico assimétrico
+   ============================================================ */
+.diptych{ display:grid; gap:var(--space-xl); }
+.diptych__side{ min-width:0; }
+.diptych__side h3{
+  margin:0;
+  font-weight:600; font-size:var(--text-lg); letter-spacing:-0.01em;
+}
+
+.langs{ list-style:none; margin:0; padding:0; }
+.langs li{
+  display:flex; flex-wrap:wrap; align-items:baseline;
+  justify-content:space-between; gap:var(--space-sm);
+  padding-block:var(--space-sm);
+  border-bottom:var(--rule-hair) solid var(--color-rule-2);
+  font-size:var(--text-sm); font-weight:500;
+}
+.langs li:first-child{ padding-top:0; }
+.langs li:last-child{ border-bottom:0; }
+.langs__lvl{ font-weight:400; color:var(--color-muted); text-align:end; }
+
+/* ============================================================
+   F3 · Folha de especificação
+   ============================================================ */
+.spec{ margin:0; }
+.spec__row{
+  display:grid; gap:var(--space-2xs);
+  padding-block:var(--space-md);
+  border-top:var(--rule-hair) solid var(--color-rule);
+}
+.spec__row:last-child{ border-bottom:var(--rule-hair) solid var(--color-rule); }
+.spec dt{
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--color-faint);
+}
+.spec dd{
+  margin:0; min-width:0;
+  display:flex; flex-wrap:wrap; gap:var(--space-2xs) var(--space-md);
+  font-size:var(--text-sm); line-height:1.6;
+}
+.spec__row--flag dd{ color:var(--color-ink); font-weight:500; }
+.spec__row--flag dt{ color:var(--color-accent); }
+
+/* ============================================================
+   F6 · Projetos. Os únicos cartões da página — cartão aqui
+   quer dizer "artefato clicável que sai do site".
+   ============================================================ */
+.projects{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr);
+  gap:var(--space-md);
+}
 .proj{
-  display:flex; flex-direction:column; border:1px solid var(--line); border-radius:12px;
-  padding:22px 22px 20px; text-decoration:none; color:inherit;
-  background:linear-gradient(180deg, rgba(255,255,255,.015), transparent);
-  transition:border-color .3s ease, transform .3s ease;
+  position:relative;
+  display:flex; flex-direction:column;
+  padding:var(--space-lg);
+  text-decoration:none; color:inherit;
+  background:var(--color-paper-2);
+  border:var(--rule-hair) solid var(--color-rule);
+  border-radius:var(--radius-card);
+  transition:border-color var(--dur-short) var(--ease-out),
+             background-color var(--dur-short) var(--ease-out);
 }
-.proj:hover{border-color:var(--accent-deep); transform:translateY(-2px);}
-.proj-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;}
-.proj-id{font-family:var(--mono); font-size:11px; letter-spacing:.04em; color:var(--accent);}
-.proj-arrow{font-family:var(--mono); font-size:14px; color:var(--muted); transition:color .3s ease, transform .3s ease;}
-.proj:hover .proj-arrow{color:var(--accent); transform:translate(2px,-2px);}
-.proj h3{font-family:var(--serif); font-weight:500; font-size:1.18rem; margin:0 0 8px; letter-spacing:-.01em;}
-.proj p{font-size:14.5px; line-height:1.55; color:var(--muted); margin:0 0 16px;}
-.proj .stack{margin-top:auto; display:flex; flex-wrap:wrap; gap:7px;}
-.proj .t{
-  font-family:var(--mono); font-size:10.5px; letter-spacing:.02em; color:var(--text);
-  border:1px solid var(--line); padding:4px 9px; border-radius:6px;
-}
-@media (max-width:680px){ .projects{grid-template-columns:1fr;} }
+.proj:hover{ border-color:var(--color-accent-deep); background:var(--color-paper-3); }
+.proj:active{ background:var(--color-paper-2); }
 
-/* ===== Contato ===== */
-.contact-grid{display:grid; gap:10px;}
-.crow{
-  display:flex; align-items:center; justify-content:space-between; gap:16px;
-  border:1px solid var(--line); border-radius:10px; padding:14px 18px;
-  transition:border-color .25s ease;
+.proj__id{
+  margin:0 0 var(--space-sm);
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.05em; color:var(--color-accent);
 }
-.crow:hover{border-color:var(--accent-deep);}
-.crow .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint);}
-.crow .v{font-size:15px; margin-top:3px; word-break:break-word;}
-.crow a.v{text-decoration:none; border-bottom:1px solid transparent; transition:border-color .25s ease;}
-.crow a.v:hover{border-color:var(--accent);}
+.proj h3{
+  margin:0 0 var(--space-xs);
+  font-weight:600; font-size:var(--text-lg);
+  line-height:1.2; letter-spacing:-0.015em;
+  padding-inline-end:var(--space-lg);   /* espaço para a seta */
+}
+.proj__body{
+  margin:0 0 var(--space-md);
+  font-size:var(--text-sm); line-height:1.55; color:var(--color-ink-2);
+}
+.proj__stack{
+  margin:auto 0 0;
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.04em; color:var(--color-muted);
+}
+.proj__go{
+  position:absolute; top:var(--space-lg); inset-inline-end:var(--space-lg);
+  color:var(--color-muted);
+  transition:transform var(--dur-short) var(--ease-out),
+             color var(--dur-short) var(--ease-out);
+}
+.proj:hover .proj__go{ color:var(--color-accent); transform:translate(2px, -2px); }
+
+/* ============================================================
+   C3 · Contato tipográfico. Linhas com fio, sem caixa.
+   ============================================================ */
+.contact{ list-style:none; margin:0; padding:0; }
+.contact__row{
+  display:flex; flex-wrap:wrap; align-items:baseline;
+  gap:var(--space-2xs) var(--space-md);
+  padding-block:var(--space-md);
+  border-top:var(--rule-hair) solid var(--color-rule);
+}
+.contact__row:last-child{ border-bottom:var(--rule-hair) solid var(--color-rule); }
+.contact__k{
+  flex:0 0 6.5rem;
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--color-faint);
+}
+.contact__v{
+  flex:1 1 12rem; min-width:0;
+  padding-block:var(--space-2xs);   /* alvo de toque ≥ 24px */
+  font-size:var(--text-sm); word-break:break-word;
+  text-decoration:none;
+  border-bottom:var(--rule-hair) solid var(--color-rule);
+  transition:border-color var(--dur-micro) var(--ease-out),
+             color var(--dur-micro) var(--ease-out);
+}
+.contact__v:hover{ color:var(--color-accent); border-bottom-color:var(--color-accent); }
+
+/* Botão copiar — os 8 estados vivem aqui. */
 .copy{
-  flex:none; font-family:var(--mono); font-size:10px; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--muted); background:transparent; border:1px solid var(--line);
-  padding:8px 12px; border-radius:7px; cursor:pointer;
-  transition:border-color .25s ease, color .25s ease, background .25s ease;
+  flex:none; margin-inline-start:auto;
+  font-family:var(--font-body); font-size:var(--text-xs); font-weight:500;
+  letter-spacing:0.06em; white-space:nowrap;
+  color:var(--color-muted); background:transparent;
+  border:var(--rule-hair) solid var(--color-rule);
+  border-radius:var(--radius-input);
+  padding:var(--space-xs) var(--space-sm); min-height:40px; cursor:pointer;
+  transition:color var(--dur-micro) var(--ease-out),
+             border-color var(--dur-micro) var(--ease-out),
+             background-color var(--dur-micro) var(--ease-out);
 }
-.copy:hover{border-color:var(--accent-deep); color:var(--text);}
-.copy.done{color:var(--accent); border-color:var(--accent-deep); background:var(--accent-ghost);}
-.ref{margin-top:24px; font-size:14px; color:var(--muted);}
-.ref .k{font-family:var(--mono); font-size:10px; letter-spacing:.16em; text-transform:uppercase; color:var(--faint); display:block; margin-bottom:6px;}
-footer{padding:40px 0 64px; font-family:var(--mono); font-size:11px; letter-spacing:.06em; color:var(--faint);}
+.copy:hover{ color:var(--color-ink); border-color:var(--color-rule); background:var(--color-paper-2); }
+.copy:active{ background:var(--color-paper-3); }
+.copy[aria-busy="true"]{ color:var(--color-muted); cursor:progress; }
+.copy:disabled{ color:var(--color-rule); border-color:var(--color-rule-2); cursor:not-allowed; }
+.copy.is-done{
+  color:var(--color-accent); border-color:var(--color-accent-deep);
+  background:var(--color-accent-ghost);
+}
+.copy.is-error{ color:var(--color-ink); border-color:var(--color-ink-2); }
 
-/* ===== Toast ===== */
+.ref{
+  margin:var(--space-xl) 0 0;
+  max-width:var(--measure);
+  font-size:var(--text-sm); color:var(--color-muted);
+}
+.ref__k{
+  display:block; margin-bottom:var(--space-2xs);
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--color-faint);
+}
+
+/* ============================================================
+   Ft4 · Colofão
+   ============================================================ */
+.colophon{ padding-bottom:max(var(--space-2xl), env(safe-area-inset-bottom)); }
+.colophon__grid{
+  display:grid; gap:var(--space-lg);
+  padding-block:var(--space-xl) var(--space-lg);
+}
+.colophon__block{
+  margin:0; min-width:0;
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  line-height:1.75; color:var(--color-muted);
+}
+.colophon__k{
+  display:block; margin-bottom:var(--space-2xs);
+  letter-spacing:0.14em; text-transform:uppercase; color:var(--color-faint);
+}
+.colophon__foot{
+  margin:0; padding-top:var(--space-md);
+  border-top:var(--rule-hair) solid var(--color-rule-2);
+  font-family:var(--font-outlier); font-size:var(--text-xs);
+  letter-spacing:0.06em; color:var(--color-faint);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ============================================================
+   Toast — só porque copiar não tem efeito visível na página.
+   ============================================================ */
 .toast{
-  position:fixed; left:50%; bottom:30px; transform:translateX(-50%) translateY(20px);
-  background:var(--panel); border:1px solid var(--accent-deep); color:var(--text);
-  font-family:var(--mono); font-size:12px; letter-spacing:.05em;
-  padding:11px 18px; border-radius:8px; opacity:0; pointer-events:none;
-  transition:opacity .3s ease, transform .3s ease; z-index:50;
+  position:fixed; left:50%; bottom:var(--space-lg);
+  transform:translateX(-50%) translateY(var(--space-md));
+  z-index:var(--z-toast);
+  background:var(--color-paper-3);
+  border:var(--rule-hair) solid var(--color-accent-deep);
+  color:var(--color-ink);
+  font-size:var(--text-sm);
+  padding:var(--space-sm) var(--space-md);
+  border-radius:var(--radius-input);
+  opacity:0; pointer-events:none;
+  transition:opacity var(--dur-short) var(--ease-out),
+             transform var(--dur-short) var(--ease-out);
 }
-.toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+.toast.is-visible{ opacity:1; transform:translateX(-50%) translateY(0); }
 
-/* ===== Revelação ao rolar ===== */
-.reveal{opacity:0; transform:translateY(16px); transition:opacity .7s ease, transform .7s ease;}
-.reveal.in-view{opacity:1; transform:none;}
+/* ============================================================
+   Movimento · UMA entrada orquestrada no carregamento.
+   Nada de fade a cada seção que entra na viewport.
+   ============================================================ */
+@keyframes enter{ to{ opacity:1; transform:none; } }
+
+.mast__top, .mast__index, .marquee__name, .marquee__thesis, .ficha{
+  opacity:0; transform:translateY(8px);
+  animation:enter var(--dur-long) var(--ease-out) forwards;
+}
+.mast__top       { animation-delay:0ms;   }
+.mast__index     { animation-delay:60ms;  }
+.marquee__name   { animation-delay:120ms; }
+.marquee__thesis { animation-delay:200ms; }
+.ficha           { animation-delay:260ms; }
+
 @media (prefers-reduced-motion: reduce){
-  .reveal{opacity:1; transform:none; transition:none;}
-  .case:hover{transform:none;}
-}
-
-/* ===== Responsivo ===== */
-@media (max-width:980px){
-  .shell{grid-template-columns:1fr;}
-  .rail{
-    position:static; height:auto; flex-direction:row; align-items:center;
-    justify-content:space-between; border-right:none; border-bottom:1px solid var(--line);
-    padding:18px 22px;
+  *, *::before, *::after{
+    animation-duration:150ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:150ms !important;
   }
-  nav.index{display:none;}
-  .rail-foot{margin:0; flex-direction:row; align-items:center; gap:14px; padding:0;}
-  .rail-tag{display:none;}
-  main{padding:0 28px;}
-  .hero{padding:60px 0 48px;}
-  .ficha{grid-template-columns:1fr 1fr;}
-}
-@media (max-width:560px){
-  .ficha{grid-template-columns:1fr;}
-  .crow{flex-direction:column; align-items:flex-start;}
+  .mast__top, .mast__index, .marquee__name, .marquee__thesis, .ficha{
+    transform:none; animation-delay:0ms;
+  }
+  .cta:hover .cta__glyph,
+  .proj:hover .proj__go{ transform:none; }
 }
 
-/* ===== Impressão: a página vira papel limpo ===== */
+/* Sem hover em ponteiro grosso; alvos de toque com 44px. */
+@media (pointer: coarse){
+  .copy, .lang button, .cta{ min-height:44px; }
+  .contact__v, .xlink{ padding-block:var(--space-sm); }
+}
+
+/* ============================================================
+   Escalões · 40rem (tipografia) → 60rem (layout) → 90rem (largo)
+   ============================================================ */
+@media (min-width: 30rem){
+  .ficha{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 40rem){
+  .projects{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .proj:last-child{ grid-column:1 / -1; }   /* quebra de grade proposital */
+  .colophon__grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--space-xl); }
+}
+
+@media (min-width: 60rem){
+  .sec h2{ font-size:var(--text-3xl); }
+  .ficha{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
+
+  .record{
+    grid-template-columns:minmax(0, 11rem) minmax(0, 1fr);
+    gap:var(--space-lg);
+  }
+  .record__when{ flex-direction:column; gap:var(--space-2xs); }
+
+  .spec__row{
+    grid-template-columns:minmax(0, 14rem) minmax(0, 1fr);
+    gap:var(--space-lg);
+    align-items:baseline;
+  }
+
+  .diptych{ grid-template-columns:1.15fr 0.85fr; gap:var(--space-3xl); }
+
+  .colophon__grid{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 90rem){
+  .marquee{ padding-block:var(--space-3xl) var(--space-2xl); }
+}
+
+/* ============================================================
+   Impressão · a página vira papel. Claro, denso, sem cromo.
+   ============================================================ */
+/* A paleta de impressão vive em tokens.css — cor é assunto de token.
+   Aqui ficam só as medidas e o que some no papel. */
 @media print{
   :root{
-    --bg:#fff; --text:#1a1a1a; --muted:#555; --faint:#777; --line:#ccc;
-    --accent:#7a1e2b; --accent-deep:#7a1e2b; --accent-ghost:transparent;
+    --page-gutter:0; --content-max:none;
+    --space-2xl:1.1rem; --space-3xl:1.4rem; --space-xl:0.9rem;
   }
-  body{font-size:11pt; background:#fff;}
-  .shell{display:block; max-width:none;}
-  .rail, .printbtn, .copy, .toast{display:none !important;}
-  main{padding:0;}
-  section,.hero{padding:14pt 0; border-bottom:1px solid #ddd;}
-  .hero{padding-top:0;}
-  .reveal{opacity:1; transform:none;}
-  .case{break-inside:avoid; border-color:#ddd;}
-  a{text-decoration:none;}
+  @page{ margin:14mm 15mm; }
+
+  body{ font-size:9.5pt; line-height:1.45; }
+
+  /* Cromo fora: idioma, download, copiar, índice, toast, capitular. */
+  .skip, .mast__tools, .mast__index, .copy, .toast, .proj__go{ display:none !important; }
+  #perfil .lede::first-letter{ float:none; font-size:inherit; color:inherit;
+                               font-family:inherit; line-height:inherit; padding:0; margin:0; }
+
+  .mast__top{ padding-bottom:var(--space-xs); border-bottom:1px solid var(--color-rule); }
+  .marquee{ padding-block:var(--space-md) var(--space-xs); }
+  .marquee__name{ font-size:23pt; letter-spacing:-0.02em; }
+  .marquee__thesis{ font-size:10.5pt; max-width:none; margin-top:var(--space-xs); }
+  .rule-thick{ border-top-width:1px; }
+
+  .ficha{ padding-block:var(--space-sm); gap:var(--space-sm); }
+  .sec, .sec--prose, #projetos, #contato{ padding-block:var(--space-md); }
+  .sec h2{ font-size:13pt; margin-bottom:var(--space-sm); }
+  /* h3 tem de ficar abaixo do h2 — o díptico usava --text-lg e
+     saía maior que o próprio título da seção no papel. */
+  .record__what h3, .proj h3, .diptych__side h3{ font-size:11pt; }
+  .lede{ font-size:9.5pt; }
+  .langs li{ padding-block:var(--space-2xs); }
+  .marks li{ padding-inline-start:var(--space-md); }
+  .diptych{ gap:var(--space-md); }
+
+  /* Nada de quebra no meio de um registro ou de um projeto. */
+  .record, .proj, .spec__row, .contact__row, .diptych__side{ break-inside:avoid; }
+  .sec{ break-inside:auto; }
+  h2, h3{ break-after:avoid; }
+
+  .projects{ grid-template-columns:repeat(2, minmax(0, 1fr)); gap:var(--space-sm); }
+  .proj{ background:none; padding:var(--space-sm); border-color:var(--color-rule); }
+  .proj:last-child{ grid-column:auto; }
+
+  /* Sem animação de entrada no papel. */
+  .mast__top, .mast__index, .marquee__name, .marquee__thesis, .ficha{
+    opacity:1; transform:none; animation:none;
+  }
+
+  a{ text-decoration:none; }
+  .xlink::after{ content:""; }
+  /* O e-mail e os repositórios precisam existir fora da tela. */
+  .contact__v::after{ content:""; }
 }

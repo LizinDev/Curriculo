@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>og-image — gabarito 1200×630</title>
+
+<!--
+  Gabarito do cartão social (og-image.png), 1200×630.
+  Não é publicado: serve só para gerar a imagem.
+
+  Como regerar:
+    python -m http.server 8000
+    chromium --headless --disable-gpu --hide-scrollbars \
+      --window-size=1200,630 --screenshot=og-image.png \
+      --virtual-time-budget=4000 http://localhost:8000/og-template.html
+
+  Depois confira que o arquivo continua 1200×630 — as metatags
+  og:image:width / og:image:height no index.html declaram isso.
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<style>
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    position:relative;
+    width:1200px; height:630px; overflow:hidden;
+    background:var(--color-paper);
+    color:var(--color-ink);
+    font-family:var(--font-body);
+    display:flex; flex-direction:column;
+    padding:64px 72px;
+  }
+
+  /* § fantasma — a marca do site, herdada do cartão anterior */
+  .card__ghost{
+    position:absolute; inset-inline-end:-36px; top:50%;
+    transform:translateY(-47%);
+    margin:0;
+    font-family:var(--font-display); font-weight:700; font-size:540px;
+    line-height:1; color:var(--color-paper-3);
+    user-select:none;
+  }
+  .card__top, .card__name, .card__role, .card__rule, .card__foot{
+    position:relative; z-index:1;
+  }
+
+  .card__top{
+    display:flex; align-items:baseline; gap:var(--space-lg);
+    padding-bottom:var(--space-md);
+  }
+  .card__mark{
+    font-family:var(--font-display); font-weight:700; font-size:34px; line-height:1;
+  }
+  .card__mark span{ color:var(--color-accent); }
+  .card__line{
+    margin:0;
+    font-family:var(--font-outlier); font-size:16px;
+    letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--color-faint);
+  }
+
+  .card__name{
+    margin:auto 0 0;
+    font-family:var(--font-display); font-weight:700; font-style:normal;
+    font-size:104px; line-height:1.0; letter-spacing:-0.025em;
+    font-variation-settings:"opsz" 144;
+  }
+  .card__role{
+    margin:28px 0 0;
+    font-size:30px; line-height:1.35; color:var(--color-ink-2);
+    max-width:24ch;
+  }
+  .card__role b{ color:var(--color-ink); font-weight:500; }
+
+  .card__rule{
+    border:0; border-top:2px solid var(--color-accent-deep);
+    margin:34px 0 0;
+  }
+  .card__foot{
+    margin:var(--space-md) 0 0;
+    display:flex; gap:var(--space-lg); flex-wrap:wrap;
+    font-family:var(--font-outlier); font-size:17px;
+    letter-spacing:0.08em; color:var(--color-muted);
+  }
+  .card__foot span{ color:var(--color-accent); }
+</style>
+</head>
+<body>
+
+  <p class="card__ghost" aria-hidden="true">§</p>
+
+  <div class="card__top">
+    <p class="card__mark">PB<span>§</span></p>
+    <p class="card__line">Ficha de controle</p>
+  </div>
+
+  <h1 class="card__name">Pedro Henrique<br>Braz Moreira</h1>
+
+  <p class="card__role"><b>Controller Jurídico</b> — controle de prazos, fluxo processual e automações.</p>
+
+  <hr class="card__rule">
+  <p class="card__foot">
+    Curitiba, PR <span>§</span> Bacharel em Direito, PUC-PR <span>§</span> lizindev.github.io/Curriculo
+  </p>
+
+</body>
+</html>

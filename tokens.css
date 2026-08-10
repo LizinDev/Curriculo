@@ -1,0 +1,120 @@
+/* =============================================================
+   tokens.css — sistema de design do currículo
+   Tema custom (tuned) · vibe: "ficha de controle, arquivo noturno, precisão"
+   Ancorado no teal da identidade existente (#2FB4A8 → oklch 72% .128 186).
+
+   Todo valor de cor e de fonte da página passa por um token daqui.
+   Nenhum hex, oklch ou font-family solto em styles.css.
+   ============================================================= */
+
+:root{
+
+  /* ---------- cor ----------------------------------------------------
+     Neutros levemente frios (matiz 210), inclinados na direção do
+     acento sem virar verde. Tinta cor de pergaminho (matiz 88) — o
+     contraste morno/frio é o que dá profundidade sem sombra.
+     Contraste verificado: tinta 15.3:1 · secundária 8.8:1 ·
+     apagada 6.1:1 · discreta 5.0:1 · acento 8.1:1 (todos AA/AAA).
+     -------------------------------------------------------------------- */
+  --color-paper:       oklch(18.0% 0.012 210);   /* fundo da página        */
+  --color-paper-2:     oklch(21.5% 0.014 210);   /* elevação 1 (cartões)   */
+  --color-paper-3:     oklch(25.0% 0.015 210);   /* elevação 2 (hover)     */
+  --color-ink:         oklch(93.0% 0.013  88);   /* texto principal        */
+  --color-ink-2:       oklch(76.0% 0.011  92);   /* texto secundário       */
+  --color-muted:       oklch(66.0% 0.014 210);   /* meta, datas            */
+  --color-faint:       oklch(61.0% 0.016 210);   /* rótulos pequenos       */
+  --color-rule:        oklch(30.0% 0.016 210);   /* fio divisor            */
+  --color-rule-2:      oklch(25.5% 0.014 210);   /* fio secundário         */
+  --color-accent:      oklch(72.0% 0.128 186);   /* teal — o sinal         */
+  --color-accent-deep: oklch(53.0% 0.098 187);   /* teal fundo (bordas)    */
+  --color-accent-ink:  oklch(18.0% 0.012 210);   /* texto sobre o acento   */
+  --color-accent-ghost:oklch(72.0% 0.128 186 / 0.11); /* realce de fundo   */
+  --color-focus:       oklch(76.0% 0.190 186);   /* anel de foco           */
+
+  /* ---------- tipografia ---------------------------------------------
+     2+1: display serifado + corpo sans + mono como registro único.
+     O mono tem UM papel: dado (datas, chaves, siglas, colofão).
+     Nunca aparece em botão ou em texto corrido.
+     -------------------------------------------------------------------- */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body:    "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-outlier: "IBM Plex Mono", ui-monospace, SFMono-Regular, monospace;
+
+  /* escala 1.25 (terça maior) a partir de 16px */
+  --text-xs:      0.7rem;      /* 11.2px — só rótulos                */
+  --text-sm:      0.8125rem;   /* 13px                               */
+  --text-base:    1rem;        /* 16px                               */
+  --text-md:      1.125rem;    /* 18px — corpo de leitura            */
+  --text-lg:      1.375rem;    /* 22px                               */
+  --text-xl:      1.75rem;     /* 28px                               */
+  --text-2xl:     2.25rem;     /* 36px                               */
+  --text-3xl:     2.875rem;    /* 46px                               */
+  --text-display:   clamp(2.5rem, 7.2vw, 5.25rem);
+  --text-display-s: clamp(2rem, 5vw, 3.25rem);
+
+  /* ---------- espaço — base 4pt, nomeado por papel ---------------- */
+  --space-3xs: 0.125rem;   /*   2px */
+  --space-2xs: 0.25rem;    /*   4px */
+  --space-xs:  0.5rem;     /*   8px */
+  --space-sm:  0.75rem;    /*  12px */
+  --space-md:  1rem;       /*  16px */
+  --space-lg:  1.5rem;     /*  24px */
+  --space-xl:  2.5rem;     /*  40px */
+  --space-2xl: 4rem;       /*  64px */
+  --space-3xl: 6rem;       /*  96px */
+  --space-4xl: 9rem;       /* 144px */
+
+  --page-gutter:  clamp(1.25rem, 5vw, 4rem);
+  --content-max:  68rem;    /* largura da coluna de conteúdo      */
+  --measure:      66ch;     /* medida de leitura, 45–75 caracteres */
+
+  /* ---------- fios e cantos ---------------------------------------- */
+  --rule-hair:   1px;
+  --rule-thick:  2px;
+  --radius-card: 4px;
+  --radius-input:3px;
+  --radius-pill: 999px;
+
+  /* ---------- movimento -------------------------------------------- */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:     cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro:   120ms;
+  --dur-short:   220ms;
+  --dur-long:    420ms;
+
+  /* ---------- camadas ----------------------------------------------- */
+  --z-base:     1;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+}
+
+/* ---------- paleta de impressão -------------------------------------
+   No papel a tinta se inverte: fundo branco é ausência de tinta, não
+   uma cor. O acento vira verde-petróleo escuro para sobreviver a uma
+   impressora preto-e-branco (fica cinza escuro, não cinza claro).
+   Contraste medido sobre branco: tinta 18.0:1 · secundária 10.0:1 ·
+   apagada 5.5:1 · discreta 4.9:1 · acento 9.6:1 — todos passam AA.
+   -------------------------------------------------------------------- */
+@media print{
+  :root{
+    --color-paper:       oklch(100%  0     0);
+    --color-paper-2:     oklch(100%  0     0);
+    --color-paper-3:     oklch(100%  0     0);
+    --color-ink:         oklch(20.5% 0.008 250);
+    --color-ink-2:       oklch(38.0% 0.008 250);
+    --color-muted:       oklch(52.0% 0.008 250);
+    --color-faint:       oklch(55.0% 0.008 250);
+    --color-rule:        oklch(78.0% 0.006 250);
+    --color-rule-2:      oklch(88.0% 0.005 250);
+    --color-accent:      oklch(38.0% 0.070 187);
+    --color-accent-deep: oklch(38.0% 0.070 187);
+    --color-accent-ink:  oklch(100%  0     0);
+    --color-accent-ghost:transparent;
+    --color-focus:       oklch(38.0% 0.070 187);
+  }
+}
