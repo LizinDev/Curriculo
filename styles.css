@@ -278,15 +278,18 @@ h1,h2,h3{
 }
 .lede strong{ font-weight:600; }
 
-/* Capitular — uma vez só na página inteira. */
+/* Inicial elevada — uma vez só na página inteira.
+   Não é capitular: a letra não flutua e o texto não a contorna. Ela
+   apoia na MESMA linha de base da primeira linha e cresce para cima.
+   line-height:0 é o truque — sem isso a letra grande incharia a caixa
+   da primeira linha e abriria um buraco na entrelinha do parágrafo. */
+#perfil .lede{ padding-top:0.55em; }
 #perfil .lede::first-letter{
-  float:inline-start;
   font-family:var(--font-display);
   font-weight:700;
-  font-size:3.6em;
-  line-height:0.82;
-  padding-inline-end:0.08em;
-  margin-block-start:0.06em;
+  font-size:2.5em;
+  line-height:0;
+  padding-inline-end:0.04em;
   color:var(--color-accent);
 }
 
@@ -550,6 +553,9 @@ h1,h2,h3{
   display:block; margin-bottom:var(--space-2xs);
   letter-spacing:0.14em; text-transform:uppercase; color:var(--color-faint);
 }
+/* Só aparece no papel: quem tem a folha na mão precisa do endereço. */
+.only-print{ display:none; }
+
 .colophon__foot{
   margin:0; padding-top:var(--space-md);
   border-top:var(--rule-hair) solid var(--color-rule-2);
@@ -666,7 +672,15 @@ h1,h2,h3{
 
   /* Cromo fora: idioma, download, copiar, índice, toast, capitular. */
   .skip, .mast__tools, .mast__index, .copy, .toast, .proj__go{ display:none !important; }
-  #perfil .lede::first-letter{ float:none; font-size:inherit; color:inherit;
+  /* O colofão é dispositivo de página web — créditos de tipografia e
+     "escrito à mão" não servem a quem lê no papel, e custavam uma
+     folha inteira só para eles. Fica só a linha de rodapé + o endereço. */
+  .colophon__grid{ display:none !important; }
+  .only-print{ display:inline; }
+  .colophon__foot{ border-top:0; padding-top:0; }
+  /* No papel a inicial elevada sai: densidade vale mais que floreio. */
+  #perfil .lede{ padding-top:0; }
+  #perfil .lede::first-letter{ font-size:inherit; color:inherit;
                                font-family:inherit; line-height:inherit; padding:0; margin:0; }
 
   .mast__top{ padding-bottom:var(--space-xs); border-bottom:1px solid var(--color-rule); }
