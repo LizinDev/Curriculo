@@ -163,8 +163,15 @@
           if (!entry.isIntersecting) return;
           const link = linkByHash.get(entry.target.id);
           if (!link || link.classList.contains('is-active')) return;
-          indexLinks.forEach((l) => l.classList.remove('is-active'));
+          // aria-current junto da classe: o destaque da secao atual era so
+          // visual, entao quem navega por leitor de tela nao tinha como saber
+          // em que parte do curriculo estava.
+          indexLinks.forEach((l) => {
+            l.classList.remove('is-active');
+            l.removeAttribute('aria-current');
+          });
           link.classList.add('is-active');
+          link.setAttribute('aria-current', 'true');
           keepInView(link);
         });
       },
