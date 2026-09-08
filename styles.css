@@ -699,7 +699,7 @@ h1,h2,h3{
     --page-gutter:0; --content-max:none;
     --space-2xl:1.1rem; --space-3xl:1.4rem; --space-xl:0.9rem;
   }
-  @page{ margin:14mm 15mm; }
+  @page{ size:A4; margin:14mm 15mm; }
 
   body{ font-size:9.5pt; line-height:1.45; }
 
@@ -748,6 +748,15 @@ h1,h2,h3{
 
   a{ text-decoration:none; }
   .xlink::after{ content:""; }
+
+  /* No papel o link nao clica: os projetos ficavam sem destino visivel.
+     Escopado em .feature__actions de proposito — a lista de sistemas de
+     tribunal tambem usa .xlink, e imprimir sete URLs longas ali seria ruido. */
+  .feature__actions a::after{
+    content:" — " attr(href);
+    font-size:0.85em; font-weight:400; word-break:break-all;
+  }
+  .feature__actions .cta__glyph{ display:none; }
   /* O e-mail e os repositórios precisam existir fora da tela. */
   .contact__v::after{ content:""; }
 }
