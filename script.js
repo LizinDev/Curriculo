@@ -28,7 +28,13 @@
   const langButtons = document.querySelectorAll('.lang button');
   const ptOriginal = new WeakMap();
   const ptTitle = document.title;
-  let lang = localStorage.getItem(STORAGE_KEY) === 'en' ? 'en' : 'pt';
+  // Leitura protegida como a escrita mais abaixo. Em janela privada, ou com
+  // armazenamento de site bloqueado, getItem lanca — e como isto roda na
+  // inicializacao, a excecao derrubava o script inteiro: sem troca de idioma,
+  // sem copiar, sem indice ativo. A pagina precisa abrir mesmo sem storage.
+  let idiomaSalvo = null;
+  try { idiomaSalvo = localStorage.getItem(STORAGE_KEY); } catch (_) { /* modo privado */ }
+  let lang = idiomaSalvo === 'en' ? 'en' : 'pt';
 
   i18nEls.forEach((el) => ptOriginal.set(el, el.innerHTML));
 
@@ -102,20 +108,21 @@
 
   document.querySelectorAll('.copy').forEach((btn) => {
     btn.addEventListener('click', async () => {
-      const labels = UI[lang];
       btn.setAttribute('aria-busy', 'true');
 
       try {
         await copyText(btn.getAttribute('data-copy'));
-        btn.textContent = labels.done;
+        // UI[lang] lido DEPOIS do await, nao antes: quem troca o idioma
+        // enquanto a copia acontece via um "Copied" em pagina portuguesa.
+        btn.textContent = UI[lang].done;
         btn.classList.add('is-done');
         btn.classList.remove('is-error');
-        showToast(labels.toastDone);
+        showToast(UI[lang].toastDone);
       } catch (_) {
-        btn.textContent = labels.failed;
+        btn.textContent = UI[lang].failed;
         btn.classList.add('is-error');
         btn.classList.remove('is-done');
-        showToast(labels.toastFail);
+        showToast(UI[lang].toastFail);
       } finally {
         btn.removeAttribute('aria-busy');
       }
