@@ -1,0 +1,14 @@
+name: i18n
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verificar:
+    name: Português e inglês em sincronia
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Só biblioteca padrão: o python3 do runner basta, sem instalar nada.
+      - run: python3 tools/verificar-i18n.py
