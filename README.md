@@ -17,6 +17,7 @@ other in place and remembers the choice. The download button serves a two-page A
 | `styles.css`, `tokens.css` | layout and design tokens |
 | `og-image.png`, `og-template.html` | the link-preview image and the page it was rendered from |
 | `tools/verificar-i18n.py` | checks that both languages have the same keys; CI runs it on every push |
+| `tools/verificar-pdf.py` | checks that each downloadable PDF has the current revision, role and projects in its language; CI runs it on every push |
 
 ## Preview locally
 
@@ -25,7 +26,8 @@ python3 -m http.server 8000
 ```
 
 Then open <http://localhost:8000>. After editing the CV, run
-`python3 tools/verificar-i18n.py`. Select each language in the browser and print
+`python3 tools/verificar-i18n.py` and `python3 tools/verificar-pdf.py` (the second
+needs `pdftotext`, from poppler). Select each language in the browser and print
 to PDF using A4, 100% scale and browser headers and footers off. Save the
 Portuguese edition over the existing `-CV.pdf` file and the English edition over
 `-CV-EN.pdf`. Check pagination and click the download button in both languages.
