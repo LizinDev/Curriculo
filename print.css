@@ -1,7 +1,7 @@
 /* =============================================================
-   print.css — a folha que vira os dois PDFs (tools/gerar-pdf.py).
-   A4, duas páginas por língua. A styles.css é só de tela: aqui tudo
-   parte do zero, com o mesmo rótulo à esquerda e conteúdo à direita.
+   print.css — a página impressa pelo navegador, em A4. Os PDFs para
+   download são outro documento (cv/, tools/gerar-pdf.py). A styles.css
+   é só de tela: aqui tudo parte do zero.
    ============================================================= */
 @page {
   size: A4;

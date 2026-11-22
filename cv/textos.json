@@ -1,0 +1,84 @@
+{
+  "pt": {
+    "lang": "pt-BR",
+    "arquivo": "Pedro-Henrique-Braz-Moreira-CV.pdf",
+    "titulo": "Pedro Henrique Braz Moreira, Controller Jurídico",
+    "cargo": "Controller Jurídico",
+    "local": "Curitiba, PR",
+    "email": "lol94430@gmail.com",
+    "revisao": "Rev. Nov 2026",
+    "resumo": "Bacharel em Direito pela PUC-PR, com atuação em controle processual e gestão de prazos cíveis para contas corporativas de alto volume, como O Boticário e BRF. Experiência anterior em Direito Médico, do Trabalho, Civil, Imobiliário e Bancário. Desenvolve automações em Python para a rotina jurídica.",
+    "secoes": { "resumo": "Resumo profissional", "experiencia": "Experiência jurídica", "competencias": "Competências", "automacao": "Automação jurídica", "formacao": "Formação e idiomas" },
+    "experiencia": [
+      { "cargo": "Controller Jurídico", "org": "Hasson Advogados", "nota": "área cível", "datas": "set 2025 – atual", "itens": [
+        "Controle e gestão de prazos processuais de carteira corporativa de alto volume.",
+        "Protocolo de petições e acompanhamento processual em PJe, eproc, Projudi e e-SAJ.",
+        "Relatórios gerenciais e processuais periódicos para os clientes.",
+        "Gestão de informações e fluxos em Legal One e CPJ." ] },
+      { "cargo": "Estágio em Direito", "org": "Pacheco Sociedade de Advocacia", "nota": "", "datas": "mai 2023 – set 2024", "itens": [
+        "Auxílio na elaboração de contestações e demais peças em Direito Médico.",
+        "Redação de petições iniciais, de juntada e demais peças em reclamações trabalhistas.",
+        "Acompanhamento de prazos e protocolo de peças em CPJ, Projudi, e-SAJ e PJe.",
+        "Atendimento e orientação a clientes quanto a dúvidas processuais." ] },
+      { "cargo": "Estágio em Direito", "org": "Sociedade de Advogados Peregrino Neto", "nota": "", "datas": "mar 2020 – mar 2021", "itens": [
+        "Pesquisa jurídica em Direito Civil, Imobiliário e Bancário.",
+        "Formulação de petições e demais peças jurídicas.",
+        "Protocolo de arquivos e acompanhamento de processos em fóruns e tribunais.",
+        "Elaboração de relatórios mensais para clientes." ] }
+    ],
+    "competencias": [
+      ["Atuação", "Controle de prazos, protocolo, acompanhamento processual, peças, pesquisa jurídica, relatórios"],
+      ["Tribunais", "PJe, eproc, Projudi, e-SAJ"],
+      ["Plataformas", "Legal One, CPJ, Pacote Office"],
+      ["Tecnologia", "Python, Selenium, openpyxl"]
+    ],
+    "automacao": [
+      ["TarefasLegalOne", "Cadastro de tarefas em lote no Legal One a partir de planilhas, com retomada e relatórios de conferência."],
+      ["Hasson Portal", "Portal de acompanhamento processual que traduz dados do DataJud e do DJEN para linguagem simples."],
+      ["Migração ELAW", "Transferência de processos do Gerencial ELAW para o Legal One, com mapeamento de campos e conferência."]
+    ],
+    "formacao": { "curso": "Bacharelado em Direito", "escola": "PUC-PR", "datas": "2020 – 2024" },
+    "idiomas": [["Português", "nativo"], ["Inglês", "avançado (Phil Young's)"], ["Alemão", "avançado (Centro Europeu)"]]
+  },
+  "en": {
+    "lang": "en",
+    "arquivo": "Pedro-Henrique-Braz-Moreira-CV-EN.pdf",
+    "titulo": "Pedro Henrique Braz Moreira, Legal Controller",
+    "cargo": "Legal Controller",
+    "local": "Curitiba, Brazil",
+    "email": "lol94430@gmail.com",
+    "revisao": "Rev. Nov 2026",
+    "resumo": "Law graduate from PUC-PR, working in case control and civil deadline management for high-volume corporate accounts such as O Boticário and BRF. Earlier experience in Medical, Labour, Civil, Real Estate and Banking Law. Develops Python automation for legal work.",
+    "secoes": { "resumo": "Professional summary", "experiencia": "Legal experience", "competencias": "Skills", "automacao": "Legal automation", "formacao": "Education and languages" },
+    "experiencia": [
+      { "cargo": "Legal Controller", "org": "Hasson Advogados", "nota": "civil law", "datas": "Sep 2025 – present", "itens": [
+        "Control and management of procedural deadlines for a high-volume corporate portfolio.",
+        "Filing of petitions and case tracking in PJe, eproc, Projudi and e-SAJ.",
+        "Periodic managerial and procedural reports for clients.",
+        "Management of information and workflows in Legal One and CPJ." ] },
+      { "cargo": "Law Internship", "org": "Pacheco Sociedade de Advocacia", "nota": "", "datas": "May 2023 – Sep 2024", "itens": [
+        "Support in drafting defences and other legal documents in Medical Law.",
+        "Drafting of initial petitions, submissions and other documents in labour claims.",
+        "Deadline tracking and filing in CPJ, Projudi, e-SAJ and PJe.",
+        "Client assistance and guidance on procedural questions." ] },
+      { "cargo": "Law Internship", "org": "Sociedade de Advogados Peregrino Neto", "nota": "", "datas": "Mar 2020 – Mar 2021", "itens": [
+        "Legal research in Civil, Real Estate and Banking Law.",
+        "Drafting of petitions and other legal documents.",
+        "Document filing and case tracking in courts and tribunals.",
+        "Monthly reports for clients." ] }
+    ],
+    "competencias": [
+      ["Practice", "Deadline control, filing, case tracking, legal drafting, legal research, reporting"],
+      ["Court systems", "PJe, eproc, Projudi, e-SAJ"],
+      ["Platforms", "Legal One, CPJ, Microsoft Office"],
+      ["Technology", "Python, Selenium, openpyxl"]
+    ],
+    "automacao": [
+      ["TarefasLegalOne", "Batch task entry in Legal One from spreadsheets, with resumable runs and reconciliation reports."],
+      ["Hasson Portal", "Case-tracking portal that turns DataJud and DJEN data into plain language."],
+      ["ELAW migration", "Transfer of cases from ELAW Gerencial to Legal One, with field mapping and reconciliation."]
+    ],
+    "formacao": { "curso": "Bachelor of Laws (LL.B.)", "escola": "PUC-PR", "datas": "2020 – 2024" },
+    "idiomas": [["Portuguese", "native"], ["English", "advanced (Phil Young's)"], ["German", "advanced (Centro Europeu)"]]
+  }
+}

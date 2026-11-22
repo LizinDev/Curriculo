@@ -22,13 +22,14 @@ and resumed, a reader for Brazilian court case numbers, and
 | `script.js` | language switch, the three tools, search and scrolling |
 | `tokens.css` | colors, fonts, type scale and measures |
 | `styles.css` | the screen layout |
-| `print.css` | the A4 layout the two PDFs are made from |
+| `print.css` | how the page itself prints |
+| `cv/` | the text and layout of the one-page PDFs |
 | `fonts/` | Anybody, Golos Text and Azeret Mono, with their OFL licenses |
 | `og-image.png`, `og-template.html` | the link-preview image and the page it was rendered from |
-| `tools/gerar-pdf.py` | makes both PDFs from the page and fails unless each has two pages |
+| `tools/gerar-pdf.py` | makes both PDFs and stops unless each fits one page |
 | `tools/verificar-i18n.py` | checks that both languages have the same keys |
 | `tools/verificar-competencias.py` | checks that the skills table matches the text of the CV |
-| `tools/verificar-pdf.py` | checks that each PDF has the current revision, role and projects |
+| `tools/verificar-pdf.py` | checks that each PDF has the same facts as the page, on one page |
 
 The three checks run in CI on every push.
 
