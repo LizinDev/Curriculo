@@ -6,107 +6,40 @@
 <title>og-image — gabarito 1200×630</title>
 
 <!--
-  Gabarito do cartão social (og-image.png), 1200×630.
-  Não é publicado: serve só para gerar a imagem.
+  Gabarito do cartão social (og-image.png), 1200×630. Só gera a imagem.
 
-  Como regerar:
-    python -m http.server 8000
-    chromium --headless --disable-gpu --hide-scrollbars \
-      --window-size=1200,630 --screenshot=og-image.png \
-      --virtual-time-budget=4000 http://localhost:8000/og-template.html
+  Como regerar (na raiz do repositório):
+    python3 -m http.server 8000
+    chromium --headless=new --hide-scrollbars --window-size=1200,630 \
+      --virtual-time-budget=4000 --screenshot=og-image.png http://localhost:8000/og-template.html
 
-  Depois confira que o arquivo continua 1200×630 — as metatags
-  og:image:width / og:image:height no index.html declaram isso.
+  O arquivo precisa continuar 1200×630: as metatags og:image:width e
+  og:image:height do index.html declaram isso.
 -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="tokens.css">
 <style>
-  *{ box-sizing:border-box; }
-  html,body{ margin:0; padding:0; }
-  body{
-    position:relative;
-    width:1200px; height:630px; overflow:hidden;
-    background:var(--color-paper);
-    color:var(--color-ink);
-    font-family:var(--font-body);
-    display:flex; flex-direction:column;
-    padding:64px 72px;
-  }
-
-  /* § fantasma — a marca do site, herdada do cartão anterior */
-  .card__ghost{
-    position:absolute; inset-inline-end:-36px; top:50%;
-    transform:translateY(-47%);
-    margin:0;
-    font-family:var(--font-display); font-weight:700; font-size:540px;
-    line-height:1; color:var(--color-paper-3);
-    user-select:none;
-  }
-  .card__top, .card__name, .card__role, .card__rule, .card__foot{
-    position:relative; z-index:1;
-  }
-
-  .card__top{
-    display:flex; align-items:baseline; gap:var(--space-lg);
-    padding-bottom:var(--space-md);
-  }
-  .card__mark{
-    font-family:var(--font-display); font-weight:700; font-size:34px; line-height:1;
-  }
-  .card__mark span{ color:var(--color-accent); }
-  .card__line{
-    margin:0;
-    font-family:var(--font-outlier); font-size:16px;
-    letter-spacing:0.16em; text-transform:uppercase;
-    color:var(--color-faint);
-  }
-
-  .card__name{
-    margin:auto 0 0;
-    font-family:var(--font-display); font-weight:700; font-style:normal;
-    font-size:104px; line-height:1.0; letter-spacing:-0.025em;
-    font-variation-settings:"opsz" 144;
-  }
-  .card__role{
-    margin:28px 0 0;
-    font-size:30px; line-height:1.35; color:var(--color-ink-2);
-    max-width:24ch;
-  }
-  .card__role b{ color:var(--color-ink); font-weight:500; }
-
-  .card__rule{
-    border:0; border-top:2px solid var(--color-accent-deep);
-    margin:34px 0 0;
-  }
-  .card__foot{
-    margin:var(--space-md) 0 0;
-    display:flex; gap:var(--space-lg); flex-wrap:wrap;
-    font-family:var(--font-outlier); font-size:17px;
-    letter-spacing:0.08em; color:var(--color-muted);
-  }
-  .card__foot span{ color:var(--color-accent); }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { position: relative; width: 1200px; height: 630px; overflow: hidden; display: grid; grid-template-columns: 540px 20px 640px; font-family: var(--f-body); }
+  .e { background: var(--in); color: var(--in-ink); }
+  .c { background: var(--pipe); }
+  .s { background: var(--out); color: var(--out-ink); }
+  .d { font-family: var(--f-display); font-weight: 800; font-stretch: 60%; line-height: 1; white-space: nowrap; position: absolute; margin: 0; }
+  .n { left: 52px; top: 48px; font-size: 50px; font-stretch: 72%; line-height: 1.02; white-space: pre; }
+  .r { left: 52px; top: 166px; position: absolute; margin: 0; font-size: 22px; font-weight: 600; }
+  .p { right: 692px; top: 262px; font-size: 204px; letter-spacing: -0.012em; }
+  .k { left: 592px; top: 262px; font-size: 204px; letter-spacing: -0.012em; }
+  .t { left: 592px; top: 486px; font-size: 82px; }
 </style>
 </head>
 <body>
-
-  <p class="card__ghost" aria-hidden="true">§</p>
-
-  <div class="card__top">
-    <p class="card__mark">PB<span>§</span></p>
-    <p class="card__line">Ficha de controle</p>
-  </div>
-
-  <h1 class="card__name">Pedro Henrique<br>Braz Moreira</h1>
-
-  <p class="card__role"><b>Controller Jurídico</b> — controle de prazos, fluxo processual e automações.</p>
-
-  <hr class="card__rule">
-  <p class="card__foot">
-    Curitiba, PR <span>§</span> Bacharel em Direito, PUC-PR <span>§</span> lizindev.github.io/Curriculo
-  </p>
-
+<div class="e"></div><div class="c"></div><div class="s"></div>
+<p class="d n" style="color:var(--in-ink)">Pedro Henrique
+Braz Moreira</p>
+<p class="r" style="color:var(--in-ink-2)">Controller Jurídico</p>
+<p class="d p" style="color:var(--in-ink)">prazos</p>
+<p class="d k" style="color:var(--out-ink)">código</p>
+<p class="d t" style="color:var(--out-ink)">&gt; rotina sob controle</p>
 </body>
 </html>

@@ -1,12 +1,39 @@
 [
   {
+    "date": "2026-11-22",
+    "verb": "redesign",
+    "depth": "full",
+    "scope": "single-page",
+    "theme": "custom",
+    "idea": "entrada | saída: a página é um cano de shell; a metade escura entra, a clara sai, o cano guia a leitura",
+    "theme_axes": "light-dark split / grotesk-condensed / warm-clay",
+    "vibe": "pôster chapado, oliva, técnico, calmo",
+    "signature": "o cano que para em cada ferramenta e volta pela saída; três ferramentas que rodam na página",
+    "brief": "Currículo com linguagem de CLI e automação (PT/EN, GitHub Pages)",
+    "replaced": {
+      "macrostructure": "Marquee Hero",
+      "nav": "N6 Newspaper masthead",
+      "footer": "Ft4 Dense colophon"
+    },
+    "waived": [
+      "mono como material (pedido do usuário)",
+      "cota de palavras (currículo)"
+    ]
+  },
+  {
     "date": "2026-08-10",
     "verb": "redesign",
     "scope": "single-page",
     "macrostructure": "Marquee Hero",
     "nav": "N6 Newspaper masthead",
     "footer": "Ft4 Dense colophon",
-    "archetypes": ["H1 Marquee", "F4 Step sequence", "F3 Tabular spec sheet", "F6 Product card grid", "C3 Typographic link"],
+    "archetypes": [
+      "H1 Marquee",
+      "F4 Step sequence",
+      "F3 Tabular spec sheet",
+      "F6 Product card grid",
+      "C3 Typographic link"
+    ],
     "theme": "custom",
     "theme_axes": "dark / roman-serif / chromatic-teal ~186",
     "vibe": "ficha de controle, arquivo noturno, precisão",

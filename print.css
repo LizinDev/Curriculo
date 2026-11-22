@@ -1,0 +1,103 @@
+/* =============================================================
+   print.css — a folha que vira os dois PDFs (tools/gerar-pdf.py).
+   A4, duas páginas por língua. A styles.css é só de tela: aqui tudo
+   parte do zero, com o mesmo rótulo à esquerda e conteúdo à direita.
+   ============================================================= */
+@page {
+  size: A4;
+  margin: 13mm 14mm 11mm;
+}
+:root {
+  --ink: oklch(0.245 0.032 122);
+  --ink-2: oklch(0.42 0.032 122);
+  --rule: oklch(0.82 0.02 112);
+  --col: 57mm;
+  --grid: var(--col) minmax(0, 1fr);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  background: white;
+  color: var(--ink);
+  font: 400 9.3pt/1.42 var(--f-body);
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+h1, h2, h3, p, ul, ol, dl, dd, table { margin: 0; padding: 0; }
+ul, ol { list-style: none; }
+a { color: inherit; text-decoration: none; }
+
+/* o que é só da tela */
+.bar, .fill, .skip, .toast, .giant, .g3, .valve, .cta, .copy, .ix, .iobox, .outlet, .exit, .yr, .bye, .js-only, .all, .fl, #filtro, .contact,
+.vh, .plate.line .out, .tool .plate .out, .live:not(.sec), [data-i18n="s5-lede"], [data-i18n="d-e-l"], [data-i18n="d-k-l"], .colophon a { display: none !important; }
+
+h1, h2, h3, .disp { font-family: var(--f-display); font-weight: 800; font-stretch: 72%; line-height: 1.08; break-after: avoid; }
+h2 { font-size: 16pt; font-stretch: 62%; }
+h3 { font-size: 10.6pt; }
+
+/* topo */
+.hero { border-bottom: 1.3mm solid var(--pipe); padding-bottom: 4mm; }
+.h-name h1 { font-size: 27pt; }
+.h-name h1 br { display: none; }
+.role { font-size: 11.5pt; font-weight: 600; margin-top: 1.4mm; }
+.p-contact { font-size: 8.7pt; color: var(--ink-2); margin-top: 0.6mm; }
+.thesis { font-size: 10.4pt; margin-top: 2.2mm; }
+
+/* rótulo | conteúdo */
+.sec { margin-top: 5mm; }
+.sec > .r, .entry, .int-row { display: grid; grid-template-columns: var(--grid); column-gap: 7mm; align-items: start; }
+.sec > .r > .in h2 { margin-bottom: 1.2mm; }
+.ficha > div { display: grid; grid-template-columns: 16mm 1fr; }
+.ficha dt, .meta, .org, .note, .when, .acts, .st { color: var(--ink-2); font-size: 8.7pt; }
+.lede { font-size: 9.8pt; }
+
+/* trajetória */
+.entry { break-inside: avoid; margin-top: 2.8mm; }
+.entry .when { font-weight: 600; }
+.marks li { position: relative; padding-left: 3.4mm; }
+.marks li::before { content: ""; position: absolute; left: 0; top: 1.75mm; width: 1.4mm; height: 1.4mm; background: var(--pipe); }
+
+/* projetos */
+.tool { display: grid; grid-template-columns: var(--grid); grid-template-rows: auto 1fr; column-gap: 7mm; break-inside: avoid; margin-top: 2.8mm; }
+.tool .stage, .tool .body, .tool .st1 { display: contents; }
+.tool .plate { grid-column: 1; }
+.tool .plate .name { font-size: 10.6pt; }
+.tool .st1 > .in { grid-column: 1; }
+.tool .st1 > .out { grid-column: 2; grid-row: 1 / span 2; }
+.tool h3 { font: 400 8.7pt/1.4 var(--f-body); color: var(--ink-2); }
+.acts { overflow-wrap: anywhere; }
+.acts a { font-size: 0; }
+.acts a::after { content: attr(href); font-size: 7.2pt; white-space: nowrap; }
+.plate.line { margin-top: 3.6mm; border-top: 0.3mm solid var(--rule); padding-top: 2.6mm; }
+.plate.line .name { font-size: 12pt; }
+.int-row { break-inside: avoid; margin-top: 2.2mm; }
+.int-row .acts .st { margin-right: 2mm; }
+.int-row .acts { font-size: 8.2pt; }
+
+/* competências */
+#competencias { break-inside: avoid; }
+.mx { width: 100%; table-layout: fixed; border-collapse: collapse; margin-top: 1mm; }
+.mx .c0 { width: 64mm; }
+.mx .c1 { width: 29mm; }
+.mx thead th { font-weight: 400; vertical-align: bottom; padding: 0 0 1.2mm; text-align: center; }
+.mx thead b { display: block; font-size: 15pt; line-height: 1; }
+.mx thead span { display: block; font-weight: 600; font-size: 8pt; line-height: 1.25; }
+.mx thead small { display: block; font-size: 7.6pt; line-height: 1.25; color: var(--ink-2); }
+.mx tbody th { text-align: left; font-weight: 400; padding: 0; }
+.mx .g th { font: 800 10pt/1.1 var(--f-display); font-stretch: 72%; padding: 1.8mm 0 0.6mm; }
+.mx .g i { font-style: normal; color: var(--ink-2); margin-left: 1mm; }
+.mx td { height: 4.25mm; padding: 0; }
+.mx tbody tr:not(.g) td:not(.f) { border-bottom: 0.2mm solid var(--rule); }
+.mx td.u > a { display: block; height: 3.3mm; margin-right: 0.5mm; background: var(--pipe); text-align: center; font: 800 8pt/3.5mm var(--f-display); font-stretch: 72%; }
+.sk { font: inherit; color: inherit; background: none; border: 0; padding: 0; margin: 0; }
+
+/* formação, referência, rodapé */
+.langs li { display: grid; grid-template-columns: 24mm 1fr; }
+.langs li > span:first-child { font-weight: 600; }
+.ref span { font-weight: 600; margin-right: 1.5mm; }
+#contato > .r { display: block; }
+.colophon { margin-top: 5mm; padding-top: 1.6mm; border-top: 0.3mm solid var(--rule); font-size: 7.8pt; color: var(--ink-2); }
+.colophon .r { display: flex; justify-content: space-between; }

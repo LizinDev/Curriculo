@@ -1,6 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="~§">
-  <rect width="64" height="64" rx="13" fill="#16181C"/>
-  <text x="32" y="35" text-anchor="middle" dominant-baseline="central"
-        font-family="'IBM Plex Mono','DejaVu Sans Mono','Courier New',monospace"
-        font-weight="700" font-size="40" letter-spacing="-3" fill="#2FB4A8">~§</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="entrada | saída">
+  <rect width="64" height="64" fill="#363c25"/>
+  <rect x="32" width="32" height="64" fill="#dcdfcf"/>
+  <rect x="25" width="14" height="64" fill="#d4916f"/>
 </svg>

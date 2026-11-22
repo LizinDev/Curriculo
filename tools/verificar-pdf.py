@@ -3,8 +3,8 @@
 
 Segue o botão de download do index.html em cada língua e procura, no texto do PDF,
 a revisão, o cargo atual e os títulos dos projetos dessa língua, além do endereço
-de cada projeto público. Pega o caso em que o site é atualizado e o PDF fica para trás.
-Precisa do pdftotext (poppler). Saída 0 = em dia, 1 = PDF desatualizado,
+de cada projeto público, e que o arquivo tem duas páginas. Pega o caso em que o site é atualizado e o PDF fica para trás.
+Precisa do pdftotext e do pdfinfo (poppler). Saída 0 = em dia, 1 = PDF desatualizado,
 2 = não deu para conferir (nunca conta como verde).
 
     python3 tools/verificar-pdf.py
@@ -56,8 +56,13 @@ def main():
         }
         repos = set(re.findall(r"https://github\.com/(LizinDev/[\w.-]+)", html)) - {"LizinDev/Curriculo"}
         textos = {
-            lingua: subprocess.run(["pdftotext", "-layout", str(RAIZ / nome), "-"], check=True,
+            lingua: subprocess.run(["pdftotext", str(RAIZ / nome), "-"], check=True,
                                    capture_output=True, text=True).stdout
+            for lingua, nome in arquivos.items()
+        }
+        paginas = {
+            lingua: int(re.search(r"Pages:\s+(\d+)", subprocess.run(
+                ["pdfinfo", str(RAIZ / nome)], check=True, capture_output=True, text=True).stdout).group(1))
             for lingua, nome in arquivos.items()
         }
     except (OSError, ValueError, AttributeError, subprocess.CalledProcessError) as erro:
@@ -66,6 +71,8 @@ def main():
 
     for lingua, dicionario in (("pt", portugues), ("en", ingles)):
         conteudo = normal(textos[lingua])
+        if paginas[lingua] != 2:
+            problemas.append(f"{arquivos[lingua]}: tem {paginas[lingua]} página(s), o combinado são 2")
         for chave in CHAVES:
             if chave not in dicionario:
                 print(f"verificar-pdf: a chave {chave} não existe mais em {lingua}; atualize CHAVES", file=sys.stderr)

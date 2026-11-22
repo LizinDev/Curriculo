@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       # Só biblioteca padrão: o python3 do runner basta, sem instalar nada.
       - run: python3 tools/verificar-i18n.py
+      - run: python3 tools/verificar-competencias.py
   pdf:
     name: PDFs acompanham o site
     runs-on: ubuntu-latest
