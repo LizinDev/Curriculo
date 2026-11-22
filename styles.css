@@ -1921,7 +1921,10 @@ td.mono,
   cursor: pointer;
   text-align: right;
 }
-.sk:hover {
+.sk:disabled {
+  cursor: default;
+}
+.sk:hover:not(:disabled) {
   background: var(--in-well);
 }
 .sk[aria-pressed="true"] {

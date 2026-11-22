@@ -912,7 +912,9 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       else b.dataset.cur = b.dataset.q;
     });
   }
+  // no HTML o botão vem desligado: sem script ele é só o nome da competência
   document.querySelectorAll('.sk').forEach(function (b) {
+    b.disabled = false;
     b.addEventListener('click', function () {
       seek(b.dataset.cur || b.dataset.q);
     });
