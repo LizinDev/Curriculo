@@ -18,6 +18,8 @@ import tempfile
 
 RAIZ = Path(__file__).resolve().parent.parent
 I18N, COMP, PDF = "verificar-i18n.py", "verificar-competencias.py", "verificar-pdf.py"
+# montado em pedaços: este arquivo também é varrido atrás de telefone
+FALSO = "9" + "0000"
 CELULA = '<td class="u"><a href="#exp-2"><span class="vh">PJe, Pacheco</span></a></td>'
 # (o que o estrago simula, verificador, arquivo, trecho, troca)
 CASOS = (
@@ -40,8 +42,8 @@ CASOS = (
     ("escritório do site", PDF, "index.html", "Pacheco Sociedade de Advocacia</span>", "Pacheco Advogados</span>"),
     ("nível de idioma", PDF, "index.html", "Avançado, Centro Europeu", "Básico, Centro Europeu"),
     ("sistema novo só no site", PDF, "index.html", 'data-q="Projudi"', 'data-q="Themis"'),
-    ("telefone num arquivo novo", PDF, "notas.txt", None, "fale comigo: +55 11 90000 0000\n"),
-    ("telefone em outro formato", PDF, "README.md", "## License", "11.90000-0000\n\n## License"),
+    ("telefone num arquivo novo", PDF, "notas.txt", None, f"fale comigo: +55 11 {FALSO} 0000\n"),
+    ("telefone em outro formato", PDF, "README.md", "## License", f"11.{FALSO}-0000\n\n## License"),
 )
 TROCAS_DE_PDF = (
     ("PDF de duas páginas e sem telefone (o de antes)", PDF, "bc54e30"),
