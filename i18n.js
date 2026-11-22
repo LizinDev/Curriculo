@@ -13,7 +13,7 @@ window.CV_I18N = {
     skip: "Skip to content",
     "mast-sheet": "Control sheet",
     "mast-place": "Curitiba, Brazil",
-    "mast-rev": "Rev. Aug 2026",
+    "mast-rev": "Rev. Nov 2026",
     download: "Download CV",
 
     "nav-perfil": "Profile",
@@ -85,7 +85,7 @@ window.CV_I18N = {
     "k-tecnicas": "Technical",
     "tec-all": "Control and management of procedural deadlines · Petition filing and case tracking · Legal drafting and research · Managerial and procedural reporting",
     "k-dif": "Edge",
-    "dif-1": "Programming skills applied to automating and organising legal routines",
+    "dif-1": "Legal workflow automation with Python and Selenium, including batch processing and reconciliation reports",
     "k-comp": "Soft skills",
     "soft-all": "Organisation · Communication · Negotiation · Teamwork · Attention to detail",
 
@@ -94,6 +94,9 @@ window.CV_I18N = {
     "s5-lede": "Tools I built to automate my own legal routine — splitting documents, scheduling tasks, tracking cases and migrating data between systems.",
 
     /* destaque público */
+    "tarefas-h3": "Batch task entry in Legal One",
+    "tarefas-p": "The tool reads a collections spreadsheet, finds each case by its Brazilian court case number (CNJ) and fills out the task form in Legal One. If a batch is interrupted, the operator can resume it and check the results in the reports.",
+    "tarefas-code": "Source code and operator manual",
     "pdf-h3": "PDF Splitter",
     "pdf-p": "Splits one PDF into several by page range. Each range can carry its own file name, ranges may overlap, and the original file is never modified. It ships ready to run on macOS and Windows, in Portuguese and English — whoever uses it installs nothing but the app.",
     "pdf-stack": "Python · pypdf · graphical app + command line",

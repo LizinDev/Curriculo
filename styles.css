@@ -5,7 +5,7 @@
  * nav: N6 Newspaper masthead (issue-line=below-mark, size=xl, rule=double, index=sticky)
  * footer: Ft4 Dense colophon (family=mono, layout=log-style, includes=date+attribution+typefaces)
  * sections: ficha strip · F4 step-sequence · F3 tabular spec sheet
- *           · destaque público (1 cartão) + lista de ferramentas internas · C3 typographic links
+ *           · projetos públicos + lista de ferramentas internas · C3 typographic links
  * theme: custom · vibe: "ficha de controle, arquivo noturno, precisão"
  * paper: oklch(18% 0.012 210) · accent: oklch(72% 0.128 186)
  * display: Fraunces 700 (roman) · body: IBM Plex Sans · outlier: IBM Plex Mono
@@ -438,9 +438,8 @@ h1,h2,h3{
    por isso só o pdf-splitter tem cartão. O que é interno vira
    registro com fio: descrito, sem link que dê 404.
    ============================================================ */
-/* Fio fino nos quatro lados. Nada de tarja grossa numa borda só —
-   é o "side-stripe card", tell clássico de template. O destaque vem
-   de ser o único cartão da página e de estar no topo da seção. */
+/* Projetos com código público. */
+.feature + .feature{ margin-top:var(--space-md); }
 .feature{
   padding:var(--space-lg);
   background:var(--color-paper-2);
@@ -697,9 +696,12 @@ h1,h2,h3{
 @media print{
   :root{
     --page-gutter:0; --content-max:none;
-    --space-2xl:1.1rem; --space-3xl:1.4rem; --space-xl:0.9rem;
+    --space-2xs:1.5pt; --space-xs:2pt; --space-sm:3pt; --space-md:5pt;
+    --space-lg:6pt; --space-xl:7pt; --space-2xl:8pt; --space-3xl:10pt;
+    --text-base:10pt; --text-sm:9pt; --text-xs:8pt; --text-md:10pt;
+    --measure:none;
   }
-  @page{ size:A4; margin:14mm 15mm; }
+  @page{ size:A4; margin:10mm 13mm; }
 
   body{ font-size:9.5pt; line-height:1.45; }
 
@@ -738,6 +740,21 @@ h1,h2,h3{
   .sec{ break-inside:auto; }
   h2, h3{ break-after:avoid; }
 
+  .ficha{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
+  .diptych{ grid-template-columns:1fr 1fr; }
+  #competencias{ break-before:page; }
+  .spec__row{ grid-template-columns:10rem 1fr; }
+  .record{ grid-template-columns:8rem 1fr; }
+  .record__when{ align-content:start; }
+  .sec h2{ max-width:none; }
+  .ref, .mast__mark, .feature__id, #projetos > .lede{ display:none; }
+  .lede, .marks li, .tool p, .feature__body{ line-height:1.3; }
+  .record, .spec__row, .tool, .contact__row{ padding-block:3pt; }
+  .feature__actions .cta{ display:none; }
+  .contact__v{ padding:0; }
+  .feature__stack, .feature__body{ margin-bottom:2pt; }
+  .record__org{ margin-bottom:3pt; }
+  .feature__actions a{ white-space:normal; }
   .feature{ background:none; padding:var(--space-sm); border-color:var(--color-rule); }
   .tools__head{ margin-top:var(--space-md); }
 

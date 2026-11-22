@@ -50,7 +50,7 @@
       <span class="mast__sep" aria-hidden="true">§</span>
       <span data-i18n="mast-place">Curitiba, PR</span>
       <span class="mast__sep" aria-hidden="true">§</span>
-      <span data-i18n="mast-rev">Rev. Ago 2026</span>
+      <span data-i18n="mast-rev">Rev. Nov 2026</span>
     </p>
 
     <div class="mast__tools">
@@ -58,7 +58,7 @@
         <button type="button" data-lang="pt" class="is-active" aria-pressed="true">PT</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      <a class="cta" href="Pedro-Henrique-Braz-Moreira-CV.pdf" download>
+      <a class="cta" href="Pedro-Henrique-Braz-Moreira-CV.pdf" data-pdf-en="Pedro-Henrique-Braz-Moreira-CV-EN.pdf" download>
         <span data-i18n="download">Baixar CV</span><span class="cta__glyph" aria-hidden="true">↓</span>
       </a>
     </div>
@@ -217,7 +217,7 @@
       </div>
       <div class="spec__row spec__row--flag">
         <dt data-i18n="k-dif">Diferencial</dt>
-        <dd data-i18n="dif-1">Noções de programação aplicadas à automação e à organização de rotinas jurídicas</dd>
+        <dd data-i18n="dif-1">Automação de rotinas jurídicas em Python e Selenium, com processamento em lote e relatórios de conferência</dd>
       </div>
       <div class="spec__row">
         <dt data-i18n="k-comp">Comportamentais</dt>
@@ -227,11 +227,21 @@
   </section>
 
   <!-- ===== Projetos =====
-       O cartão é reservado ao que é público e clicável. As ferramentas
+       Os cartões destacam projetos com código público. As ferramentas
        internas viram registros com fio: descritas, sem link morto. ===== -->
   <section id="projetos" class="sec">
     <h2 data-i18n="s5-h2">Direito que vira código</h2>
     <p class="lede lede--tight" data-i18n="s5-lede">Ferramentas que construí para automatizar a própria rotina jurídica — dividir documentos, cadastrar compromissos, acompanhar processos e migrar dados entre sistemas.</p>
+
+    <article class="feature">
+      <p class="feature__id">/TarefasLegalOne</p>
+      <h3 data-i18n="tarefas-h3">Cadastro de tarefas em lote no Legal One</h3>
+      <p class="feature__body" data-i18n="tarefas-p">A partir de uma planilha de cobranças, a ferramenta localiza cada processo pelo número CNJ e preenche o formulário de tarefa no Legal One. Se o lote for interrompido, o operador pode retomar o trabalho e conferir o resultado nos relatórios.</p>
+      <p class="feature__stack">Python · Selenium</p>
+      <p class="feature__actions">
+        <a class="xlink" href="https://github.com/LizinDev/TarefasLegalOne" data-i18n="tarefas-code">Código e manual de operação</a>
+      </p>
+    </article>
 
     <article class="feature">
       <p class="feature__id">/pdf-splitter <span class="feature__badge">MIT</span></p>

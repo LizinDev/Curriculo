@@ -5,7 +5,7 @@ The CV of Pedro Henrique Braz Moreira, in Portuguese and English:
 
 One static page with no framework and no build step. The Portuguese text lives in
 `index.html`, the English text in `i18n.js`, and the PT/EN switch swaps one for the
-other in place and remembers the choice. A PDF version of the CV is linked from the page.
+other in place and remembers the choice. The download button serves a two-page A4 PDF in the selected language.
 
 ## Files
 
@@ -24,7 +24,11 @@ other in place and remembers the choice. A PDF version of the CV is linked from 
 python3 -m http.server 8000
 ```
 
-Then open <http://localhost:8000>.
+Then open <http://localhost:8000>. After editing the CV, run
+`python3 tools/verificar-i18n.py`. Select each language in the browser and print
+to PDF using A4, 100% scale and browser headers and footers off. Save the
+Portuguese edition over the existing `-CV.pdf` file and the English edition over
+`-CV-EN.pdf`. Check pagination and click the download button in both languages.
 
 ## License
 

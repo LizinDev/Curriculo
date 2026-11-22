@@ -28,6 +28,8 @@
   const langButtons = document.querySelectorAll('.lang button');
   const ptOriginal = new WeakMap();
   const ptTitle = document.title;
+  const pdfLink = document.querySelector('[data-pdf-en]');
+  const ptPdf = pdfLink.getAttribute('href');
   // Leitura protegida como a escrita mais abaixo. Em janela privada, ou com
   // armazenamento de site bloqueado, getItem lanca — e como isto roda na
   // inicializacao, a excecao derrubava o script inteiro: sem troca de idioma,
@@ -55,6 +57,7 @@
 
     document.documentElement.lang = toEN ? 'en' : 'pt-BR';
     document.title = toEN ? DICT.__title : ptTitle;
+    pdfLink.setAttribute('href', toEN ? pdfLink.dataset.pdfEn : ptPdf);
 
     langButtons.forEach((b) => {
       const on = b.dataset.lang === lang;
