@@ -152,6 +152,12 @@ def main():
     for lingua, valores in rotulos.items():
         problemas += [f"ui.{lingua}.{chave} vazio" for chave, valor in sorted(valores.items()) if not valor.strip()]
 
+    # rótulo só para leitor de tela: precisa das duas línguas (o #map e os botões + e − são montados pelo script)
+    for tag in re.findall(r"<[a-z][^>]*\baria-label=\"[^\"]*\"[^>]*>", (RAIZ / "index.html").read_text(encoding="utf-8")):
+        rotulo = re.search(r'aria-label="([^"]*)"', tag).group(1)
+        if re.search(r"[A-Za-zÀ-ÿ]{3}", rotulo) and 'id="map"' not in tag and not re.search(r'data-aria-en="[^"]+"', tag):
+            problemas.append(f"aria-label sem inglês (data-aria-en): {rotulo}")
+
     usos = sum(len(t) for t in pagina.textos.values())
     print(f"i18n: {len(pagina.textos)} chaves no index.html ({usos} usos), {len(ingles)} em inglês, "
           f"{len(rotulos['pt'])} rótulos de interface")

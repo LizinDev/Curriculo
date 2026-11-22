@@ -773,10 +773,13 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     o.textContent = '';
     if (r.err) {
       var k = { token: t.eTok, start: t.eStart, back: t.eBack, none: t.eNone, exceeds: t.eExc }[r.err.err];
+      // 'Error' e 'Created' são literais da ferramenta real, em inglês nas duas línguas
       o.appendChild(el('p', 'mono err', 'Error: ' + f(k, r.err)));
       o.appendChild(el('p', 'note', t.eNote));
     } else {
-      o.appendChild(el('p', 'mono', 'Created ' + r.files.length + ' file(s) in exemplo_split:'));
+      var criados = el('p', 'mono', 'Created ' + r.files.length + ' file(s) in exemplo_split:');
+      criados.lang = 'en';
+      o.appendChild(criados);
       var ul = el('ul', 'files');
       r.files.forEach(function (x) {
         var li = el('li');
@@ -937,6 +940,20 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     });
     document.documentElement.lang = en ? 'en' : 'pt-BR';
     document.title = T[lang].title;
+    // o que só o leitor de tela ouve também troca de língua
+    document.querySelectorAll('[data-aria-en]').forEach(function (e) {
+      e.dataset.ariaPt = e.dataset.ariaPt || e.getAttribute('aria-label');
+      e.setAttribute('aria-label', en ? e.dataset.ariaEn : e.dataset.ariaPt);
+    });
+    var colunas = [].map.call(document.querySelectorAll('.mx thead a span'), function (c) {
+      return c.textContent;
+    });
+    document.querySelectorAll('.mx tbody tr:not(.g)').forEach(function (tr) {
+      [].forEach.call(tr.querySelectorAll('td:not(.f)'), function (td, i) {
+        var v = td.querySelector('a .vh');
+        if (v) v.textContent = tr.querySelector('.sk').textContent + ', ' + colunas[i];
+      });
+    });
     document.querySelectorAll('[data-pdf-en]').forEach(function (a) {
       a.dataset.pdfPt = a.dataset.pdfPt || a.getAttribute('href');
       a.setAttribute('href', en ? a.dataset.pdfEn : a.dataset.pdfPt);
@@ -1101,11 +1118,18 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       root.classList.toggle('nofit', no);
     }
     addEventListener('resize', fit);
-    if (document.fonts && document.fonts.ready)
-      document.fonts.ready.then(function () {
-        fit();
-        ask();
-      });
+    // a letra reserva é mais alta que a definitiva: medir de novo a cada fonte que chega, senão a
+    // primeira visita desliga o palco à toa e não volta atrás
+    function medir() {
+      fit();
+      ask();
+    }
+    if (document.fonts) {
+      document.fonts.ready.then(medir);
+      document.fonts.addEventListener('loadingdone', medir);
+    }
+    addEventListener('load', medir);
+    addEventListener('pageshow', medir);
     new MutationObserver(function () {
       fit();
       ask();

@@ -76,14 +76,14 @@
 
 <header class="bar r">
   <div class="in"><div class="w">
-    <a class="mark" href="#topo" aria-label="Pedro Henrique Braz Moreira — início / home">PB</a>
+    <a class="mark" href="#topo" aria-label="Pedro Henrique Braz Moreira, início" data-aria-en="Pedro Henrique Braz Moreira, home">PB</a>
     <a class="cv" href="Pedro-Henrique-Braz-Moreira-CV.pdf" data-pdf-en="Pedro-Henrique-Braz-Moreira-CV-EN.pdf" download data-i18n="download">Baixar CV</a>
-    <div class="lang" role="group" aria-label="Idioma da página / Page language">
+    <div class="lang" role="group" aria-label="Idioma da página" data-aria-en="Page language">
       <button type="button" data-lang="pt" class="is-active" aria-pressed="true">PT</button>
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
   </div></div>
-  <nav class="out" aria-label="Seções do currículo / Résumé sections"><div class="w idx">
+  <nav class="out" aria-label="Seções do currículo" data-aria-en="Résumé sections"><div class="w idx">
     <a href="#perfil" data-i18n="nav-perfil">Perfil</a>
     <a href="#experiencia" data-i18n="nav-exp">Trajetória</a>
     <a href="#projetos" data-i18n="nav-proj">Projetos</a>
@@ -182,7 +182,7 @@
     <div class="out"><div class="w"><p class="lede" data-i18n="s5-lede">Direito que vira código: oito ferramentas, três para testar aqui mesmo.</p></div></div>
   </div>
 
-  <nav class="ix" id="indice" aria-label="Projetos desta página / Projects on this page"><ul>
+  <nav class="ix" id="indice" aria-label="Projetos desta página" data-aria-en="Projects on this page"><ul>
 <li><a href="#tarefas"><span class="in"><span class="w disp">TarefasLegalOne</span></span><span class="out"><span class="w"><span class="fl" data-i18n="d-x1">planilha &gt; tarefas cadastradas</span><span class="st go" data-i18n="d-s1">teste aqui</span></span></span></a></li>
 <li><a href="#leitor"><span class="in"><span class="w disp" data-i18n="d-cnj-name">Leitor de número CNJ</span></span><span class="out"><span class="w"><span class="fl" data-i18n="d-x2">número do processo &gt; cada trecho explicado</span><span class="st go" data-i18n="d-s1">teste aqui</span></span></span></a></li>
 <li><a href="#pdf"><span class="in"><span class="w disp">pdf-splitter</span></span><span class="out"><span class="w"><span class="fl" data-i18n="d-x3">PDF &gt; um arquivo por intervalo</span><span class="st go" data-i18n="d-s1">teste aqui</span></span></span></a></li>
@@ -207,20 +207,20 @@
       <div class="in st2"><div class="w">
         <p class="io" data-i18n="d-t-in">entrada: a planilha</p>
         <table class="run" id="run-i">
-          <thead><tr><th scope="col" data-i18n="d-t-l">linha</th><th scope="col">PROCESSO</th><th scope="col">TIPO DE COBRANÇA</th></tr></thead>
+          <thead><tr><th scope="col" data-i18n="d-t-l">linha</th><th scope="col" lang="pt-BR">PROCESSO</th><th scope="col" lang="pt-BR">TIPO DE COBRANÇA</th></tr></thead>
           <tbody>
-            <tr><td class="mono">2</td><td class="mono">0000001-00.2026…</td><td>FATURAMENTO FINAL</td></tr>
-            <tr><td class="mono">3</td><td class="mono">0000002-00.2026…</td><td>FATURAMENTO FINAL</td></tr>
-            <tr class="cut"><td class="mono">4</td><td class="mono">0000003-00.2026…</td><td>FATURAMENTO FINAL</td></tr>
-            <tr><td class="mono">5</td><td class="mono">0000004-00.2026…</td><td>FATURAMENTO FINAL</td></tr>
-            <tr><td class="mono">6</td><td class="mono">0000005-00.2026…</td><td>FATURAMENTO FINAL</td></tr>
-            <tr><td class="mono">7</td><td class="mono">0000006-00.2026…</td><td>FATURAMENTO FINAL</td></tr>
+            <tr><td class="mono">2</td><td class="mono">0000001-00.2026…</td><td lang="pt-BR">FATURAMENTO FINAL</td></tr>
+            <tr><td class="mono">3</td><td class="mono">0000002-00.2026…</td><td lang="pt-BR">FATURAMENTO FINAL</td></tr>
+            <tr class="cut"><td class="mono">4</td><td class="mono">0000003-00.2026…</td><td lang="pt-BR">FATURAMENTO FINAL</td></tr>
+            <tr><td class="mono">5</td><td class="mono">0000004-00.2026…</td><td lang="pt-BR">FATURAMENTO FINAL</td></tr>
+            <tr><td class="mono">6</td><td class="mono">0000005-00.2026…</td><td lang="pt-BR">FATURAMENTO FINAL</td></tr>
+            <tr><td class="mono">7</td><td class="mono">0000006-00.2026…</td><td lang="pt-BR">FATURAMENTO FINAL</td></tr>
           </tbody></table>
         <div class="foot-io stack st4">
           <p class="try js-only" id="run-try" data-i18n="d-try">Experimente</p>
           <div class="ctl js-only">
             <button class="btn main" type="button" id="run-go">Repetir o comando</button>
-            <button class="btn" type="button" id="run-f" data-i18n="d-t-f">Simular 3 erros seguidos</button>
+            <button class="btn" type="button" id="run-f" data-i18n="d-t-f">Simular 3 erros</button>
             <button class="btn" type="button" id="run-x" data-i18n="d-t-x">Recomeçar</button>
             <label class="chk" for="run-r"><input type="checkbox" id="run-r"><code>--retentar</code></label>
           </div>
@@ -231,14 +231,14 @@
       <div class="out st3"><div class="w">
         <p class="io" data-i18n="d-t-out">saída: o registro de cada linha</p>
         <table class="run" id="run-o">
-          <thead><tr><th scope="col" data-i18n="d-t-r">nesta rodada</th><th scope="col">SITUACAO</th></tr></thead>
+          <thead><tr><th scope="col" data-i18n="d-t-r">nesta rodada</th><th scope="col" lang="pt-BR">SITUACAO</th></tr></thead>
           <tbody>
-            <tr><td>gravada</td><td class="mono">ok</td></tr>
-            <tr><td>gravada</td><td class="mono">recadastrada</td></tr>
-            <tr class="cut"><td>não gravada</td><td class="mono">–</td></tr>
-            <tr><td>na fila</td><td class="mono">–</td></tr>
-            <tr><td>na fila</td><td class="mono">–</td></tr>
-            <tr><td>na fila</td><td class="mono">–</td></tr>
+            <tr><td>gravada</td><td class="mono" lang="pt-BR">ok</td></tr>
+            <tr><td>gravada</td><td class="mono" lang="pt-BR">recadastrada</td></tr>
+            <tr class="cut"><td>não gravada</td><td class="mono" lang="pt-BR">–</td></tr>
+            <tr><td>na fila</td><td class="mono" lang="pt-BR">–</td></tr>
+            <tr><td>na fila</td><td class="mono" lang="pt-BR">–</td></tr>
+            <tr><td>na fila</td><td class="mono" lang="pt-BR">–</td></tr>
           </tbody></table>
         <div class="foot-io run-o">
           <p class="code"><span data-i18n="d-t-code">Código de saída</span> <b class="disp" id="run-e">130</b></p>
@@ -253,16 +253,16 @@
     </div>
   </article>
 
-  <article class="tool live" id="leitor">
+  <article class="tool live" id="leitor" data-src>
     <div class="stage">
-    <div class="plate"><div class="in"><div class="w"><p class="name disp" data-i18n="d-cnj-name">Leitor de número CNJ</p></div></div><div class="out"><div class="w"><span class="fl" data-i18n="d-x2">número do processo &gt; cada trecho explicado</span><a class="all" href="#indice" data-i18n="d-a2">2 de 3, ver todos</a></div></div></div>
+    <div class="plate"><div class="in"><div class="w"><p class="name disp src" data-g data-i18n="d-cnj-name">Leitor de número CNJ</p></div></div><div class="out"><div class="w"><span class="fl" data-i18n="d-x2">número do processo &gt; cada trecho explicado</span><a class="all" href="#indice" data-i18n="d-a2">2 de 3, ver todos</a></div></div></div>
     <div class="body">
     <div class="r st1">
       <div class="in"><div class="w">
-        <h3 data-i18n="d-cnj-h">A chave de cada processo</h3>
-        <p class="meta" data-i18n="d-cnj-m">JavaScript, nesta página</p>
+        <h3 data-g data-i18n="d-cnj-h">A chave de cada processo</h3>
+        <p class="meta" data-g data-i18n="d-cnj-m">JavaScript, nesta página</p>
       </div></div>
-      <div class="out"><div class="w"><p data-i18n="d-cnj-p">O TarefasLegalOne usa este número para achar cada caso. Aqui ele é lido em seis partes e conferido.</p></div></div>
+      <div class="out"><div class="w"><p data-g data-i18n="d-cnj-p">O TarefasLegalOne usa este número para achar cada caso. Aqui ele é lido em seis partes e conferido.</p></div></div>
     </div>
     <div class="r iobox">
       <div class="in st2"><div class="w">
@@ -382,12 +382,12 @@
 <section class="sec" id="competencias">
   <div class="r">
     <div class="in"><div class="w"><h2 data-i18n="s4-h2">Competências em uso</h2></div></div>
-    <div class="out"><div class="w"><p class="lede" data-i18n="d-k-l">17 competências, marcadas onde aparecem neste currículo. O número no topo é quantas cada fase usou.</p></div></div>
+    <div class="out"><div class="w"><p class="lede" data-i18n="d-k-l">17 competências, marcadas onde aparecem neste currículo.</p></div></div>
   </div>
   <table class="mx">
     <caption class="vh" data-i18n="d-k-c">Competências por cargo e nos projetos</caption>
     <colgroup><col class="c0"><col class="c1"><col class="c1"><col class="c1"><col class="c1"><col></colgroup>
-    <thead><tr><td></td><th scope="col"><a href="#exp-3"><b class="disp">5</b><span>Peregrino Neto</span><small>2020</small></a></th><th scope="col"><a href="#exp-2"><b class="disp">8</b><span>Pacheco</span><small>2023</small></a></th><th scope="col"><a href="#exp-1"><b class="disp">10</b><span>Hasson</span><small>2025</small></a></th><th scope="col"><a href="#projetos"><b class="disp">7</b><span data-i18n="d-m4">Projetos</span><small data-i18n="d-m5">8 ferramentas</small></a></th><td class="f"></td></tr></thead>
+    <thead><tr><td class="mx-h"><span data-i18n="d-k-h">Competências usadas</span></td><th scope="col"><a href="#exp-3"><b class="disp">5</b><span>Peregrino Neto</span><small>2020</small></a></th><th scope="col"><a href="#exp-2"><b class="disp">8</b><span>Pacheco</span><small>2023</small></a></th><th scope="col"><a href="#exp-1"><b class="disp">10</b><span>Hasson</span><small>2025</small></a></th><th scope="col"><a href="#projetos"><b class="disp">7</b><span data-i18n="d-m4">Projetos</span><small data-i18n="d-m5">8 ferramentas</small></a></th><td class="f"></td></tr></thead>
 <tbody><tr class="g"><th scope="rowgroup"><span data-i18n="d-mx-1">Sistemas de tribunais</span> <i>4</i></th><td colspan="5"></td></tr>
 <tr><th scope="row"><button type="button" class="sk" disabled data-q="PJe" data-qe="PJe">PJe</button></th><td><span class="vh">–</span></td><td class="u"><a href="#exp-2"><span class="vh">PJe, Pacheco</span></a></td><td class="u"><a href="#exp-1"><span class="vh">PJe, Hasson</span></a></td><td><span class="vh">–</span></td><td class="f"></td></tr>
 <tr><th scope="row"><button type="button" class="sk" disabled data-q="Projudi" data-qe="Projudi">Projudi</button></th><td><span class="vh">–</span></td><td class="u"><a href="#exp-2"><span class="vh">Projudi, Pacheco</span></a></td><td class="u"><a href="#exp-1"><span class="vh">Projudi, Hasson</span></a></td><td><span class="vh">–</span></td><td class="f"></td></tr>

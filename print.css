@@ -82,6 +82,7 @@ h3 { font-size: 10.6pt; }
 .mx { width: 100%; table-layout: fixed; border-collapse: collapse; margin-top: 1mm; }
 .mx .c0 { width: 64mm; }
 .mx .c1 { width: 29mm; }
+.mx-h { text-align: left; vertical-align: bottom; font-size: 8pt; font-weight: 600; padding-bottom: 1.2mm !important; }
 .mx thead th { font-weight: 400; vertical-align: bottom; padding: 0 0 1.2mm; text-align: center; }
 .mx thead b { display: block; font-size: 15pt; line-height: 1; }
 .mx thead span { display: block; font-weight: 600; font-size: 8pt; line-height: 1.25; }

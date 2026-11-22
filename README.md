@@ -30,8 +30,9 @@ and resumed, a reader for Brazilian court case numbers, and
 | `tools/verificar-i18n.py` | checks that both languages have the same keys |
 | `tools/verificar-competencias.py` | checks that the skills table matches the text of the CV |
 | `tools/verificar-pdf.py` | checks that each PDF has the same facts as the page, on one page |
+| `tools/testar-verificadores.py` | breaks copies of the repository and expects each check to notice |
 
-The three checks run in CI on every push.
+All of them but the PDF generator run in CI on every push.
 
 ## Preview locally
 

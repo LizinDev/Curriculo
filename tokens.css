@@ -44,6 +44,7 @@
   --out-ink-2: oklch(0.385 0.032 122);
   --pipe: oklch(0.72 0.095 48);
   --pipe-ink: oklch(0.245 0.032 122);
+  --clay-on-in: oklch(0.775 0.086 48);
   --accent-text: oklch(0.44 0.074 48);
   --bad: oklch(0.44 0.13 30);
   --good: oklch(0.43 0.09 155);

@@ -2,7 +2,8 @@
 """Confere se a tabela de competências diz o mesmo que o texto do currículo.
 
 Cada marca da tabela (cargo ou projeto) precisa aparecer no texto daquele cargo ou
-projeto, e cada aparição precisa estar marcada, nas duas línguas. Confere também os
+projeto, e cada aparição precisa estar marcada, nas duas línguas. Confere também o link e
+o rótulo de cada marca, e os
 números: projetos por competência, total de cada coluna e tamanho de cada grupo.
 Só biblioteca padrão; nada é alterado. Saída 0 = bate, 1 = divergência,
 2 = não deu para conferir (nunca conta como verde).
@@ -35,6 +36,7 @@ class Leitor(HTMLParser):
         super().__init__(convert_charrefs=False)
         self.pilha, self.blocos, self.capturas = [], {}, []
         self.linhas, self.linha, self.celula, self.grupos, self.totais = [], None, None, [], []
+        self.colunas = []
 
     def handle_starttag(self, tag, attrs):
         a = dict(attrs)
@@ -52,8 +54,14 @@ class Leitor(HTMLParser):
         elif tag == "button" and "sk" in classes:
             self.linha["q"], self.linha["qe"] = a["data-q"], a["data-qe"]
         elif tag == "td" and self.linha and not self.linha["grupo"] and "f" not in classes:
-            self.celula = {"usada": "u" in classes, "numero": ""}
+            self.celula = {"usada": "u" in classes, "numero": "", "destino": None, "rotulo": None}
             self.linha["cel"].append(self.celula)
+        elif tag == "a" and self.celula is not None:
+            self.celula["destino"] = (a.get("href") or "").lstrip("#")
+        elif tag == "span" and self.celula is not None and "vh" in classes:
+            self.celula["rotulo"] = ""
+        elif tag == "a" and self.dentro("thead"):
+            self.colunas.append([(a.get("href") or "").lstrip("#"), ""])
         elif tag == "b" and self.dentro("thead"):
             self.totais.append("")
         elif tag == "i" and self.linha and self.linha["grupo"]:
@@ -75,12 +83,20 @@ class Leitor(HTMLParser):
         if tag == "tr" and self.linha and self.linha["q"]:
             self.linhas.append(self.linha)
             self.grupos[-1][0] += 1
+        if tag == "tr":
+            self.linha = None
         self.pilha.pop()
 
     def handle_data(self, data):
         for c in self.capturas:
             c["partes"].append(data)
         topo = self.pilha[-1][0] if self.pilha else ""
+        if self.celula is not None and topo == "span" and self.celula["rotulo"] is not None:
+            self.celula["rotulo"] += data
+        elif topo == "span" and self.dentro("thead") and self.dentro("a") and self.colunas:
+            self.colunas[-1][1] += data.strip()
+        if self.linha and topo == "button":
+            self.linha["nome"] = self.linha.get("nome", "") + data
         if self.celula is not None and topo == "b":
             self.celula["numero"] += data.strip()
         elif topo == "b" and self.dentro("thead"):
@@ -104,7 +120,7 @@ def main():
         ingles = {a or n: v.replace('\\"', '"') for a, n, v in i18n.pares(corpo)}
         leitor = Leitor()
         leitor.feed(html)
-        if not leitor.linhas or any(c not in leitor.blocos for c in CARGOS) or len(leitor.totais) != 4:
+        if not leitor.linhas or any(c not in leitor.blocos for c in CARGOS) or len(leitor.totais) != 4 or len(leitor.colunas) != 4:
             raise ValueError("tabela ou cargos não encontrados")
     except (OSError, ValueError, KeyError, IndexError) as erro:
         print(f"verificar-competencias: não consegui conferir: {erro}", file=sys.stderr)
@@ -134,6 +150,13 @@ def main():
             numero = int(linha["cel"][3]["numero"] or 0) if linha["cel"][3]["usada"] else 0
             if achou != marcas or quantos != numero:
                 problemas.append(f"{lingua}: {linha['q']}: texto {achou} e {quantos} projeto(s), tabela {marcas} e {numero}")
+    # a marca que se vê é o link: sem ele, com destino errado ou sem nome, a célula engana
+    for linha in leitor.linhas:
+        for (destino, coluna), celula in zip(leitor.colunas, linha["cel"]):
+            if celula["usada"] and (celula["destino"] != destino or celula["rotulo"] != f"{linha['nome']}, {coluna}"):
+                problemas.append(f"{linha['q']}, {coluna}: marca sem link certo (destino {celula['destino']}, rótulo {celula['rotulo']})")
+            if not celula["usada"] and celula["destino"]:
+                problemas.append(f"{linha['q']}, {coluna}: tem link sem estar marcada")
     for i, total in enumerate(leitor.totais):
         conta = sum(linha["cel"][i]["usada"] for linha in leitor.linhas)
         if str(conta) != total:

@@ -1372,8 +1372,8 @@ main > section {
 .in .acts {
   justify-content: flex-start;
 }
-@media screen and (min-width: 1340px) and (min-height: 635px) and (max-height: 1600px),
-  screen and (min-width: 1240px) and (min-height: 670px) and (max-height: 1600px) {
+@media screen and (min-width: 1340px) and (min-height: 612px) and (max-height: 1600px),
+  screen and (min-width: 1240px) and (min-height: 632px) and (max-height: 1600px) {
   .js:not(.nofit) .stage .files {
     max-height: 26svh;
     overflow-y: auto;
@@ -1399,7 +1399,7 @@ main > section {
     flex-direction: column;
     justify-content: center;
     gap: clamp(8px, 1.6svh + 2px, 40px);
-    padding-block: clamp(8px, 1.4svh, 30px);
+    padding-block: clamp(5px, 1.4svh, 30px);
   }
   .js:not(.nofit) .stage .outlet {
     margin-top: 0;
@@ -1418,7 +1418,7 @@ main > section {
     margin-bottom: clamp(8px, 1.6svh, 18px);
   }
   .js:not(.nofit) .stage .run td {
-    height: clamp(26px, 3.9svh, 44px);
+    height: clamp(23px, 3.7svh, 44px);
     padding-block: 2px;
   }
   .js:not(.nofit) .stage .stack > * + * {
@@ -1534,8 +1534,8 @@ main > section {
     margin-bottom: 5px;
   }
 }
-@media screen and (min-width: 1340px) and (min-height: 635px) and (max-height: 1600px) and (prefers-reduced-motion: no-preference),
-  screen and (min-width: 1240px) and (min-height: 670px) and (max-height: 1600px) and (prefers-reduced-motion: no-preference) {
+@media screen and (min-width: 1340px) and (min-height: 612px) and (max-height: 1600px) and (prefers-reduced-motion: no-preference),
+  screen and (min-width: 1240px) and (min-height: 632px) and (max-height: 1600px) and (prefers-reduced-motion: no-preference) {
   .js:not(.nofit) .tool {
     height: calc(100svh + 85svh);
   }
@@ -1907,7 +1907,7 @@ td.mono,
 }
 .mx .g i {
   font-style: normal;
-  color: var(--link-in);
+  color: var(--clay-on-in);
   margin-left: 8px;
 }
 .sk {
@@ -1990,6 +1990,15 @@ td.mono,
 }
 .body > .st1 {
   padding-top: 36px;
+}
+
+.mx-h {
+  vertical-align: bottom;
+  text-align: right;
+  padding: 0 calc(var(--gap) + var(--pw) / 2) 14px 0 !important;
+  font-size: var(--t-small);
+  font-weight: 600;
+  color: var(--in-ink);
 }
 
 @media screen and (max-width: 940px) {

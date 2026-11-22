@@ -119,7 +119,8 @@ window.CV_I18N = {
 
     /* ---------- competências ---------- */
     "s4-h2": "Skills in use",
-    "d-k-l": "17 skills, marked where they appear in this CV. The number on top is how many each stage used.",
+    "d-k-l": "17 skills, marked where they appear in this CV.",
+    "d-k-h": "Skills used",
     "d-k-c": "Skills by position and in the projects",
     "d-m4": "Projects",
     "d-m5": "8 tools",
