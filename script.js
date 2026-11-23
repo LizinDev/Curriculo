@@ -923,16 +923,16 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     b.disabled = false;
     b.setAttribute('aria-expanded', 'false');
     b.setAttribute('aria-controls', ev.id);
-    // a marca abre a mesma linha; pelo teclado basta o botão
+    // com script a marca é parte da linha, não um link: o caminho até o cargo está no trecho
     tr.querySelectorAll('td.u > a').forEach(function (a) {
-      a.tabIndex = -1;
+      a.removeAttribute('href');
     });
   });
   mx.addEventListener('click', function (e) {
     var tr = e.target.closest('tbody tr'),
       b = tr && tr.querySelector('.sk');
-    if (!b || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
-    e.preventDefault();
+    // quem está selecionando texto não quer abrir a linha
+    if (!b || (!e.target.closest('.sk') && String(getSelection()))) return;
     abrirLinha(b, b.getAttribute('aria-expanded') !== 'true');
   });
   function drawProvas() {
@@ -947,6 +947,11 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     TRES = ['tarefas', 'leitor', 'pdf'],
     folhas = {},
     dobras = [],
+    abertas = {},
+    acha = 'onbeforematch' in document.documentElement,
+    imprimindo = false,
+    volta = null,
+    vista = '',
     veio = false;
   function botao(cls) {
     var b = el('button', cls);
@@ -992,10 +997,29 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       history.back();
     } else folhas[id].d.close();
   }
+  /* fechada, a ferramenta espera num bloco que a busca do navegador percorre (onde houver suporte);
+     um <dialog> fechado não é pesquisável, e deixá-lo à vista travava o Chromium ao redimensionar */
+  function esconde(x) {
+    if (acha) x.espera.setAttribute('hidden', 'until-found');
+    else x.espera.hidden = true;
+    x.espera.appendChild(x.t);
+  }
+  function mostra(x) {
+    x.d.appendChild(x.t);
+    x.d.showModal();
+  }
+  function ir(id) {
+    if (location.hash !== '#' + id) {
+      history.pushState(null, '', '#' + id);
+      veio = true;
+    }
+    rota();
+  }
   function folha(id) {
     var t = $(id),
       x = (folhas[id] = { t: t, out: t.querySelector('.iobox > .out'), box: t.querySelector('.iobox') });
     x.d = el('dialog', 'folha');
+    x.espera = el('div', 'espera');
     x.g = el('div', 'gav out');
     x.alca = botao('gav-h');
     x.c = el('div', 'gav-c');
@@ -1029,8 +1053,15 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       fechar(id);
     });
     x.d.addEventListener('close', function () {
+      // o aviso chega depois: a folha pode já ter sido desmontada (girar) ou reaberta (imprimir)
+      if (x.d.open || !html.classList.contains('folhas')) return;
+      esconde(x);
       veio = false;
       if (location.hash === '#' + id) history.replaceState(null, '', '#projetos');
+    });
+    /* a busca do navegador achou texto numa folha fechada */
+    x.espera.addEventListener('beforematch', function () {
+      if (!x.d.open) ir(id);
     });
     new MutationObserver(drawCel).observe(x.out, { childList: true, characterData: true, subtree: true });
   }
@@ -1038,7 +1069,8 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     var d = el('details', 'dobra'),
       s = el('summary'),
       c = el('div', 'dobra-c'),
-      o = { d: d, c: c, caixa: caixa, st: st, pai: st && st.parentNode };
+      o = { d: d, c: c, caixa: caixa, st: st, pai: st && st.parentNode, id: caixa.closest('[data-src]').id };
+    d.open = !!abertas[o.id];
     [].slice.call(caixa.childNodes).forEach(function (n) {
       c.appendChild(n);
     });
@@ -1052,16 +1084,16 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     dobras.push(o);
   }
   function montar() {
-    if (html.classList.contains('folhas')) return;
+    if (!window.HTMLDialogElement || html.classList.contains('folhas')) return;
     html.classList.add('folhas');
     TRES.forEach(function (id) {
       if (!folhas[id]) folha(id);
       var x = folhas[id];
-      x.t.before(x.d);
-      x.d.appendChild(x.t);
+      x.t.before(x.espera, x.d);
       x.c.appendChild(x.out);
       x.t.querySelector('.stage').appendChild(x.g);
-      gaveta(x, false);
+      gaveta(x, x.alca.getAttribute('aria-expanded') === 'true');
+      esconde(x);
     });
     ['exp-3', 'exp-2'].forEach(function (id) {
       dobrar($(id).querySelector('.out .w'));
@@ -1070,7 +1102,6 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       dobrar(w, w.querySelector('.st'));
     });
     drawCel();
-    rota();
   }
   function desmontar() {
     if (!html.classList.contains('folhas')) return;
@@ -1080,9 +1111,11 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       x.box.appendChild(x.out);
       x.g.remove();
       if (x.d.open) x.d.close();
-      x.d.replaceWith(x.t);
+      x.espera.replaceWith(x.t);
+      x.d.remove();
     });
     dobras.forEach(function (o) {
+      abertas[o.id] = o.d.open;
       if (o.st) o.pai.prepend(o.st);
       while (o.c.firstChild) o.caixa.insertBefore(o.c.firstChild, o.d);
       o.d.remove();
@@ -1097,7 +1130,7 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     TRES.forEach(function (id) {
       if (id !== alvo && folhas[id].d.open) folhas[id].d.close();
     });
-    if (folhas[alvo] && !folhas[alvo].d.open) folhas[alvo].d.showModal();
+    if (folhas[alvo] && !folhas[alvo].d.open) mostra(folhas[alvo]);
     if (dobra) dobra.open = true;
   }
   document.addEventListener('click', function (e) {
@@ -1105,21 +1138,74 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       id = a && a.getAttribute('href').slice(1);
     if (!a || !html.classList.contains('folhas') || TRES.indexOf(id) < 0) return;
     e.preventDefault();
-    if (location.hash !== '#' + id) {
-      history.pushState(null, '', '#' + id);
-      veio = true;
-    }
-    rota();
+    ir(id);
   });
   addEventListener('hashchange', rota);
-  addEventListener('beforeprint', desmontar);
-  addEventListener('afterprint', function () {
-    if (CEL.matches) montar();
-  });
+  function aberta() {
+    return TRES.filter(function (id) {
+      return folhas[id] && folhas[id].d.open;
+    })[0];
+  }
+  function foca(e) {
+    if (e && e !== document.body && e.isConnected && e !== document.activeElement) e.focus({ preventScroll: true });
+  }
+  /* deitar leva à ferramenta que estava aberta; levantar reabre a que está à vista */
+  function deitar() {
+    var id = aberta(),
+      foco = document.activeElement;
+    desmontar();
+    if (id) {
+      var t = folhas[id].t,
+        placa = t.querySelector('.plate');
+      scrollTo({
+        top: scrollY + folhas[id].box.getBoundingClientRect().top - placa.offsetHeight,
+        behavior: 'instant',
+      });
+      vista = id;
+    }
+    foca(foco);
+  }
+  function levantar() {
+    var id = vista,
+      foco = document.activeElement;
+    montar();
+    vista = '';
+    if (!id || !html.classList.contains('folhas')) return foca(foco);
+    $('indice').scrollIntoView({ block: 'start', behavior: 'instant' });
+    ir(id);
+    if (folhas[id].t.contains(foco)) foca(foco);
+  }
+  /* a impressão recebe a página inteira e devolve a tela como estava */
+  function antesDeImprimir() {
+    if (imprimindo) return;
+    imprimindo = true;
+    volta = { id: aberta(), y: scrollY, foco: document.activeElement };
+    desmontar();
+  }
+  function depoisDeImprimir() {
+    if (!imprimindo) return;
+    imprimindo = false;
+    if (!CEL.matches) return;
+    montar();
+    scrollTo({ top: volta.y, behavior: 'instant' });
+    if (volta.id && folhas[volta.id] && html.classList.contains('folhas')) ir(volta.id);
+    foca(volta.foco);
+  }
+  addEventListener('beforeprint', antesDeImprimir);
+  addEventListener('afterprint', depoisDeImprimir);
   CEL.addEventListener('change', function () {
-    (CEL.matches ? montar : desmontar)();
+    if (imprimindo) return;
+    if (!matchMedia('screen').matches) antesDeImprimir();
+    else (CEL.matches ? levantar : deitar)();
   });
-  if (CEL.matches && window.HTMLDialogElement) montar();
+  // sem os eventos de impressão (iOS), a volta à tela é o sinal
+  matchMedia('screen').addEventListener('change', function (e) {
+    if (e.matches) depoisDeImprimir();
+  });
+  if (CEL.matches) {
+    montar();
+    rota();
+  }
 
   /* ---- idioma ---- */
   var nodes = document.querySelectorAll('[data-i18n]'),
@@ -1340,6 +1426,13 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
         a = tools[0].getBoundingClientRect().top,
         z = tools[tools.length - 1].getBoundingClientRect().bottom;
       /* uma faixa só para todas as ferramentas, com folga nas pontas, para o cabeçalho não piscar */
+      if (!root.classList.contains('folhas')) {
+        vista = '';
+        tools.forEach(function (t) {
+          var b = t.getBoundingClientRect();
+          if (b.top < innerHeight / 2 && b.bottom > innerHeight / 2) vista = t.id;
+        });
+      }
       if (root.classList.contains('folhas')) hidden = false;
       else if (hidden) {
         if (a > on + 120 || z < -40) hidden = false;
