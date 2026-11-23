@@ -135,7 +135,7 @@ window.CV_I18N = {
     "d-mx-35": "Reports",
     "d-mx-36": "Client support",
     "d-mx-4": "Code",
-    "d-f-l": "Search this CV",
+    "d-k-a": "Open a skill to read the passage.",
     "d-k-o": "Also: Microsoft Office.",
 
     /* ---------- formação ---------- */

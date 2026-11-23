@@ -380,10 +380,7 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       ov: 'Páginas em mais de um arquivo: {p}.',
       noOv: 'Nenhuma página se repete.',
       map: 'Mapa de {n} páginas. Intervalos: {r}. {o}',
-      hits: ['linha encontrada', 'linhas encontradas'],
-      none: 'Nenhuma linha com esse termo.',
-      type: 'Digite pelo menos duas letras.',
-      pre: ['prazos'],
+      cel: { saida: 'saída', fechar: 'Fechar', fazia: 'O que eu fazia', cod: 'código', erro: 'erro', arq: ['arquivo', 'arquivos'] },
       less: 'Uma página a menos',
       more: 'Uma página a mais',
       title: document.title,
@@ -458,10 +455,7 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       ov: 'Pages in more than one file: {p}.',
       noOv: 'No page is repeated.',
       map: 'Map of {n} pages. Ranges: {r}. {o}',
-      hits: ['line found', 'lines found'],
-      none: 'No line with that term.',
-      type: 'Type at least two letters.',
-      pre: ['deadline'],
+      cel: { saida: 'output', fechar: 'Close', fazia: 'What I did', cod: 'exit code', erro: 'error', arq: ['file', 'files'] },
       less: 'One page fewer',
       more: 'One page more',
       title: window.CV_I18N.en.__title,
@@ -808,8 +802,10 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     drawPdf();
   });
 
-  /* ---- 3. busca no texto do currículo ---- */
-  var gq = $('gq');
+  /* ---- 3. competências: cada linha abre o trecho que a prova ---- */
+  var mx = document.querySelector('.mx'),
+    sks = mx.querySelectorAll('.sk'),
+    html = document.documentElement;
   function norm(s) {
     return Array.from(s, function (c) {
       var n = c.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
@@ -846,83 +842,284 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
   function text(e) {
     return e.textContent.replace(/\s+/g, ' ').trim();
   }
-  function found(q) {
-    // pares [elemento, frase]
+  /* frases de cargos e projetos que citam a competência, uma entrada por lugar; o perfil não
+     tem coluna na tabela e fica de fora, para a prova bater com as marcas */
+  function provas(q) {
     var al = alts(q),
       r = [];
-    if (al.length)
-      document.querySelectorAll('[data-g]').forEach(function (e) {
-        text(e)
+    document.querySelectorAll('.entry[data-src], .tool[data-src], .int-row[data-src]').forEach(function (box) {
+      var fr = [];
+      box.querySelectorAll('[data-g]').forEach(function (e) {
+        // só o nome do projeto não prova nada: ele já é o rótulo
+        if (e.matches('.src')) return;
+        var mit = e.querySelector('.mit');
+        text(mit ? mit.parentNode.firstElementChild : e)
           .split(/[.]\s+(?=[A-ZÀ-Ú])/)
-          .forEach(function (x) {
-            if (spans(x, al).length) r.push([e, x]);
+          .forEach(function (x, i, t) {
+            if (spans(x, al).length) fr.push(i < t.length - 1 ? x + '.' : x);
           });
       });
+      if (!fr.length)
+        box.querySelectorAll('.src[data-g]').forEach(function (e) {
+          if (spans(text(e), al).length) fr.push(text(e));
+        });
+      if (fr.length) r.push([box, fr]);
+    });
     return r;
   }
-  function drawGrep() {
-    var t = T[lang],
-      q = gq.value.trim(),
-      al = alts(q),
-      o = $('g-o'),
-      n = 0;
-    $('g-cmd').textContent = 'grep ' + (q.indexOf('|') >= 0 ? '-iE ' : '-i ') + shq(q) + ' cv';
-    document.querySelectorAll('.sk').forEach(function (b) {
-      var on = norm(b.dataset.cur || b.dataset.q) === norm(q);
-      b.setAttribute('aria-pressed', String(on));
-      b.closest('tr').classList.toggle('on', on);
-    });
-    o.textContent = '';
-    if (!al.length) {
-      $('g-n').textContent = t.type;
-      return;
-    }
-    found(q).forEach(function (hit) {
-      var src = hit[0],
-        tx = hit[1],
-        li = el('li'),
-        line = el('span'),
-        pos = 0;
-      n++;
-      spans(tx, al).forEach(function (m) {
-        line.appendChild(document.createTextNode(tx.slice(pos, m[0])));
-        line.appendChild(el('mark', '', tx.slice(m[0], m[1])));
-        pos = m[1];
+  function termo(b) {
+    return lang === 'en' ? b.dataset.qe : b.dataset.q;
+  }
+  function escrever(b) {
+    var ul = $(b.getAttribute('aria-controls')).querySelector('ul'),
+      al = alts(termo(b));
+    ul.textContent = '';
+    provas(termo(b)).forEach(function (p) {
+      var li = el('li'),
+        a = el('a', '', text(p[0].querySelector('.src'))),
+        d = el('div');
+      a.href = '#' + p[0].id;
+      p[1].forEach(function (tx) {
+        var linha = el('p'),
+          pos = 0;
+        spans(tx, al).forEach(function (m) {
+          linha.appendChild(document.createTextNode(tx.slice(pos, m[0])));
+          linha.appendChild(el('mark', '', tx.slice(m[0], m[1])));
+          pos = m[1];
+        });
+        linha.appendChild(document.createTextNode(tx.slice(pos)));
+        d.appendChild(linha);
       });
-      line.appendChild(document.createTextNode(tx.slice(pos)));
-      var box = src.closest('[data-src]'),
-        a = el('a', '', text(box.querySelector('.src')));
-      a.href = '#' + box.id;
-      li.appendChild(line);
-      li.appendChild(a);
-      o.appendChild(li);
+      li.append(a, d);
+      ul.appendChild(li);
     });
-    $('g-n').textContent = n ? n + ' ' + t.hits[n === 1 ? 0 : 1] : t.none;
   }
-  function seek(q) {
-    gq.value = q;
-    drawGrep();
-    $('g-o')
-      .closest('.out')
-      .scrollIntoView({ block: 'nearest', behavior: still.matches ? 'auto' : 'smooth' });
-  }
-  function presets(prev) {
-    var old = prev ? T[prev].pre.indexOf(gq.value) : 0;
-    if (old >= 0) gq.value = T[lang].pre[old];
-    else if (!prev || !gq.value.trim()) gq.value = T[lang].pre[0];
-    document.querySelectorAll('.sk').forEach(function (b) {
-      if (lang === 'en') b.dataset.cur = b.dataset.qe;
-      else b.dataset.cur = b.dataset.q;
-    });
+  function abrirLinha(b, on) {
+    var tr = b.closest('tr'),
+      ev = $(b.getAttribute('aria-controls'));
+    if (on) escrever(b);
+    ev.hidden = !on;
+    tr.classList.toggle('on', on);
+    b.setAttribute('aria-expanded', String(on));
+    if (!on) return;
+    /* trecho abaixo da dobra: sobe o que der sem esconder a própria linha */
+    var pad = getComputedStyle(html),
+      falta = ev.getBoundingClientRect().bottom - (innerHeight - (parseFloat(pad.scrollPaddingBottom) || 24)),
+      folga = tr.getBoundingClientRect().top - (parseFloat(pad.scrollPaddingTop) || 80);
+    if (falta > 0 && folga > 0)
+      scrollBy({ top: Math.min(falta, folga), behavior: still.matches ? 'auto' : 'smooth' });
   }
   // no HTML o botão vem desligado: sem script ele é só o nome da competência
-  document.querySelectorAll('.sk').forEach(function (b) {
+  sks.forEach(function (b, i) {
+    var tr = b.closest('tr'),
+      ev = el('tr', 'ev'),
+      td = el('td');
+    ev.id = 'prova-' + i;
+    ev.hidden = true;
+    td.colSpan = tr.cells.length;
+    td.appendChild(el('ul'));
+    ev.appendChild(td);
+    tr.after(ev);
     b.disabled = false;
-    b.addEventListener('click', function () {
-      seek(b.dataset.cur || b.dataset.q);
+    b.setAttribute('aria-expanded', 'false');
+    b.setAttribute('aria-controls', ev.id);
+    // a marca abre a mesma linha; pelo teclado basta o botão
+    tr.querySelectorAll('td.u > a').forEach(function (a) {
+      a.tabIndex = -1;
     });
   });
-  gq.addEventListener('input', drawGrep);
+  mx.addEventListener('click', function (e) {
+    var tr = e.target.closest('tbody tr'),
+      b = tr && tr.querySelector('.sk');
+    if (!b || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    abrirLinha(b, b.getAttribute('aria-expanded') !== 'true');
+  });
+  function drawProvas() {
+    sks.forEach(function (b) {
+      if (b.getAttribute('aria-expanded') === 'true') escrever(b);
+    });
+  }
+
+  /* ---- celular: cada ferramenta abre numa folha e a saída fica numa gaveta embaixo ----
+     Monta e desmonta sem recarregar: deitar o celular ou imprimir devolve a página inteira. */
+  var CEL = matchMedia('screen and (max-width:739px), screen and (max-width:940px) and (min-height:481px)'),
+    TRES = ['tarefas', 'leitor', 'pdf'],
+    folhas = {},
+    dobras = [],
+    veio = false;
+  function botao(cls) {
+    var b = el('button', cls);
+    b.type = 'button';
+    return b;
+  }
+  /* o resultado de cada ferramenta numa palavra, na alça da gaveta */
+  function resumo(id) {
+    var t = T[lang].cel,
+      n;
+    if (id === 'tarefas') {
+      var c = $('run-e').textContent;
+      return [t.cod + ' ' + c, c !== '0' && c !== '…'];
+    }
+    if (id === 'leitor')
+      return [$('cnj-v').querySelector('b').textContent.replace(/\.$/, '').toLowerCase(), $('cnj-v').classList.contains('bad')];
+    n = document.querySelectorAll('#pdf-o .files li').length;
+    return n ? [n + ' ' + t.arq[n === 1 ? 0 : 1], false] : [t.erro, true];
+  }
+  function drawCel() {
+    var t = T[lang].cel;
+    TRES.forEach(function (id) {
+      var x = folhas[id];
+      if (!x) return;
+      var r = resumo(id);
+      x.nome.textContent = t.saida;
+      x.fecha.textContent = t.fechar;
+      if (x.res.textContent !== r[0]) x.res.textContent = r[0];
+      x.alca.classList.toggle('ruim', r[1]);
+    });
+    dobras.forEach(function (d) {
+      if (d.rot) d.rot.textContent = t.fazia;
+    });
+  }
+  function gaveta(x, on) {
+    x.alca.setAttribute('aria-expanded', String(on));
+    x.g.classList.toggle('aberta', on);
+    x.c.inert = !on;
+  }
+  function fechar(id) {
+    if (veio) {
+      veio = false;
+      history.back();
+    } else folhas[id].d.close();
+  }
+  function folha(id) {
+    var t = $(id),
+      x = (folhas[id] = { t: t, out: t.querySelector('.iobox > .out'), box: t.querySelector('.iobox') });
+    x.d = el('dialog', 'folha');
+    x.g = el('div', 'gav out');
+    x.alca = botao('gav-h');
+    x.c = el('div', 'gav-c');
+    x.nome = el('span', 'disp');
+    x.res = el('span', 'gav-r');
+    x.res.setAttribute('aria-live', 'polite');
+    x.alca.append(x.nome, x.res, el('i'));
+    x.g.append(x.alca, x.c);
+    x.fecha = botao('fecha');
+    var nome = t.querySelector('.plate .name');
+    nome.id = id + '-nome';
+    x.d.setAttribute('aria-labelledby', nome.id);
+    t.querySelector('.plate .out .w').appendChild(x.fecha);
+    x.alca.addEventListener('click', function () {
+      gaveta(x, x.alca.getAttribute('aria-expanded') !== 'true');
+    });
+    /* mexeu na ferramenta: a gaveta sobe e o botão continua à vista */
+    t.querySelector('.body').addEventListener('click', function (e) {
+      var b = e.target.closest('button');
+      if (!x.d.open || !b || b.matches('.copy')) return;
+      gaveta(x, true);
+      setTimeout(function () {
+        b.scrollIntoView({ block: 'center', behavior: still.matches ? 'auto' : 'smooth' });
+      }, 260);
+    });
+    x.fecha.addEventListener('click', function () {
+      fechar(id);
+    });
+    x.d.addEventListener('cancel', function (e) {
+      e.preventDefault();
+      fechar(id);
+    });
+    x.d.addEventListener('close', function () {
+      veio = false;
+      if (location.hash === '#' + id) history.replaceState(null, '', '#projetos');
+    });
+    new MutationObserver(drawCel).observe(x.out, { childList: true, characterData: true, subtree: true });
+  }
+  function dobrar(caixa, st) {
+    var d = el('details', 'dobra'),
+      s = el('summary'),
+      c = el('div', 'dobra-c'),
+      o = { d: d, c: c, caixa: caixa, st: st, pai: st && st.parentNode };
+    [].slice.call(caixa.childNodes).forEach(function (n) {
+      c.appendChild(n);
+    });
+    if (st) s.appendChild(st);
+    else {
+      o.rot = el('span');
+      s.appendChild(o.rot);
+    }
+    d.append(s, c);
+    caixa.appendChild(d);
+    dobras.push(o);
+  }
+  function montar() {
+    if (html.classList.contains('folhas')) return;
+    html.classList.add('folhas');
+    TRES.forEach(function (id) {
+      if (!folhas[id]) folha(id);
+      var x = folhas[id];
+      x.t.before(x.d);
+      x.d.appendChild(x.t);
+      x.c.appendChild(x.out);
+      x.t.querySelector('.stage').appendChild(x.g);
+      gaveta(x, false);
+    });
+    ['exp-3', 'exp-2'].forEach(function (id) {
+      dobrar($(id).querySelector('.out .w'));
+    });
+    document.querySelectorAll('.int-row .out .w').forEach(function (w) {
+      dobrar(w, w.querySelector('.st'));
+    });
+    drawCel();
+    rota();
+  }
+  function desmontar() {
+    if (!html.classList.contains('folhas')) return;
+    html.classList.remove('folhas');
+    TRES.forEach(function (id) {
+      var x = folhas[id];
+      x.box.appendChild(x.out);
+      x.g.remove();
+      if (x.d.open) x.d.close();
+      x.d.replaceWith(x.t);
+    });
+    dobras.forEach(function (o) {
+      if (o.st) o.pai.prepend(o.st);
+      while (o.c.firstChild) o.caixa.insertBefore(o.c.firstChild, o.d);
+      o.d.remove();
+    });
+    dobras = [];
+  }
+  function rota() {
+    if (!html.classList.contains('folhas')) return;
+    var alvo = location.hash.slice(1),
+      e = alvo && document.getElementById(alvo),
+      dobra = e && e.matches('.entry, .int-row') && e.querySelector('.dobra');
+    TRES.forEach(function (id) {
+      if (id !== alvo && folhas[id].d.open) folhas[id].d.close();
+    });
+    if (folhas[alvo] && !folhas[alvo].d.open) folhas[alvo].d.showModal();
+    if (dobra) dobra.open = true;
+  }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]'),
+      id = a && a.getAttribute('href').slice(1);
+    if (!a || !html.classList.contains('folhas') || TRES.indexOf(id) < 0) return;
+    e.preventDefault();
+    if (location.hash !== '#' + id) {
+      history.pushState(null, '', '#' + id);
+      veio = true;
+    }
+    rota();
+  });
+  addEventListener('hashchange', rota);
+  addEventListener('beforeprint', desmontar);
+  addEventListener('afterprint', function () {
+    if (CEL.matches) montar();
+  });
+  CEL.addEventListener('change', function () {
+    (CEL.matches ? montar : desmontar)();
+  });
+  if (CEL.matches && window.HTMLDialogElement) montar();
 
   /* ---- idioma ---- */
   var nodes = document.querySelectorAll('[data-i18n]'),
@@ -931,7 +1128,6 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     pt.set(e, e.innerHTML);
   });
   function applyLang(next, first) {
-    var prev = first ? null : lang;
     lang = next === 'en' ? 'en' : 'pt';
     var en = lang === 'en';
     nodes.forEach(function (e) {
@@ -948,7 +1144,7 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     var colunas = [].map.call(document.querySelectorAll('.mx thead a span'), function (c) {
       return c.textContent;
     });
-    document.querySelectorAll('.mx tbody tr:not(.g)').forEach(function (tr) {
+    document.querySelectorAll('.mx tbody tr:not(.g):not(.ev)').forEach(function (tr) {
       [].forEach.call(tr.querySelectorAll('td:not(.f)'), function (td, i) {
         var v = td.querySelector('a .vh');
         if (v) v.textContent = tr.querySelector('.sk').textContent + ', ' + colunas[i];
@@ -964,11 +1160,11 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       b.setAttribute('aria-pressed', String(on));
     });
     drawHero();
-    presets(prev);
     drawRun();
     drawCnj();
     drawPdf();
-    drawGrep();
+    drawProvas();
+    drawCel();
     if (!first)
       try {
         localStorage.setItem(KEY, lang);
@@ -1049,7 +1245,7 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
 
   /* ---- seção atual no menu ---- */
   var links = document.querySelectorAll('.idx a'),
-    strip = document.querySelector('.bar .out');
+    strip = document.querySelector('.bar .idx');
   /* ---- rolagem: cano, cabeçalho e ferramentas ---- */
   (function () {
     var root = document.documentElement,
@@ -1140,11 +1336,12 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
       var y = scrollY,
         d = y - last;
       last = y;
-      var on = matchMedia('(max-width:940px)').matches ? 48 : 60,
+      var on = CEL.matches ? 48 : 60,
         a = tools[0].getBoundingClientRect().top,
         z = tools[tools.length - 1].getBoundingClientRect().bottom;
       /* uma faixa só para todas as ferramentas, com folga nas pontas, para o cabeçalho não piscar */
-      if (hidden) {
+      if (root.classList.contains('folhas')) hidden = false;
+      else if (hidden) {
         if (a > on + 120 || z < -40) hidden = false;
       } else if (a <= on && z > 60) hidden = true;
       root.classList.toggle('past', scrollY > 260);
@@ -1173,10 +1370,41 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
     bar.addEventListener('focusout', ask);
     draw();
   })();
+  /* o menu do celular não cabe inteiro: marca de que lado ainda há seção */
+  function beiras() {
+    var resto = strip.scrollWidth - strip.clientWidth;
+    strip.toggleAttribute('data-antes', resto > 2 && strip.scrollLeft > 4);
+    strip.toggleAttribute('data-depois', resto > 2 && strip.scrollLeft < resto - 4);
+  }
+  strip.addEventListener('scroll', beiras, { passive: true });
+  if ('ResizeObserver' in window) {
+    var ro = new ResizeObserver(beiras);
+    ro.observe(strip);
+    links.forEach(function (l) {
+      ro.observe(l);
+    });
+  }
+  beiras();
+  /* aba atual da barra de baixo */
+  var abas = document.querySelectorAll('.abas a[href^="#"]');
+  function aba() {
+    var q = abas[0];
+    abas.forEach(function (a) {
+      if (document.querySelector(a.hash).getBoundingClientRect().top < innerHeight * 0.5) q = a;
+    });
+    if (scrollY + innerHeight > html.scrollHeight - 80) q = abas[abas.length - 1];
+    abas.forEach(function (a) {
+      if (a === q) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+  }
+  addEventListener('scroll', aba, { passive: true });
+  addEventListener('resize', aba);
+  aba();
   links.forEach(function (l) {
     l.addEventListener('focus', function () {
       requestAnimationFrame(function () {
-        if (strip.scrollWidth > strip.clientWidth) strip.scrollLeft = l.offsetLeft - 20;
+        if (strip.scrollWidth > strip.clientWidth) strip.scrollLeft = l.offsetLeft - 52;
       });
     });
   });
@@ -1200,7 +1428,7 @@ if (typeof module !== 'undefined') module.exports = { LOGIC: LOGIC, RUN: RodadaF
           }
           a.classList.add('is-active');
           a.setAttribute('aria-current', 'true');
-          if (strip.scrollWidth > strip.clientWidth) strip.scrollLeft = a.offsetLeft - 20;
+          if (strip.scrollWidth > strip.clientWidth) strip.scrollLeft = a.offsetLeft - 52;
         });
       },
       { rootMargin: '-45% 0px -50% 0px' },
